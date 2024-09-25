@@ -7,8 +7,8 @@ interface NavButtonProps {
 
 export const NavButton = ({ text, path }: NavButtonProps) => {
     return (
-        <Link to={path} className={styles.navButton}>
-            <button>{text}</button>
+        <Link to={path} >
+            <button className={styles.navButton}>{text}</button>
         </Link>
     );
 }
