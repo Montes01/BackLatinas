@@ -1,14 +1,14 @@
+import { Header } from "../../molecules/header"
+
 export const Home = () => {
     return (
         <>
-            <header>
-
-            </header>
+            <Header />
             <main>
 
             </main>
             <footer>
-                
+
             </footer>
         </>
     )
