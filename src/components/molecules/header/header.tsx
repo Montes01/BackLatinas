@@ -1,5 +1,5 @@
 import { NavButton } from "../../atoms/NavButton/navButton"
-import styles from './header.module.css';
+import styles from './header.module.scss';
 export const Header = () => {
     return (
         <header className={styles.header}>

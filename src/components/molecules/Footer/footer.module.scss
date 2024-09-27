@@ -1,0 +1,39 @@
+@import "/src/lib/styles/colors.scss";
+.footer {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    color: $text-base-color;
+    padding: 2rem 0rem 0 0rem;
+    gap: 20px;
+    width: 100%;
+    text-align: center;
+    &__payment_methods {
+        display: flex;
+        justify-content: center;
+        gap: 20px;
+        &__img {
+            width: 100%;
+            max-width: 100px;
+            height: auto;
+        }
+    }
+    &__privacy_policy {
+        text-decoration: underline;
+    }
+    &__terms_and_conditions {
+        text-decoration: underline;
+    }
+
+    &__paragraph {
+        font-size: .6rem;
+    }
+
+    &__copy {
+        padding: 15px;
+        width: 100%;
+        background-color: $red-background-color;
+        font-size: .9rem;
+    }
+}

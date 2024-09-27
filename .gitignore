@@ -26,3 +26,6 @@ dist-ssr
 #bun files
 *.bun
 bun.lockb
+
+#mock files
+src/assets/mockAssets/*

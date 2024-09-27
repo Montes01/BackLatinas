@@ -1,5 +1,5 @@
 import { Link } from "react-router-dom";
-import styles from './navButton.module.css';
+import styles from './navButton.module.scss';
 interface NavButtonProps {
     text: string;
     path: string;
