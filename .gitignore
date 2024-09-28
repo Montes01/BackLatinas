@@ -28,4 +28,4 @@ dist-ssr
 bun.lockb
 
 #mock files
-src/assets/mockAssets/*
+public/assets/mockAssets/*

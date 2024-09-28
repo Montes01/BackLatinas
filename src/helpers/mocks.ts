@@ -3,9 +3,9 @@ import { Service, Comment } from "../lib/types/types"
 export const GET_HOME_IMAGES_MOCK = async (): Promise<Array<string>> => {
     return new Promise((resolve) => {
         resolve([
-            '/src/assets/mockAssets/Girl1.png',
-            '/src/assets/mockAssets/Girl2.png',
-            '/src/assets/mockAssets/Girl3.png',
+            '/public/assets/mockAssets/Girl1.png',
+            '/public/assets/mockAssets/Girl2.png',
+            '/public/assets/mockAssets/Girl3.png',
         ])
     })
 }

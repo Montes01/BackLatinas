@@ -1,12 +1,12 @@
 @import '/src/lib/styles/colors.scss';
 
 .head_background_wrapper {
-  background-image: url('/src/assets/main-background.png');
+  background-image: url('/public/assets/main-background.png');
   background-repeat: no-repeat;
   background-size: cover;
 }
 .large_section_wrapper {
-  background-image: url('/src/assets/large-background.png');
+  background-image: url('/public/assets/large-background.png');
   background-repeat: no-repeat;
   background-size: cover;
   &__default_section {
