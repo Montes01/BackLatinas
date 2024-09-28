@@ -1,13 +1,17 @@
 import './App.scss'
-import { BrowserRouter, Route, Routes } from 'react-router-dom'
-import { routes } from './lib/constants/routes'
+import { BrowserRouter, Navigate, Route, Routes } from 'react-router-dom'
+import { ROUTES } from './lib/constants/routes'
 import HomePage from './pages/home'
 function App() {
 
   return (
     <BrowserRouter>
       <Routes>
-        <Route path={routes.HOME.HOME} element={<HomePage />} />
+        <Route path={ROUTES.HOME.HOME} element={<HomePage />} />
+        <Route
+          path={ROUTES.ALL}
+          element={<Navigate to={ROUTES.HOME.HOME} />}
+        />
       </Routes>
     </BrowserRouter>
   )
