@@ -1,0 +1,38 @@
+@import '/src/lib/styles/colors.scss';
+.girls {
+    &__main{
+        display: flex;
+        flex-direction: column;
+        color: $text-base-color;
+        gap: 20px;
+        align-items: center;
+        background-color: $black-background-color;
+        &__interests{
+            padding: 2rem;
+            text-align: center;
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+            &__title{
+                font-size: 14px;
+                font-weight: 700;
+                color: $text-base-color;
+            }
+            &__list{
+                display: flex;
+                gap: 10px;
+                flex-wrap: wrap;
+                justify-content: center;
+            }
+        }
+        &__categories {
+            &__title {
+                font-size: 24px;
+                font-weight: 700;
+                color: $main-text-color;
+                margin: auto;
+                text-decoration: underline;
+            }
+        }
+    }
+}
