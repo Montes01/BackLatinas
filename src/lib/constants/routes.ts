@@ -3,5 +3,6 @@ export const ROUTES = {
     HOME: {
         ROOT: '/',
         HOME: '/home',
+        GIRLS: '/home/girls'
     }
 };

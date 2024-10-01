@@ -6,7 +6,7 @@ export const Header = () => {
         <header className={styles.header}>
             <header className={styles.header__nav}>
                 <NavButton text="Home" path="/home" />
-                <NavButton text="Girls" path="/girls" />
+                <NavButton text="Girls" path="/home/girls" />
                 <NavButton text="Comments" path="/comments" />
                 <NavButton text="Members" path="/members" />
                 <NavButton text="Login" path="/login" />
