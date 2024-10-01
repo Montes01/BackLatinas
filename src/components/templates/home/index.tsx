@@ -5,9 +5,9 @@ import { Header } from "../../molecules/Header/header"
 import styles from './home.module.scss';
 import { Service } from "../../../lib/types/types";
 import { Button } from "../../atoms/Button/button";
-import { Comment } from "../../atoms/Comment/comment";
 import { Comment as commentType } from "../../../lib/types/types";
 import { Footer } from "../../molecules/Footer/footer";
+import { Comments } from "../../organisms/Comments/comments";
 export const Home = () => {
     const [girlImages, setGirlImages] = useState<Array<string>>([]);
     const [services, setServices] = useState<Array<Service>>([]);
@@ -60,14 +60,7 @@ export const Home = () => {
                         }
                     </ul>
                 </section>
-                <section className={styles.large_section_wrapper__comments}>
-                    <h2>Comments</h2>
-                    {
-                        comments.map((comment, index) => (
-                            <Comment key={`Comment-${index}`} comment={comment} />
-                        ))
-                    }
-                </section>
+                <Comments comments={comments} />            
                 <Footer />
             </section>
 

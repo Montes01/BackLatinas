@@ -1,0 +1,26 @@
+@import '/src/lib/styles/colors.scss';
+
+.comments {
+    display: flex;
+    padding: 2rem 0;
+    flex-direction: column;
+    gap: 40px;
+
+    &__title {
+        font-size: 24px;
+        font-weight: 700;
+        color: white;
+        margin: auto;
+    }
+
+    &__list {
+        display: flex;
+        flex-direction: column;
+        gap: 20px;
+    }
+
+    &__button {
+        width: 200px;
+        margin: auto;
+    }
+}
