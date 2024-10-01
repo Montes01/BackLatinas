@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { GET_HOME_IMAGES_MOCK as useGetHomeImagesQuery, GET_SERVICES_MOCKS as useGetServicesQuery, GET_COMMENTS_MOCK as  useGetCommentsQuery } from "../../../helpers/mocks";
+import { GET_HOME_IMAGES_MOCK as useGetHomeImagesQuery, GET_SERVICES_MOCKS as useGetServicesQuery, GET_COMMENTS_MOCK as useGetCommentsQuery } from "../../../helpers/mocks";
 import { HOME_TEXTS } from "../../../lib/constants/homeConstants";
 import { Header } from "../../molecules/header/header"
 import { Main } from "./components/Main/main"
@@ -20,10 +20,7 @@ export const Home = () => {
     }, []);
     return (
         <>
-            <div className={styles.head_background_wrapper}>
-                <Header />
-                <Main />
-            </div>
+            <Header />
             <section className={styles.large_section_wrapper}>
                 <section className={styles.large_section_wrapper__default_section}>
                     {HOME_TEXTS.PHARAGRAHPS.SECOND_SECTION}
@@ -68,11 +65,11 @@ export const Home = () => {
                     <h2>Comments</h2>
                     {
                         comments.map((comment, index) => (
-                            <Comment key={`Comment-${index}`} comment={comment}  />
+                            <Comment key={`Comment-${index}`} comment={comment} />
                         ))
                     }
                 </section>
-            <Footer />
+                <Footer />
             </section>
 
         </>
