@@ -1,4 +1,4 @@
-import { Header } from "../../molecules/header/header"
+import { Header } from "../../molecules/Header/header"
 
 export const GirlsPage = () => {
     return (

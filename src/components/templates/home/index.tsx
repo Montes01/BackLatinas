@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { GET_HOME_IMAGES_MOCK as useGetHomeImagesQuery, GET_SERVICES_MOCKS as useGetServicesQuery, GET_COMMENTS_MOCK as useGetCommentsQuery } from "../../../helpers/mocks";
 import { HOME_TEXTS } from "../../../lib/constants/homeConstants";
-import { Header } from "../../molecules/header/header"
+import { Header } from "../../molecules/Header/header"
 import styles from './home.module.scss';
 import { Service } from "../../../lib/types/types";
 import { Button } from "../../atoms/Button/button";
