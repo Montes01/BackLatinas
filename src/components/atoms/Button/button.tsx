@@ -1,6 +1,6 @@
 import { useEffect } from "react";
 import styles from './button.module.scss';
-interface ButtonProps extends React.HTMLProps<HTMLButtonElement> {
+interface ButtonProps extends React.HTMLProps<HTMLButtonElement>{
     text: string;
     onClick?: () => void;
     type?: "button" | "submit" | "reset";
@@ -19,7 +19,7 @@ export const Button = ({ text, onClick, type = 'button', disabled = false, url, 
     return url ? (
         <button {...rest} className={`${styles.button} ${rest.className}`} type={type} onClick={onClick} disabled={disabled}>{text}</button>
     ) : (
-        <a className={styles.button} href={url} onClick={onClick}>
+        <a className={`${styles.button} ${rest.className}`} href={url} onClick={onClick} >
             {text}
         </a>
     )

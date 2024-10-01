@@ -16,11 +16,9 @@ export const Comment = ({ comment }: { comment: type }) => {
                 }
             </div>
             <section className={styles.comment_wrapper__text}>
-                <p>{comment.username}</p>
-                <p>{comment.text}</p>
+                <h3 className={styles.comment_wrapper__text__name}>{comment.username}</h3>
+                <p className={styles.comment_wrapper__text__comment}>{comment.text}</p>
             </section>
-            <div className={styles.comment_wrapper__text}>
-            </div>
             <div className={styles.comment_wrapper__rate}>
                 {
                     new Array(comment.rate).fill(undefined).map((_, index) => (

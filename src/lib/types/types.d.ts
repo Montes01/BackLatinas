@@ -9,3 +9,15 @@ export interface Comment {
     username: string;
     avatar?: string;
 }
+
+export interface Category {
+    title: string;
+    quantity: number;
+}
+
+interface Girl {
+    name: string;
+    country: string;
+    picture: string;
+    isVerified: boolean;
+}

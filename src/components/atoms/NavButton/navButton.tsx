@@ -1,14 +1,14 @@
 import { Link } from "react-router-dom";
 import styles from './navButton.module.scss';
-interface NavButtonProps {
+interface NavButtonProps extends React.HTMLProps<HTMLAnchorElement> {
     text: string;
     path: string;
 }
 
-export const NavButton = ({ text, path }: NavButtonProps) => {
+export const NavButton = ({ text, path, ...rest }: NavButtonProps) => {
     return (
-        <Link to={path} >
-            <button className={styles.navButton}>{text}</button>
+        <Link to={path} {...rest} >
+            <span className={styles.navButton}>{text}</span>
         </Link>
     );
 }
