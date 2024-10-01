@@ -20,7 +20,7 @@ export const Home = () => {
     return (
         <>
             <Header />
-            <section className={styles.large_section_wrapper}>
+            <main className={styles.large_section_wrapper}>
                 <section className={styles.large_section_wrapper__default_section}>
                     {HOME_TEXTS.PHARAGRAHPS.SECOND_SECTION}
                 </section>
@@ -62,7 +62,7 @@ export const Home = () => {
                 </section>
                 <Comments comments={comments} />            
                 <Footer />
-            </section>
+            </main>
 
         </>
     )
