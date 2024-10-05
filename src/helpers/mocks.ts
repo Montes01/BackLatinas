@@ -1,4 +1,67 @@
-import { Service, Comment, Category, Girl } from "../lib/types/types"
+import { Service, Comment, Women, WomenStatus, UserStatus, Category, User } from "../lib/types/types"
+
+const exampleGirl: Women = {
+    name: 'Luciana',
+    age: 23,
+    categoryFilters: [],
+    colorEyes: 'brown',
+    colorHair: 'brown',
+    colorSkin: 'white',
+    cupSize: 'D',
+    description: 'I am a very beautiful girl, I like to have fun and meet new people.',
+    height: 1.70,
+    hips: 90,
+    idWomen: 1,
+    mediaList: [],
+    piercings: 0,
+    services: [],
+    shaving: 'shaved',
+    shoeSize: 38,
+    smoker: 'no',
+    status: WomenStatus.ACCEPTED,
+    tattoos: 0,
+    user: {
+        email: '',
+        comments: [],
+        gender: '',
+        id_user: 1,
+        nacionality: '',
+        password: '',
+        phoneNumber: '',
+        profile_photo: '',
+        role: {
+            id_role: 1,
+            name: 'user',
+            users: []
+        },
+        status: UserStatus.ACTIVE,
+        user_name: '',
+        women: []
+    },
+    weight: 60
+}
+
+const exampleUser: User = {
+    comments: [],
+    email: 'example',
+    gender: 'femenine',
+    id_user: 1,
+    nacionality: 'spanish',
+    password: '1234',
+    phoneNumber: '123456789',
+    profile_photo: 'example',
+    role: {
+        id_role: 1,
+        name: 'user',
+        users: []
+    },
+    status: UserStatus.ACTIVE,
+    user_name: 'jhon doe',
+    women: []
+}
+
+
+//GET
 
 export const GET_HOME_IMAGES_MOCK = async (): Promise<Array<string>> => {
     return new Promise((resolve) => {
@@ -14,19 +77,39 @@ export const GET_SERVICES_MOCKS = async (): Promise<Array<Service>> => {
     return new Promise((resolve) => {
         resolve([
             {
-                title: 'Cam Virtual', url: 'https://www.camvirtual.com'
+                description: '',
+                idService: 1,
+                title: 'Cam Virtual',
+                subServices: [],
+                women: []
             },
             {
-                title: 'Chat Sex SMS', url: 'https://www.chatsexsms.com'
+                description: '',
+                idService: 2,
+                title: 'Chat Sex SMS',
+                subServices: [],
+                women: []
             },
             {
-                title: 'Videos', url: 'https://www.privatevideos.com'
+                description: '',
+                idService: 3,
+                title: 'Videos',
+                subServices: [],
+                women: []
             },
             {
-                title: 'Photos', url: 'https://www.privatephotos.com'
+                description: '',
+                idService: 4,
+                title: 'Photos',
+                subServices: [],
+                women: []
             },
             {
-                title: 'Real Sex', url: 'https://www.realsex.com'
+                description: '',
+                idService: 5,
+                title: 'Real Sex',
+                subServices: [],
+                women: []
             }]
         )
     })
@@ -36,22 +119,25 @@ export const GET_COMMENTS_MOCK = async (): Promise<Array<Comment>> => {
     return new Promise((resolve) => {
         resolve([
             {
-                text: 'Beautiful girls 😍🥰',
-                rate: 5,
-                username: 'John Doe',
-                avatar: '/src/assets/mockAssets/Avatar1.png'
+                comment: 'Beautiful girls 😍🥰',
+                stars: 5,
+                user: exampleUser,
+                createdAt: new Date().getDate().toString(),
+                idComment: 1
             },
             {
-                text: 'Excellent all, beautiful girls.',
-                rate: 4,
-                username: 'Jane Doe',
-                avatar: '/src/assets/mockAssets/Avatar2.png'
+                comment: 'Excellent all, beautiful girls.',
+                stars: 4,
+                user: exampleUser,
+                createdAt: new Date().getDate().toString(),
+                idComment: 2
             },
             {
-                text: 'Fabulous, they are all super attentive and beautiful.',
-                rate: 5,
-                username: 'John Doe',
-                avatar: '/src/assets/mockAssets/Avatar1.png'
+                comment: 'Fabulous, they are all super attentive and beautiful.',
+                stars: 5,
+                user: exampleUser,
+                createdAt: new Date().getDate().toString(),
+                idComment: 3
             },
         ])
     })
@@ -62,11 +148,11 @@ export const GET_CATEGORIES_MOCK = async (): Promise<Array<Category>> => {
         resolve([
             {
                 quantity: 10,
-                title:'transexual'
+                title: 'transexual'
             },
             {
                 title: 'gay',
-                quantity:30
+                quantity: 30
             },
             {
                 title: 'eat-ass',
@@ -81,12 +167,12 @@ export const GET_CATEGORIES_MOCK = async (): Promise<Array<Category>> => {
                 quantity: 100
             },
             {
-                title:'white skin',
+                title: 'white skin',
                 quantity: 400
             },
             {
-                title:'cute face',
-                quantity:300
+                title: 'cute face',
+                quantity: 300
             },
             {
                 title: 'short height',
@@ -100,16 +186,20 @@ export const GET_CATEGORIES_MOCK = async (): Promise<Array<Category>> => {
     })
 }
 
-export const GET_GIRLS_MOCK = async (): Promise<Array<Girl>> => {
+export const GET_GIRLS_MOCK = async (): Promise<Array<Women>> => {
     return new Promise(resolve => {
         resolve(
-            new Array(8).fill(undefined).map(_ => {
-                return {
-                    country: 'Norway',
-                    isVerified: true,
-                    name: 'Luciana',
-                    picture: ''
-                }
-        }))
+            new Array(8).fill(undefined).map((_) => {
+                return exampleGirl
+            }))
+    })
+}
+
+export const GET_GIRL_INFO_MOCK = async (girlId: string): Promise<Women> => {
+    return new Promise((resolve, reject) => {
+        if (girlId === '1094892672')
+            resolve(exampleGirl)
+        else
+            reject('Girl not found')
     })
 }

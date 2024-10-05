@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { Category, Service, Comment as CommentType, Girl } from "../../../lib/types/types";
+import { Category, Service, Comment as CommentType, Women } from "../../../lib/types/types";
 import { Header } from "../../molecules/Header/header"
 import styles from './girls.module.scss';
 import { GET_CATEGORIES_MOCK as useGetCategoriesQuery, GET_SERVICES_MOCKS as useGetServicesQuery, GET_COMMENTS_MOCK as useGetCommentsQuery, GET_GIRLS_MOCK as useGetGirlsQuery } from "../../../helpers/mocks";
@@ -13,7 +13,7 @@ export const GirlsPage = () => {
     const [services, setServices] = useState<Array<Service>>([]);
     const [categories, setCategories] = useState<Array<Category>>([]);
     const [comments, setComments] = useState<Array<CommentType>>([]);
-    const [girls, setGirls] = useState<Array<Girl>>([]);
+    const [girls, setGirls] = useState<Array<Women>>([]);
     useEffect(() => {
         useGetServicesQuery().then((services) => setServices(services));
         useGetCategoriesQuery().then((categories) => setCategories(categories));
@@ -29,7 +29,7 @@ export const GirlsPage = () => {
                     <ul className={styles.girls__main__interests__list}>
                         {
                             services.map((service) => (
-                                <Button text={service.title} className={styles.girls__main__interests__list__button} url={service.url} />
+                                <Button text={service.title} className={styles.girls__main__interests__list__button} />
                             ))
                         }
                     </ul>

@@ -4,5 +4,9 @@ export const ROUTES = {
         ROOT: '/',
         HOME: '/home',
         GIRLS: '/home/girls'
+    },
+    GIRL: {
+        ROOT: '/girl',
+        SINGLE_GIRL: '/girl/:id'
     }
 };
