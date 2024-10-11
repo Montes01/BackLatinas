@@ -1,4 +1,4 @@
-import { Service, Comment, Women, WomenStatus, UserStatus, Category, User } from "../lib/types/types"
+import { Service, Comment, Women, WomenStatus, UserStatus, Category, User, MultimediaType } from "../lib/types/types.d.ts"
 
 const exampleGirl: Women = {
     name: 'Luciana',
@@ -12,7 +12,7 @@ const exampleGirl: Women = {
     height: 1.70,
     hips: 90,
     idWomen: 1,
-    mediaList: [],
+    mediaList: new Array(15).fill({ url: '', mediaType: MultimediaType.PHOTO, idMedia: 1 }).map((item, index) => ( index % 2 === 0 ? item : { ...item, mediaType: MultimediaType.VIDEO } )),
     piercings: 0,
     services: [],
     shaving: 'shaved',
@@ -25,7 +25,7 @@ const exampleGirl: Women = {
         comments: [],
         gender: '',
         id_user: 1,
-        nacionality: '',
+        nacionality: 'Colombian',
         password: '',
         phoneNumber: '',
         profile_photo: '',

@@ -86,7 +86,7 @@ export interface Multimedia {
     idMedia: number;
     mediaType: MultimediaType;
     url: string;
-    women: Women;
+    women?: Women;
 }
 
 export enum MultimediaType {

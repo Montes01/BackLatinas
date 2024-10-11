@@ -5,7 +5,6 @@ import HomePage from './pages/home'
 import GirlsPage from './pages/girls'
 import SingleGirl from './pages/single-girl'
 function App() {
-
   return (
     <BrowserRouter>
       <Routes>
