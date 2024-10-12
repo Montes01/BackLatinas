@@ -1,5 +1,5 @@
 import { Header } from "../../molecules/Header/header"
-import { GET_GIRL_INFO_MOCK as useGetGirlInfoQuery } from "../../../helpers/mocks"
+import { GET_GIRL_INFO_MOCK as useGetGirlInfoQuery, GET_GIRLS_MOCK as useGetGirlsQuery } from "../../../helpers/mocks"
 import { Women } from "../../../lib/types/types"
 import styles from './girl.module.scss'
 import { useEffect, useState } from "react"
@@ -7,16 +7,18 @@ import { Button } from "../../atoms/Button/button"
 import { GirlInfoItem } from "../../atoms/GirlInfoItem/girlInfoItem"
 import { SubServiceCard } from "../../molecules/SubServiceCard/SubServiceCard"
 import { Footer } from "../../molecules/Footer/footer"
+import { GirlList } from "../../organisms/GirlList/girlList"
 interface Props {
     girlId: string
 }
 export const GirlPage = ({ girlId }: Props) => {
     const [girlInfo, setGirlInfo] = useState({} as Women)
-
+    const [girls, setGirls] = useState([] as Women[])
     const [selectedService, setSelectedService] = useState(0)
 
     useEffect(() => {
         useGetGirlInfoQuery(girlId).then((girlInfo) => setGirlInfo(girlInfo))
+        useGetGirlsQuery().then(girls => setGirls(girls))
     }, [])
 
     const photos = girlInfo?.mediaList?.filter(el => el.mediaType === 'PHOTO') ?? []
@@ -114,6 +116,13 @@ export const GirlPage = ({ girlId }: Props) => {
                             ))
                         }
                     </section>
+                </section>
+
+                <section className={styles.girlRecomendations}>
+                    <h2 className={styles.girlRecomendations__title}>RECOMENDATIONS</h2>
+                    <ul className={styles.girlRecomendations__list}>
+                            <GirlList girls={girls} />
+                    </ul>
                 </section>
 
                 <Footer />

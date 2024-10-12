@@ -151,3 +151,25 @@
         width: 100%;
     }
 }
+
+.girlRecomendations {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    padding: 20px;
+    &__title {
+        font-size: 1.5rem;
+        font-weight: bold;
+        margin: auto;
+        width: fit-content;
+        color: $main-text-color;
+    }
+
+    &__list {
+        display: flex;
+        gap: 20px;
+        width: 100%;
+        flex-wrap: wrap;
+        justify-content: center;
+    }
+}
