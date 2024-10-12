@@ -1,3 +1,4 @@
+@import '/src/lib/styles/colors.scss';
 .bigBg {
     background-image: url('/public/assets/large-background.png');
     background-repeat: no-repeat;
@@ -21,7 +22,7 @@
 .girlPicture {
     width: 100%;
     padding: 40px;
-    background-color: red;
+    background-color: $red-background-color;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -49,11 +50,12 @@
         gap: 20px;
         justify-content: flex-end;
 
-        img {
+        video, img {
             width: 100%;
             max-width: 200px;
             border-radius: 10px;
         }
+        
     }
 
     &__button {
@@ -70,7 +72,7 @@
     display: flex;
     flex-direction: column;
     gap: 20px;
-
+    flex-wrap: wrap;
     &__title {
         font-size: 1.5rem;
         font-weight: bold;
@@ -102,5 +104,50 @@
             top: 50%;
             translate: -50% -50%;
         }
+    }
+}
+
+.girlServices {
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    &__title {
+        font-size: 1.5rem;
+        position: relative;
+        font-weight: bold;
+        margin: auto;
+        width: fit-content;
+        color: $main-text-color;
+        &::after {
+            content: '';
+            position: absolute;
+            width: 80%;
+            background-color: $main-text-color;
+            height: 1px;
+            left: 50%;
+            translate: -50%;
+            bottom: -10px;
+        }
+    }
+    &__girlServicesSection {
+        margin: auto;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        gap: 20px;
+        width: 100%;
+        flex-wrap: wrap;
+        padding: 20px;
+    }
+    
+    &__girlSubServicesSection {
+        padding: 20px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        gap: 20px;
+        flex-wrap: wrap;
+        width: 100%;
     }
 }

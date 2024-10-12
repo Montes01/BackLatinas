@@ -1,4 +1,30 @@
-import { Service, Comment, Women, WomenStatus, UserStatus, Category, User, MultimediaType } from "../lib/types/types.d.ts"
+import { Service, Comment, Women, WomenStatus, UserStatus, Category, User, MultimediaType, SubService } from "../lib/types/types.d.ts"
+
+const exampleSubService: SubService = {
+    quantity: 1,
+    time: 10,
+    name: 'example',
+    description: 'Pussy, Titts, Anal and Squirt',
+    idSubService: 1,
+    price: 100,
+    service: {
+        description: 'example',
+        idService: 1,
+        title: 'example',
+        subServices: [],
+        women: []
+    }
+}
+
+
+const exampleService: Service = {
+    description: 'example',
+    idService: 1,
+    title: 'example',
+    subServices: new Array(9).fill(undefined).map((_, index) => { return { ...exampleSubService, idSubService: index } }),
+    women: []
+}
+
 
 const exampleGirl: Women = {
     name: 'Luciana',
@@ -12,9 +38,9 @@ const exampleGirl: Women = {
     height: 1.70,
     hips: 90,
     idWomen: 1,
-    mediaList: new Array(15).fill({ url: '', mediaType: MultimediaType.PHOTO, idMedia: 1 }).map((item, index) => ( index % 2 === 0 ? item : { ...item, mediaType: MultimediaType.VIDEO } )),
+    mediaList: new Array(15).fill({ url: '', mediaType: MultimediaType.PHOTO, idMedia: 1 }).map((item, index) => (index % 2 === 0 ? item : { ...item, mediaType: MultimediaType.VIDEO })),
     piercings: 0,
-    services: [],
+    services: new Array(5).fill(undefined).map((_, index) => { return { ...exampleService, idService: index } }),
     shaving: 'shaved',
     shoeSize: 38,
     smoker: 'no',

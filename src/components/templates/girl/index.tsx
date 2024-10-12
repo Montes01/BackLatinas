@@ -5,11 +5,16 @@ import styles from './girl.module.scss'
 import { useEffect, useState } from "react"
 import { Button } from "../../atoms/Button/button"
 import { GirlInfoItem } from "../../atoms/GirlInfoItem/girlInfoItem"
+import { SubServiceCard } from "../../molecules/SubServiceCard/SubServiceCard"
+import { Footer } from "../../molecules/Footer/footer"
 interface Props {
     girlId: string
 }
 export const GirlPage = ({ girlId }: Props) => {
     const [girlInfo, setGirlInfo] = useState({} as Women)
+
+    const [selectedService, setSelectedService] = useState(0)
+
     useEffect(() => {
         useGetGirlInfoQuery(girlId).then((girlInfo) => setGirlInfo(girlInfo))
     }, [])
@@ -18,6 +23,10 @@ export const GirlPage = ({ girlId }: Props) => {
     const videos = girlInfo?.mediaList?.filter(el => el.mediaType === 'VIDEO') ?? []
     const handleImageError = (event: React.SyntheticEvent<HTMLImageElement, Event>) => {
         event.currentTarget.src = '/assets/noGirl.png'
+    }
+
+    const handleServiceClick = (serviceId: number) => {
+        setSelectedService(serviceId)
     }
     return girlInfo.name && (
         <div>
@@ -88,7 +97,28 @@ export const GirlPage = ({ girlId }: Props) => {
                         </ul>
                     </section>
                 </section>
+
+                <section className={styles.girlServices}>
+                    <h2 className={styles.girlServices__title}>SERVICES PRICING </h2>
+                    <section className={styles.girlServices__girlServicesSection}>
+                        {
+                            girlInfo.services.map((service) => (
+                                <Button onClick={() => handleServiceClick(service.idService)} text={service.title} />
+                            ))
+                        }
+                    </section>
+                    <section className={styles.girlServices__girlSubServicesSection}>
+                        {
+                            girlInfo.services.find(service => service.idService === selectedService)?.subServices.map((subService) => (
+                                <SubServiceCard {...subService} description={selectedService + subService.description} />
+                            ))
+                        }
+                    </section>
+                </section>
+
+                <Footer />
             </section>
+
         </div >
     )
 }
