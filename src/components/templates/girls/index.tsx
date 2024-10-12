@@ -6,9 +6,9 @@ import { GET_CATEGORIES_MOCK as useGetCategoriesQuery, GET_SERVICES_MOCKS as use
 import { Button } from "../../atoms/Button/button";
 import { NavButton } from "../../atoms/NavButton/navButton";
 import { Comments } from "../../organisms/Comments/comments";
-import { GirlCard } from "../../molecules/GirlCard/girlCard";
 import { Footer } from "../../molecules/Footer/footer";
 import { HOME_TEXTS } from "../../../lib/constants/homeConstants";
+import { GirlList } from "../../organisms/GirlList/girlList";
 export const GirlsPage = () => {
 
     const [services, setServices] = useState<Array<Service>>([]);
@@ -53,11 +53,7 @@ export const GirlsPage = () => {
                 <section className={styles.girls__large_background__preview}>
                     <h4 className={styles.girls__large_background__preview__title}>Total of girls {'x'}</h4>
                     <ul className={styles.girls__large_background__preview__list}>
-                        {
-                            girls.map(girl => (
-                                <GirlCard {...girl} />
-                            ))
-                        }
+                        <GirlList girls={girls} />
                     </ul>
                     
 

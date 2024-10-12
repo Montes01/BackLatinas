@@ -1,51 +1,55 @@
+import { MouseEventHandler, useEffect, useRef, useState } from "react";
 import { HOME_TEXTS } from "../../../lib/constants/homeConstants";
-import { NavButton } from "../../atoms/NavButton/navButton";
-import { useState } from "react";
-import { FaFlag } from 'react-icons/fa';
+import { IconMenu } from "../../atoms/MenuIcon/menuIcon";
+import { NavButton } from "../../atoms/NavButton/navButton"
 import styles from './header.module.scss';
-import MenuIcon from '@mui/icons-material/Menu';
-import CloseIcon from '@mui/icons-material/Close';
-
+import ReactFlagsSelect from "react-flags-select";
 export const Header = () => {
-    const [isMenuOpen, setMenuOpen] = useState(false);
-    const [selectedLanguage, setSelectedLanguage] = useState('en');
-    const [isLanguageDropdownOpen, setLanguageDropdownOpen] = useState(false);
-
-    const toggleMenu = () => {
-        setMenuOpen(!isMenuOpen);
+    const [isMenuOpen, setIsMenuOpen] = useState(false);
+    const [selectedCountry, setSelectedCountry] = useState('US');
+    const navRef = useRef<HTMLDivElement>(null);
+    const menuRef = useRef<HTMLDivElement>(null);
+    const handleMenuClick: MouseEventHandler = () => {
+        setIsMenuOpen(!isMenuOpen);
+    }
+    const handleClickOutside = (event: MouseEvent) => {
+        if (navRef.current && !navRef.current.contains(event.target as Node) && menuRef.current && !menuRef.current.contains(event.target as Node)) {
+            setIsMenuOpen(false);
+        }
     };
 
-    const handleLanguageChange = (lang: string) => {
-        setSelectedLanguage(lang);
-        setLanguageDropdownOpen(false);
-    };
-
+    useEffect(() => {
+        document.addEventListener('click', handleClickOutside);
+        return () => {
+            document.removeEventListener('click', handleClickOutside);
+        };
+    }, []);
     return (
         <header className={styles.header}>
-            <div className={styles.header__nav}>
-                <div className={styles.header__nav__toggle} onClick={toggleMenu}>
-                    {isMenuOpen ? <CloseIcon /> : <MenuIcon />}
+            <header className={styles.header__nav}>
+                <div className={styles.header__nav__menu}>
+                    <ReactFlagsSelect
+                        showSelectedLabel={false}
+                        showOptionLabel={false}
+                        className={styles.header__nav__menu__language}
+                        selected={selectedCountry}
+                        onSelect={(el) => setSelectedCountry(el)} countries={["US", "GB", "FR", "DE", "IT", "ES"]}
+                    />
+                    <div ref={navRef} className={styles.header__nav__menu__icon}>
+                        <IconMenu onClick={handleMenuClick} />
+                    </div>
+                    <div ref={menuRef} className={styles[`header__nav__menu__items${isMenuOpen ? '' : '--closed'}`]}>
+                        <NavButton text="Sign in" path="/sign-in" className={styles.header__nav__menu__items__main} />
+                        <NavButton text="Sign up" path="/sign-up" className={styles.header__nav__menu__items__main} />
+                        <hr />
+                        <NavButton text="Home" path="/home" />
+                        <NavButton text="Girls" path="/home/girls" />
+                        <NavButton text="Comments" path="/comments" />
+                        <NavButton text="Join our team" path="/join" />
+                    </div>
                 </div>
-                <nav className={`${styles.header__nav__links} ${isMenuOpen ? styles.open : ''}`}>
-                    <NavButton text="Sing in" path="/loginClient" />
-                    <NavButton text="Log in" path="/loginClient" />
-                    <NavButton text="Home" path="/home" />
-                    <NavButton text="Girls" path="/home/girls" />
-                    <NavButton text="Comments" path="/comments" />
-                    <NavButton text="Members" path="/members" />
-                </nav>
-                <div className={styles.languageSelector}>
-                    <span onClick={() => setLanguageDropdownOpen(!isLanguageDropdownOpen)}>
-                        <FaFlag /> {selectedLanguage.toUpperCase()}
-                    </span>
-                    {isLanguageDropdownOpen && (
-                        <div className={styles.languageDropdown}>
-                            <span onClick={() => handleLanguageChange('en')}>English</span>
-                            <span onClick={() => handleLanguageChange('es')}>Español</span>
-                        </div>
-                    )}
-                </div>
-            </div>
+
+            </header>
             <main className={styles.header__content}>
                 <h1 className={styles.header__content__title}>{HOME_TEXTS.TITLE}</h1>
                 <p className={styles.header__content__paragraph}>{HOME_TEXTS.PHARAGRAHPS.HEAD}</p>

@@ -5,7 +5,7 @@ export const Footer = () => {
         <footer className={styles.footer}>
             <section className={styles.footer__payment_methods}>
                 {PAYMENT_METHODS.map((method, index) => (
-                    <img key={`Payment-${index}`} src={`/public/assets/payment_methods/${method}.png`} alt={method} className={styles.footer__payment_methods__img} />
+                    <img key={`Payment-${index}`} src={`/assets/payment_methods/${method}.png`} alt={method} className={styles.footer__payment_methods__img} />
                 ))}
             </section>
             <h4 className={styles.footer__privacy_policy}>
