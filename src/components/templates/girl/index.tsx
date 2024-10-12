@@ -9,6 +9,7 @@ import { SubServiceCard } from "../../molecules/SubServiceCard/SubServiceCard"
 import { Footer } from "../../molecules/Footer/footer"
 import { GirlList } from "../../organisms/GirlList/girlList"
 import { Arrow } from "../../atoms/Arrow/arrow"
+import { useNavigate } from "react-router-dom"
 interface Props {
     girlId: string
 }
@@ -16,9 +17,10 @@ export const GirlPage = ({ girlId }: Props) => {
     const [girlInfo, setGirlInfo] = useState({} as Women)
     const [girls, setGirls] = useState([] as Women[])
     const [selectedService, setSelectedService] = useState(0)
+    const navigate = useNavigate()
 
     useEffect(() => {
-        useGetGirlInfoQuery(girlId).then((girlInfo) => setGirlInfo(girlInfo))
+        useGetGirlInfoQuery(girlId).then((girlInfo) => setGirlInfo(girlInfo)).catch(_ => navigate('/home'))    
         useGetGirlsQuery().then(girls => setGirls(girls))
     }, [])
 
