@@ -1,5 +1,6 @@
-import { Link } from "react-router-dom";
+import { NavLink } from "react-router-dom";
 import styles from './navButton.module.scss';
+
 interface NavButtonProps extends React.HTMLProps<HTMLAnchorElement> {
     text: string;
     path: string;
@@ -7,8 +8,14 @@ interface NavButtonProps extends React.HTMLProps<HTMLAnchorElement> {
 
 export const NavButton = ({ text, path, ...rest }: NavButtonProps) => {
     return (
-        <Link to={path} {...rest} >
-            <span className={styles.navButton}>{text}</span>
-        </Link>
+        <NavLink
+            to={path}
+            {...rest}
+            className={({ isActive }) =>
+                isActive ? `${styles.navButton} ${styles.active}` : styles.navButton
+            }
+        >
+            {text}
+        </NavLink>
     );
-}
+};

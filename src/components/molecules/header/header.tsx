@@ -51,9 +51,9 @@ export const Header = () => {
 
             </header>
             <main className={styles.header__content}>
-                <h1 className={styles.header__content__title}> {HOME_TEXTS.TITLE}</h1>
+                <h1 className={styles.header__content__title}>{HOME_TEXTS.TITLE}</h1>
                 <p className={styles.header__content__paragraph}>{HOME_TEXTS.PHARAGRAHPS.HEAD}</p>
             </main>
         </header>
-    )
-}
+    );
+};

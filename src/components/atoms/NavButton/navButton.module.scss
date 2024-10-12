@@ -4,4 +4,13 @@
     border: none;
     cursor: pointer;
     background-color: transparent;
+
+    &:hover {
+        color: lightgray; 
+    }
+
+    &.active {
+        // si se quiere saber en donde esta la persona  se pinta de color Amarillo 
+        // color: yellow; 
+    }
 }
