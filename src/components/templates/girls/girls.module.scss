@@ -1,0 +1,90 @@
+@import '/src/lib/styles/colors.scss';
+
+.girls {
+    &__main {
+        display: flex;
+        flex-direction: column;
+        color: $text-base-color;
+        gap: 20px;
+        background-color: black;
+        align-items: center;
+        background-image: url('/assets/girls-large-background.png');
+        background-size: cover;
+        background-repeat: no-repeat;
+        background-position: center;
+        background-color: rgba($color: $red-background-color, $alpha: 0.3);
+
+        &__interests {
+            padding: 3rem;
+            text-align: center;
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+
+            &__title {
+                font-size: 16px;
+                font-weight: 700;
+                color: $text-base-color;
+            }
+
+            &__list {
+                display: flex;
+                gap: 10px;
+                flex-wrap: wrap;
+                justify-content: center;
+
+                &__button {
+                    background-color: $black-background-color;
+                    width: 150px;
+                }
+            }
+        }
+
+        &__categories {
+            background-color: $black-background-color;
+            width: 100%;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding: 2rem;
+
+            &__title {
+                text-transform: uppercase;
+                font-size: 24px;
+                font-weight: 700;
+                color: $main-text-color;
+                margin: auto;
+                text-decoration: underline;
+            }
+
+            &__list {
+                display: grid;
+                grid-template-rows: 1fr 1fr 1fr;
+                grid-template-columns: 1fr 1fr 1fr;
+                width: 80%;
+            }
+        }
+    }
+    &__large_background{
+
+        background-image: url('/public/assets/large-background.png');
+        &__preview {
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+            padding: 2rem;
+            &__title {
+                font-size: 24px;
+                color: $text-base-color;
+                margin: auto;
+            }
+            
+            &__list {
+                display: flex;
+                gap: 20px;
+                flex-wrap: wrap;
+                justify-content: center;
+            }
+        }
+    }
+}

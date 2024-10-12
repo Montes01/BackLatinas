@@ -1,0 +1,251 @@
+@import '/src/lib/styles/colors.scss';
+
+.bigBg {
+    background-image: url('/public/assets/large-background.png');
+    background-repeat: repeat;
+}
+
+.girlBase {
+    display: flex;
+    gap: 20px;
+    color: white;
+    padding: 40px;
+    position: relative;
+    flex-direction: column;
+
+    &__backContainer {
+        display: flex;
+        align-items: center;
+        &__arrow {
+            transform: scale(1.2);
+        }
+        &__back {
+            background-color: transparent;
+            padding: 10px;
+            align-self: start;
+            border-radius: 10px;
+        }
+    }
+
+
+    &__infoSection {
+        padding: 0 30px;
+        display: flex;
+        justify-content: space-between;
+
+        &__info {
+            display: flex;
+            flex-direction: column;
+            font-size: 1.3rem;
+            font-weight: bold;
+
+            &__name {
+                font-size: 2.9rem;
+            }
+
+            &__description {
+                color: $main-text-color;
+            }
+        }
+
+        &__nation {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+            font-size: 1rem;
+            font-weight: bold;
+            align-items: flex-end;
+            img {
+                width: 40px;
+            }
+        }
+    }
+}
+
+.girlPicture {
+    width: 100%;
+    padding: 40px;
+    background-color: $red-background-color;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    img {
+        width: 100%;
+    }
+}
+
+
+.girlImages,
+.girlVideos {
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 20px;
+    color: white;
+
+    &__container {
+        align-items: center;
+        justify-content: center;
+        display: flex;
+        width: auto;
+        gap: 20px;
+        justify-content: flex-end;
+
+        video,
+        img {
+            width: 100%;
+            max-width: 200px;
+            border-radius: 10px;
+        }
+
+    }
+
+    &__button {
+        width: fit-content;
+        align-self: center;
+    }
+}
+
+
+.girlInformationSection {
+    color: white;
+    backdrop-filter: brightness(0.8);
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    flex-wrap: wrap;
+
+    &__title {
+        font-size: 1.5rem;
+        font-weight: bold;
+        margin: auto;
+        width: fit-content;
+    }
+
+    &__lists {
+        display: flex;
+        justify-content: space-between;
+        position: relative;
+        gap: 20px;
+
+        //half line
+        &__list {
+            width: 45%;
+            display: flex;
+            flex-direction: column;
+            gap: 7px;
+        }
+
+        &::after {
+            content: '';
+            position: absolute;
+            width: 1px;
+            background-color: white;
+            height: 50%;
+            left: 50%;
+            top: 50%;
+            translate: -50% -50%;
+        }
+    }
+}
+
+.girlServices {
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+
+    &__title {
+        font-size: 1.5rem;
+        position: relative;
+        font-weight: bold;
+        margin: auto;
+        width: fit-content;
+        color: $main-text-color;
+
+        &::after {
+            content: '';
+            position: absolute;
+            width: 80%;
+            background-color: $main-text-color;
+            height: 1px;
+            left: 50%;
+            translate: -50%;
+            bottom: -10px;
+        }
+    }
+
+    &__girlServicesSection {
+        margin: auto;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        gap: 20px;
+        width: 100%;
+        flex-wrap: wrap;
+        padding: 20px;
+    }
+
+    &__girlSubServicesSection {
+        padding: 20px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        gap: 20px;
+        flex-wrap: wrap;
+        width: 100%;
+    }
+}
+
+.girlDescription {
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    color: $text-base-color;
+    backdrop-filter: brightness(0.8);
+
+    &__title {
+        font-size: 1.5rem;
+        font-weight: bold;
+        width: fit-content;
+    }
+
+    &__description {
+        display: flex;
+        flex-direction: column;
+        gap: 20px;
+        width: 100%;
+
+        &__text {
+            font-size: 1rem;
+            color: $main-text-color;
+        }
+    }
+}
+
+.girlRecomendations {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    padding: 20px;
+
+    &__title {
+        font-size: 1.5rem;
+        font-weight: bold;
+        margin: auto;
+        width: fit-content;
+        color: $main-text-color;
+    }
+
+    &__list {
+        display: flex;
+        gap: 20px;
+        width: 100%;
+        flex-wrap: wrap;
+        justify-content: center;
+    }
+}

@@ -1,14 +1,13 @@
 import { useEffect, useState } from "react";
-import { GET_HOME_IMAGES_MOCK as useGetHomeImagesQuery, GET_SERVICES_MOCKS as useGetServicesQuery, GET_COMMENTS_MOCK as  useGetCommentsQuery } from "../../../helpers/mocks";
+import { GET_HOME_IMAGES_MOCK as useGetHomeImagesQuery, GET_SERVICES_MOCKS as useGetServicesQuery, GET_COMMENTS_MOCK as useGetCommentsQuery } from "../../../helpers/mocks";
 import { HOME_TEXTS } from "../../../lib/constants/homeConstants";
-import { Header } from "../../molecules/header/header"
-import { Main } from "./components/Main/main"
+import { Header } from "../../molecules/Header/header"
 import styles from './home.module.scss';
 import { Service } from "../../../lib/types/types";
 import { Button } from "../../atoms/Button/button";
-import { Comment } from "../../atoms/Comment/comment";
 import { Comment as commentType } from "../../../lib/types/types";
 import { Footer } from "../../molecules/Footer/footer";
+import { Comments } from "../../organisms/Comments/comments";
 export const Home = () => {
     const [girlImages, setGirlImages] = useState<Array<string>>([]);
     const [services, setServices] = useState<Array<Service>>([]);
@@ -20,11 +19,8 @@ export const Home = () => {
     }, []);
     return (
         <>
-            <div className={styles.head_background_wrapper}>
-                <Header />
-                <Main />
-            </div>
-            <section className={styles.large_section_wrapper}>
+            <Header />
+            <main className={styles.large_section_wrapper}>
                 <section className={styles.large_section_wrapper__default_section}>
                     {HOME_TEXTS.PHARAGRAHPS.SECOND_SECTION}
                 </section>
@@ -58,22 +54,15 @@ export const Home = () => {
                         {
                             services.map((service, index) => (
                                 <li key={`Service-${index}`}>
-                                    <Button text={service.title} type="button" disabled={false} url={service.url} />
+                                    <Button text={service.title} type="button" disabled={false} />
                                 </li>
                             ))
                         }
                     </ul>
                 </section>
-                <section className={styles.large_section_wrapper__comments}>
-                    <h2>Comments</h2>
-                    {
-                        comments.map((comment, index) => (
-                            <Comment key={`Comment-${index}`} comment={comment}  />
-                        ))
-                    }
-                </section>
-            <Footer />
-            </section>
+                <Comments comments={comments} />            
+                <Footer />
+            </main>
 
         </>
     )

@@ -29,3 +29,6 @@ bun.lockb
 
 #mock files
 public/assets/mockAssets/*
+
+#envinronment files
+.env

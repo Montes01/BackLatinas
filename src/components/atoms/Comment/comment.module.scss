@@ -1,4 +1,5 @@
 @import '/src/lib/styles/colors.scss';
+
 .comment_wrapper {
     margin: auto;
     width: 100%;
@@ -7,6 +8,7 @@
     align-items: center;
     padding: 10px;
     border-bottom: 1px solid #e0e0e0;
+
     .comment_wrapper__avatar {
         background-color: $red-background-color;
         align-content: center;
@@ -18,25 +20,35 @@
         padding: 10px;
         box-sizing: border-box;
         justify-content: center;
+
         &__image {
             width: 100%;
             height: 100%;
         }
     }
+
     .comment_wrapper__text {
         padding: 0 10px;
         display: flex;
-        flex-direction: column  ;
+        flex-direction: column;
         color: white;
-        p {
-            margin: 0;
+
+        &__username {
+            font-weight: bold;
+            font-size: 1.2rem;
+        }
+
+        &__comment {
+            font-size: .9rem;
         }
     }
+
     .comment_wrapper__rate {
         display: flex;
         align-items: center;
         justify-content: center;
         margin-left: auto;
+
         svg {
             width: 20px;
             height: 20px;

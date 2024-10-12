@@ -5,9 +5,10 @@
     align-items: center;
     flex-direction: column;
     color: $text-base-color;
-    padding: 2rem 0rem 0 0rem;
+    padding: 2rem 2rem 0 2rem;
     gap: 20px;
     width: 100%;
+    position: relative;
     text-align: center;
     &__payment_methods {
         display: flex;
@@ -28,11 +29,14 @@
 
     &__paragraph {
         font-size: .6rem;
+        margin-bottom: 20px;
     }
 
     &__copy {
         padding: 15px;
         width: 100%;
+        position: absolute;
+        bottom: 0;
         background-color: $red-background-color;
         font-size: .9rem;
     }
