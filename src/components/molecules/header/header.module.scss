@@ -1,6 +1,7 @@
 @import '/src/lib/styles/colors.scss';
-.header {
 
+.header {
+    padding: 20px;
     background-image: url('/public/assets/main-background.png');
     background-repeat: no-repeat;
     background-size: cover;
@@ -9,9 +10,57 @@
         display: flex;
         justify-content: space-evenly;
         align-items: center;
-        padding: 1rem 0;
-        border-bottom: 1px solid #e0e0e0;
         width: 100%;
+
+        &__menu {
+            position: relative;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            width: 100%;
+
+          
+
+            &__items {
+                background-color: white;
+                border-radius: 5px;
+                padding: 10px;
+                width: 200px;
+                display: flex;
+                flex-direction: column;
+                gap: 20px;
+                justify-content: center;
+                align-items: flex-start;
+                position: absolute;
+                right: 0;
+                top: 100%;
+                font-weight: bold;
+
+                * {
+                    color: $black-text-color;
+                    text-align: center;
+                    text-decoration: none;
+                }
+
+                &--closed {
+                    display: none;
+                }
+
+                hr {
+                    width: 100%;
+                    border: .5px solid  $red-text-color;
+                }
+
+                &__main {
+                    * {
+                        color: $red-text-color !important;
+                    }
+                }
+            }
+
+
+        }
+
     }
 
     &__content {
@@ -23,7 +72,7 @@
         gap: 20px;
 
         &__title {
-            font-size: 1.3rem;
+            font-size: 1.9rem;
             font-weight: 700;
             text-align: center;
             color: $main-text-color;
@@ -31,11 +80,11 @@
 
         &__paragraph {
             color: white;
-            font-size: .8rem;
+            font-size: 1.3rem;
             font-weight: 400;
             text-align: center;
             text-wrap: pretty;
-            max-width: 292px;
+            max-width: 80%;
         }
     }
 }
