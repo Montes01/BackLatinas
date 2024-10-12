@@ -223,7 +223,8 @@ export const GET_GIRLS_MOCK = async (): Promise<Array<Women>> => {
 
 export const GET_GIRL_INFO_MOCK = async (girlId: string): Promise<Women> => {
     return new Promise((resolve, reject) => {
-        if (girlId === '1094892672')
+        const girlIds = ['1', '2', '3', '4', '5', '6', '7', '8', '9']
+        if (girlIds.includes(girlId))
             resolve(exampleGirl)
         else
             reject('Girl not found')
