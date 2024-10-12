@@ -1,13 +1,13 @@
 //button props
-interface Props extends React.ButtonHTMLAttributes<HTMLButtonElement> {
-    onClick: () => void
+interface Props extends React.HTMLAttributes<HTMLButtonElement> {
 }
 
 import styles from './menuIcon.module.scss';
 
-export const IconMenu = ({ onClick, ...props }: Props) => {
+export const IconMenu = ({ ...props }: Props) => {
+    
     return (
-        <button onClick={onClick} className={styles.menuIcon} {...props}>
+        <button className={styles.menuIcon} {...props}>
             <svg
                 viewBox="0 0 1024 1024"
                 fill="currentColor"
