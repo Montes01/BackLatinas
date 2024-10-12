@@ -8,6 +8,7 @@ import { GirlInfoItem } from "../../atoms/GirlInfoItem/girlInfoItem"
 import { SubServiceCard } from "../../molecules/SubServiceCard/SubServiceCard"
 import { Footer } from "../../molecules/Footer/footer"
 import { GirlList } from "../../organisms/GirlList/girlList"
+import { Arrow } from "../../atoms/Arrow/arrow"
 interface Props {
     girlId: string
 }
@@ -36,13 +37,21 @@ export const GirlPage = ({ girlId }: Props) => {
             <section className={styles.bigBg}>
 
                 <section className={styles.girlBase}>
-                    <div className={styles.girlBase__info}>
-                        <h1>{girlInfo?.name}</h1>
-                        <p>{girlInfo?.description}</p>
+                    <div className={styles.girlBase__backContainer}>
+                        <Arrow className={styles.girlBase__backContainer__arrow}/>
+                        <Button text="Back" className={styles.girlBase__backContainer__back} />
                     </div>
-                    <div className={styles.girlBase__nation}>
-                        <strong>{girlInfo?.user?.nacionality}</strong>
-                    </div>
+                    <section className={styles.girlBase__infoSection}>
+
+                        <div className={styles.girlBase__infoSection__info}>
+                            <h1 className={styles.girlBase__infoSection__info__name}>{girlInfo?.name}</h1>
+                            <p className={styles.girlBase__infoSection__info__description}>24 Hour Contact</p>
+                        </div>
+                        <div className={styles.girlBase__infoSection__nation}>
+                            <strong>{girlInfo?.user?.nacionality}</strong>
+                            <img src="/assets/flag-example.png" alt="" />
+                        </div>
+                    </section>
                 </section>
                 <section className={styles.girlPicture}>
                     <img onError={handleImageError} src={girlInfo?.user?.profile_photo} alt={girlInfo?.name} />
@@ -126,7 +135,7 @@ export const GirlPage = ({ girlId }: Props) => {
                 <section className={styles.girlRecomendations}>
                     <h2 className={styles.girlRecomendations__title}>RECOMENDATIONS</h2>
                     <ul className={styles.girlRecomendations__list}>
-                            <GirlList girls={girls} />
+                        <GirlList girls={girls} />
                     </ul>
                 </section>
 
