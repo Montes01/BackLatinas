@@ -1,3 +1,4 @@
+
 export const ROUTES = {
     ALL: '/*',
     HOME: {
@@ -13,6 +14,10 @@ export const ROUTES = {
       ADMIN: '/loginAdmin',
       CLIENT: '/loginClient',
       GIRLS: '/loginGirls',
+    },
+    CREATE: {
+      CLIENT: '/createClient',
+      GIRLS: '/createGirls', 
     },
   };
   
