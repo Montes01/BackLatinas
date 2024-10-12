@@ -4,6 +4,7 @@ import { Women } from "../../../lib/types/types"
 import styles from './girl.module.scss'
 import { useEffect, useState } from "react"
 import { Button } from "../../atoms/Button/button"
+import { GirlInfoItem } from "../../atoms/GirlInfoItem/girlInfoItem"
 interface Props {
     girlId: string
 }
@@ -18,7 +19,7 @@ export const GirlPage = ({ girlId }: Props) => {
     const handleImageError = (event: React.SyntheticEvent<HTMLImageElement, Event>) => {
         event.currentTarget.src = '/assets/noGirl.png'
     }
-    return (
+    return girlInfo.name && (
         <div>
             <Header />
             <section className={styles.bigBg}>
@@ -38,47 +39,54 @@ export const GirlPage = ({ girlId }: Props) => {
 
 
 
-                    <div className={styles.girlImages} >
-                        <h2>Photos ({photos.length})</h2>
-                        <section className={styles.girlImages__container}>
-                            {
-                                [photos[0], photos[1], photos[2]].map((image) => (
-                                    <img onError={handleImageError} src={image?.url} alt={girlInfo?.name} />
-                                ))
-                            }
-                        </section>
-                        <Button text="View More" className={styles.girlImage__button} />
-                    </div>
+                <div className={styles.girlImages} >
+                    <h2>Photos ({photos.length})</h2>
+                    <section className={styles.girlImages__container}>
+                        {
+                            [photos[0], photos[1], photos[2]].map((image) => (
+                                <img onError={handleImageError} src={image?.url} alt={girlInfo?.name} />
+                            ))
+                        }
+                    </section>
+                    <Button text="View More" className={styles.girlImage__button} />
+                </div>
 
-                    <div className={styles.girlVideos} >
-                        <h2>Videos ({videos.length})</h2>
-                        <section className={styles.girlVideos__container}>
-                            {
-                                [videos[0], videos[1]].map((video) => (
-                                    <video controls>
-                                        <source src={video?.url} type="video/mp4" />
-                                    </video>
-                                ))
-                            }
-                        </section>
-                        <Button text="View More" className={styles.girlVideos__button} />
-                    </div> 
+                <div className={styles.girlVideos} >
+                    <h2>Videos ({videos.length})</h2>
+                    <section className={styles.girlVideos__container}>
+                        {
+                            [videos[0], videos[1]].map((video) => (
+                                <video controls>
+                                    <source src={video?.url} type="video/mp4" />
+                                </video>
+                            ))
+                        }
+                    </section>
+                    <Button text="View More" className={styles.girlVideos__button} />
+                </div>
 
                 <section className={styles.girlInformationSection}>
-                    <ul>
-                        <li>Age</li>
-                        <li>Height (cm)</li>
-                        <li>Weight (kg)</li>
-                        <li>Hips (cm)</li>
-                        <li>Shoe size</li>
-                        <li>Color of hair</li>
-                        <li>Eye color</li>
-                        <li>Color of skin</li>
-                        <li>Cup size</li>
-                    </ul>
-                    <div>
-
-                    </div>
+                    <h2 className={styles.girlInformationSection__title}>Information</h2>
+                    <section className={styles.girlInformationSection__lists}>
+                        <ul className={styles.girlInformationSection__lists__list}>
+                            <GirlInfoItem label='Age:' value={`${girlInfo.age}`} />
+                            <GirlInfoItem label='Height (cm):' value={`${girlInfo.height}`} />
+                            <GirlInfoItem label='Weight (kg):' value={`${girlInfo.weight}`} />
+                            <GirlInfoItem label='Hips:' value={`${girlInfo.hips}`} />
+                            <GirlInfoItem label='Shoe size:' value={`${girlInfo.shoeSize}`} />
+                            <GirlInfoItem label='Hair color:' value={`${girlInfo.colorHair}`} />
+                            <GirlInfoItem label='Eye color:' value={`${girlInfo.colorEyes}`} />
+                            <GirlInfoItem label='Skin color:' value={`${girlInfo.colorSkin}`} />
+                            <GirlInfoItem label='Cup size:' value={`${girlInfo.cupSize}`} />
+                        </ul>
+                        <ul className={styles.girlInformationSection__lists__list}>
+                            <GirlInfoItem label='Shaving:' value={`${girlInfo.shaving}`} />
+                            <GirlInfoItem label='Smoker:' value={`${girlInfo.smoker}`} />
+                            <GirlInfoItem label='Nationality:' value={`${girlInfo.user.nacionality}`} />
+                            <GirlInfoItem label='Piercings:' value={`${girlInfo.piercings}`} />
+                            <GirlInfoItem label='Tattoos:' value={`${girlInfo.tattoos}`} />
+                        </ul>
+                    </section>
                 </section>
             </section>
         </div >
