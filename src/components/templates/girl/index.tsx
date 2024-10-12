@@ -118,6 +118,11 @@ export const GirlPage = ({ girlId }: Props) => {
                     </section>
                 </section>
 
+                <section className={styles.girlDescription}>
+                    <h2 className={styles.girlDescription__title}>Description of the ad</h2>
+                    <p>{girlInfo.description}</p>
+                </section>
+
                 <section className={styles.girlRecomendations}>
                     <h2 className={styles.girlRecomendations__title}>RECOMENDATIONS</h2>
                     <ul className={styles.girlRecomendations__list}>

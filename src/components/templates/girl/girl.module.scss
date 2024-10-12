@@ -152,6 +152,31 @@
     }
 }
 
+.girlDescription {
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    color: $text-base-color;
+    backdrop-filter: brightness(0.8);
+    &__title {
+        font-size: 1.5rem;
+        font-weight: bold;
+        width: fit-content;
+    }
+
+    &__description {
+        display: flex;
+        flex-direction: column;
+        gap: 20px;
+        width: 100%;
+        &__text {
+            font-size: 1rem;
+            color: $main-text-color;
+        }
+    }
+}
+
 .girlRecomendations {
     display: flex;
     flex-direction: column;
