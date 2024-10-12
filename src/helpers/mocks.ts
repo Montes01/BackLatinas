@@ -1,4 +1,4 @@
-import { Service, Comment, Women, WomenStatus, UserStatus, Category, User, MultimediaType, SubService } from "../lib/types/types.d.ts"
+import { Service, Comment, Women, WomenStatus, UserStatus, Category, User, MultimediaType, SubService } from "../lib/types/types.ts"
 
 const exampleSubService: SubService = {
     quantity: 1,
@@ -92,9 +92,9 @@ const exampleUser: User = {
 export const GET_HOME_IMAGES_MOCK = async (): Promise<Array<string>> => {
     return new Promise((resolve) => {
         resolve([
-            '/public/assets/mockAssets/Girl1.png',
-            '/public/assets/mockAssets/Girl2.png',
-            '/public/assets/mockAssets/Girl3.png',
+            '/assets/mockAssets/Girl1.png',
+            '/assets/mockAssets/Girl2.png',
+            '/assets/mockAssets/Girl3.png',
         ])
     })
 }

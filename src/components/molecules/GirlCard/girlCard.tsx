@@ -1,7 +1,6 @@
 import { ROUTES } from '../../../lib/constants/routes'
 import { Women } from '../../../lib/types/types'
 import { Button } from '../../atoms/Button/button'
-import { StarRate } from '../../atoms/StarRate/StarRate'
 import styles from './girlCard.module.scss'
 export const GirlCard = ({ user: { id_user, profile_photo, nacionality }, name }: Women) => {
 
