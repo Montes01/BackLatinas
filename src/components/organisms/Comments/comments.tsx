@@ -5,6 +5,7 @@ interface Props {
 }
 import styles from './comments.module.scss';
 import { Button } from '../../atoms/Button/button';
+import { ROUTES } from '../../../lib/constants/routes';
 export const Comments = ({ comments }: Props) => {
     return (
         <section className={styles.comments}>
@@ -16,7 +17,7 @@ export const Comments = ({ comments }: Props) => {
                     ))
                 }
             </ul>
-            <Button text='View More' type='button' disabled={false} url='/comments' className={styles.comments__button} />
+            <Button text='View More' type='button' disabled={false} url={ROUTES.HOME.HOME} className={styles.comments__button} />
         </section>
     )
 }
