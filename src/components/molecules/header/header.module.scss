@@ -1,6 +1,6 @@
 @import '/src/lib/styles/colors.scss';
-.header {
 
+.header {
     background-image: url('/public/assets/main-background.png');
     background-repeat: no-repeat;
     background-size: cover;
@@ -12,6 +12,37 @@
         padding: 1rem 0;
         border-bottom: 1px solid #e0e0e0;
         width: 100%;
+
+        &__toggle {
+            display: none; // Ocultar ícono de hamburguesa por defecto
+            cursor: pointer;
+        }
+
+        &__links {
+            display: flex;
+            gap: 1rem;
+
+            &.open {
+                display: block; // Mostrar menú completo cuando se abre en móvil
+            }
+        }
+
+        &__lang {
+            display: flex;
+            gap: 10px;
+            align-items: center;
+            cursor: pointer;
+        }
+
+        .flagIcon {
+            font-size: 1.5rem;
+            cursor: pointer;
+            transition: transform 0.2s ease-in-out;
+
+            &:hover {
+                transform: scale(1.2);
+            }
+        }
     }
 
     &__content {
@@ -26,7 +57,7 @@
             font-size: 1.3rem;
             font-weight: 700;
             text-align: center;
-            color: $main-text-color;
+            color: $main-text-color; // Mantener el color amarillo aquí
         }
 
         &__paragraph {
@@ -38,4 +69,87 @@
             max-width: 292px;
         }
     }
+
+    // diseño del lenguaje 
+    .languageSelector {
+        position: relative; // Para posicionar el dropdown
+        cursor: pointer;
+        color: white; // Cambia el color del texto a blanco
+    
+        .languageDropdown {
+            position: absolute;
+            background-color: white; // Cambia el color según tu diseño
+            border: 1px solid #e0e0e0;
+            border-radius: 5px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            z-index: 100; // Para asegurarte de que esté por encima de otros elementos
+            margin-top: 0.5rem;
+            padding: 0.5rem;
+    
+            span {
+                color: rgb(0, 0, 0);
+                display: block;
+                padding: 0.5rem;
+                cursor: pointer;
+
+                &:hover {
+                    background-color: #f0f0f0; 
+                }
+            }
+        }
+    }
+
+    // Media queries para dispositivos móviles
+   @media (max-width: 768px) {
+    &__nav {
+        flex-direction: row-reverse;
+
+        &__toggle {
+            display: block; 
+            cursor: pointer;
+            font-size: 1.5rem; 
+            color: white; 
+            transition: color 0.3s;
+
+            &:hover {
+                color: #ffcc00; 
+            }
+        }
+
+        &__links {
+            display: none; 
+
+            &.open {
+                display: flex; 
+                flex-direction: column;
+                text-align: center;
+                gap: 0.1rem; 
+                padding: 1rem 0;
+                background-color: rgba(0, 0, 0, 0.9); 
+                border-radius: 5px; 
+                position: absolute; 
+                top: 50px; 
+                right: 60px;
+                width: 30%; 
+
+                // Añade sombra para destacar el menú
+                box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+
+                // Estilo de los elementos de enlace
+                a {
+                    color: white; 
+                    text-decoration: none; 
+                    padding: 10px; 
+
+                    &:hover {
+                        background-color: rgba(255, 204, 0, 0.2); 
+                        border-radius: 5px; 
+                    }
+                }
+            }
+        }
+        
+    }
+}
+
 }

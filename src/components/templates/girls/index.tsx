@@ -8,6 +8,7 @@ import { NavButton } from "../../atoms/NavButton/navButton";
 import { Comments } from "../../organisms/Comments/comments";
 import { GirlCard } from "../../molecules/GirlCard/girlCard";
 import { Footer } from "../../molecules/Footer/footer";
+import { HOME_TEXTS } from "../../../lib/constants/homeConstants";
 export const GirlsPage = () => {
 
     const [services, setServices] = useState<Array<Service>>([]);
@@ -58,8 +59,13 @@ export const GirlsPage = () => {
                             ))
                         }
                     </ul>
+                    
+
 
                 </section>
+                
+                
+
                 <Comments comments={comments} />
                 <Footer />
             </div>
