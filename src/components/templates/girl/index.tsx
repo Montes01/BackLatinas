@@ -41,7 +41,7 @@ export const GirlPage = ({ girlId }: Props) => {
                 <section className={styles.girlBase}>
                     <div className={styles.girlBase__backContainer}>
                         <Arrow className={styles.girlBase__backContainer__arrow}/>
-                        <Button text="Back" className={styles.girlBase__backContainer__back} />
+                        <Button text="Back" className={styles.girlBase__backContainer__back} onClick={() => navigate(-1)} />   {/* el boton de back ya retrocede a la pagina anterios */}
                     </div>
                     <section className={styles.girlBase__infoSection}>
 

@@ -51,7 +51,7 @@ const exampleGirl: Women = {
         comments: [],
         gender: '',
         id_user: 1,
-        nacionality: 'Colombian',
+        nacionality: 'Edad 22',
         password: '',
         phoneNumber: '',
         profile_photo: '',

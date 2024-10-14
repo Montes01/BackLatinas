@@ -12,7 +12,7 @@ export default function Login() {
   const [isLoading, setIsLoading] = useState(false);
   const [rulesAccepted, setRulesAccepted] = useState(false);
   const [termsAccepted, setTermsAccepted] = useState(false);
-  const [loginResponse, setLoginResponse] = useState(null);
+  const [loginResponse, setLoginResponse] = useState<string | null>(null);
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -42,7 +42,7 @@ export default function Login() {
 
       if (response.data && response.data.token) {
         localStorage.setItem("token", response.data.token);
-        setLoginResponse("Login exitoso. Token guardado en localStorage.");
+        setLoginResponse("Login exitoso.");
         console.log("Login exitoso");
       } else {
         setError("Respuesta del servidor inválida.");
@@ -77,11 +77,11 @@ export default function Login() {
           )}
           <form onSubmit={handleSubmit} className={styles.form}>
             <div className={styles.inputGroup}>
-              <label htmlFor="email">Email</label>
+              <label className="email" htmlFor="email">E-mail</label>
               <input
                 id="email"
                 type="email"
-                placeholder="tu@ejemplo.com"
+                placeholder="Enter your user e-mail"
                 required
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
@@ -89,10 +89,11 @@ export default function Login() {
               />
             </div>
             <div className={styles.inputGroup}>
-              <label htmlFor="password">Contraseña</label>
+              <label className="password" htmlFor="password">Password</label>
               <input
                 id="password"
                 type="password"
+                placeholder="Enter your password"
                 required
                 value={password}
                 onChange={(e) => setPassword(e.target.value)}
@@ -112,7 +113,7 @@ export default function Login() {
               checked={rulesAccepted}
               onChange={() => setRulesAccepted(!rulesAccepted)}
             />
-            <label htmlFor="rules">Rules</label>
+            <label htmlFor="rules" className={styles.checkboxLabel}>Rules</label>
             <p className="p-girls">
               By using this application, you agree to comply with the following
               rules. It is important that you read the terms carefully to ensure
@@ -137,7 +138,7 @@ export default function Login() {
               Here
             </Link>
           </p>
-
+            <br />
           <div className={styles.benefitsSection}>
             <p>Do you want to see the benefits you get by being our client?</p>
             <button

@@ -1,20 +1,21 @@
 @import '/src/lib/styles/colors.scss';
 
 .large_section_wrapper {
-  background-image: url('/public/assets/large-background.png');
-  background-repeat: no-repeat;
-  background-size: cover;
-  min-height: 100vh;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
+  background-color: black;
+  border-radius: 20px ;
+&__default_section {
+  -webkit-border-radius: 20px;
+  -moz-border-radius: 20px;
+  -ms-border-radius: 20px;
+  -o-border-radius: 20px;
+  border-radius: 20px;
   padding: 2rem;
-
-  &__default_section {
-    padding: 2rem;
-    background-color: rgba(255, 0, 0, 0.2);
-    color: #333;
-  }
+  background-color: rgba(255, 0, 0, 0.2);
+  color: #333;
+}
 
   .loginPage {
     display: flex;
@@ -23,28 +24,25 @@
     align-items: center;
     justify-content: center;
     background-color: $black-background-color;
-    background-image: url('/path/to/your/background-image.png');
+    background-image: url('/path/to/your/background-image.png'); // Asegúrate de cambiar esta ruta
     background-size: cover;
-    padding: 2rem;
+    padding: 0 15%;
   }
 
   .loginContainer {
-    max-width: 400px;
-    width: 100%;
+    max-width: 400px; 
+    width: 100%; 
     padding: 2rem;
-    background-color: rgba(0, 0, 0, 0.85); // Darker for contrast
-    border: 1px solid $border-color;
-    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.6); // Deeper shadow for depth
-    border-radius: 12px;
+    border-radius: 10px;
     text-align: center;
-    color: $main-text-color; // Consistent text color
+    margin: 0 auto;
   }
 
   .title {
-    font-size: 28px;
+    font-size: 32px;
     font-weight: bold;
     margin-bottom: 20px;
-    color: $primary-color; // Accent color for title
+    color: $main-text-color;
   }
 
   .errorMessage,
@@ -52,9 +50,6 @@
     font-size: 16px;
     margin-bottom: 20px;
     color: #fff;
-    background-color: rgba(255, 0, 0, 0.7); // Background for better visibility
-    padding: 10px;
-    border-radius: 5px;
   }
 
   .form {
@@ -63,86 +58,30 @@
   }
 
   .inputGroup {
-    margin-bottom: 15px;
-    text-align: left;
-    select:focus {
-      border-color: $primary-color;
-      box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-      outline: none;
-    }
-  
-    option {
-      color: #000;  // Ensure the options text is also black
-    }
+    margin-bottom: 20px;
   }
 
   .input {
-    padding: 12px;
+    padding: 10px;
     font-size: 16px;
-    border: 1px solid $border-color;
-    border-radius: 6px;
+    border-radius: 5px;
     width: 100%;
-    background-color: rgba(255, 255, 255, 0.1);
-    color: #fff;
-    transition: border-color 0.3s ease, box-shadow 0.3s ease;
-  }
-
-  .input:focus {
-    border-color: $primary-color;
-    box-shadow: 0 0 8px rgba(0, 0, 0, 0.1);
-    outline: none;
-  }
-
-  .forgotPassword {
-    font-size: 14px;
-    color: $main-text-color;
-    text-decoration: underline;
-    margin-bottom: 20px;
-    display: inline-block;
-    cursor: pointer;
-  }
-
-  .rulesSection,
-  .termsSection {
-    margin-bottom: 20px;
-    color: $main-text-color;
-    text-align: justify;
-
-    input {
-      margin-right: 10px;
-    }
-  }
-
-  .link {
-    color: $main-text-color;
-    text-decoration: none;
-    &:hover {
-      text-decoration: underline;
-    }
-  }
-
-  p {
-    color: #fff;
-    margin-bottom: 15px;
+    background-color: #fff;
+    border-radius: 20px;
   }
 
   .submitButton {
-    padding: 12px 24px;
-    font-size: 16px;
+    padding: 10px 15px;
     font-weight: bold;
     border: none;
-    border-radius: 6px;
-    background-color: $main-text-color;
+    border-radius: 10px;
+    background-color: $red-background-color;
     color: #fff;
     cursor: pointer;
-    transition: background-color 0.3s ease;
     display: flex;
     justify-content: center;
     align-items: center;
-
-    &:hover {
-      background-color: darken($primary-color, 10%);
-    }
+    margin: 0 auto;
   }
 
   .submitButton:disabled {
@@ -150,53 +89,15 @@
     cursor: not-allowed;
   }
 
-  .registerLink {
-    margin-top: 20px;
-    color: $main-text-color;
-    text-align: center;
-
-    a {
-      color: $primary-color;
-      text-decoration: underline;
-    }
-  }
-
-  .benefitsSection {
-    margin-top: 30px;
-    text-align: center;
-    p {
-      color: #fff;
-      font-size: 16px;
-    }
-    .submitButton {
-      margin-top: 20px;
-    }
+  label {
+    color: white;
+    display: flex;
   }
 
   @media (max-width: 768px) {
-    .large_section_wrapper {
-      padding: 1rem;
-
-      &__default_section {
-        padding: 1rem;
-      }
-
-      &__images {
-        flex-direction: column;
-        gap: 10px;
-        padding: 1rem;
-      }
-
-      &__aditional_info,
-      &__services {
-        padding: 1rem;
-        gap: 10px;
-      }
-    }
-
     .loginContainer {
-      padding: 1.5rem;
-      max-width: 300px;
+      padding: 1rem;
+      max-width: 90%; 
     }
 
     .title {
@@ -205,12 +106,12 @@
     }
 
     .input {
-      padding: 10px;
+      padding: 8px;
       font-size: 14px;
     }
 
     .submitButton {
-      padding: 10px 18px;
+      padding: 8px 16px;
       font-size: 14px;
     }
   }
