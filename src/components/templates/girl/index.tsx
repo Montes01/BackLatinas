@@ -1,50 +1,67 @@
-import { Header } from "../../molecules/Header/header"
-import { GET_GIRL_INFO_MOCK as useGetGirlInfoQuery, GET_GIRLS_MOCK as useGetGirlsQuery } from "../../../helpers/mocks"
-import { Women } from "../../../lib/types/types"
-import styles from './girl.module.scss'
-import { useEffect, useState } from "react"
-import { Button } from "../../atoms/Button/button"
-import { GirlInfoItem } from "../../atoms/GirlInfoItem/girlInfoItem"
-import { SubServiceCard } from "../../molecules/SubServiceCard/SubServiceCard"
-import { Footer } from "../../molecules/Footer/footer"
-import { GirlList } from "../../organisms/GirlList/girlList"
-import { Arrow } from "../../atoms/Arrow/arrow"
-import { useNavigate } from "react-router-dom"
+import { Header } from "../../molecules/Header/header";
+import { GET_GIRL_INFO_MOCK as useGetGirlInfoQuery, GET_GIRLS_MOCK as useGetGirlsQuery } from "../../../helpers/mocks";
+import { Women } from "../../../lib/types/types";
+import styles from './girl.module.scss';
+import { useEffect, useState } from "react";
+import { Button } from "../../atoms/Button/button";
+import { GirlInfoItem } from "../../atoms/GirlInfoItem/girlInfoItem";
+import { SubServiceCard } from "../../molecules/SubServiceCard/SubServiceCard";
+import { Footer } from "../../molecules/Footer/footer";
+import { GirlList } from "../../organisms/GirlList/girlList";
+import { Arrow } from "../../atoms/Arrow/arrow";
+import { useNavigate } from "react-router-dom";
+
+import WhatsAppButton from "../../atoms/WhatsAppButton/whatsapp-button"; 
+
 interface Props {
-    girlId: string
+    girlId: string;
 }
+
+const serviceNames = {
+    1: "Cam Virtual",
+    2: "Chat Sex SMS",
+    3: "Photos",
+    4: "Videos",
+    5: "Real Sex",
+};
+
 export const GirlPage = ({ girlId }: Props) => {
-    const [girlInfo, setGirlInfo] = useState({} as Women)
-    const [girls, setGirls] = useState([] as Women[])
-    const [selectedService, setSelectedService] = useState(0)
-    const navigate = useNavigate()
+    const [girlInfo, setGirlInfo] = useState({} as Women);
+    const [girls, setGirls] = useState([] as Women[]);
+    const [selectedService, setSelectedService] = useState(0);
+
+    const navigate = useNavigate();
 
     useEffect(() => {
-        useGetGirlInfoQuery(girlId).then((girlInfo) => setGirlInfo(girlInfo)).catch(_ => navigate('/home'))    
-        useGetGirlsQuery().then(girls => setGirls(girls))
-    }, [])
+        useGetGirlInfoQuery(girlId)
+            .then((girlInfo) => setGirlInfo(girlInfo))
+            .catch(_ => navigate('/home'));
+        useGetGirlsQuery().then(girls => setGirls(girls));
+    }, [girlId, navigate]);
 
-    const photos = girlInfo?.mediaList?.filter(el => el.mediaType === 'PHOTO') ?? []
-    const videos = girlInfo?.mediaList?.filter(el => el.mediaType === 'VIDEO') ?? []
+    const photos = girlInfo?.mediaList?.filter(el => el.mediaType === 'PHOTO') ?? [];
+    const videos = girlInfo?.mediaList?.filter(el => el.mediaType === 'VIDEO') ?? [];
+
     const handleImageError = (event: React.SyntheticEvent<HTMLImageElement, Event>) => {
-        event.currentTarget.src = '/assets/noGirl.png'
-    }
+        event.currentTarget.src = '/assets/noGirl.png';
+    };
 
     const handleServiceClick = (serviceId: number) => {
-        setSelectedService(serviceId)
-    }
+        setSelectedService(serviceId);
+        setShowCamVirtual(serviceId === 1);
+    };
+
     return girlInfo.name && (
         <div>
             <Header />
-            <section className={styles.bigBg}>
-
+            <WhatsAppButton phoneNumber="1234567890" message="Hola! Tengo una pregunta." />
+            <section className={styles.bigBg}></section>
                 <section className={styles.girlBase}>
                     <div className={styles.girlBase__backContainer}>
-                        <Arrow className={styles.girlBase__backContainer__arrow}/>
-                        <Button text="Back" className={styles.girlBase__backContainer__back} onClick={() => navigate(-1)} />   {/* el boton de back ya retrocede a la pagina anterios */}
+                        <Arrow className={styles.girlBase__backContainer__arrow} />
+                        <Button text="Back" className={styles.girlBase__backContainer__back} onClick={() => navigate(-1)} />
                     </div>
                     <section className={styles.girlBase__infoSection}>
-
                         <div className={styles.girlBase__infoSection__info}>
                             <h1 className={styles.girlBase__infoSection__info__name}>{girlInfo?.name}</h1>
                             <p className={styles.girlBase__infoSection__info__description}>24 Hour Contact</p>
@@ -59,26 +76,24 @@ export const GirlPage = ({ girlId }: Props) => {
                     <img onError={handleImageError} src={girlInfo?.user?.profile_photo} alt={girlInfo?.name} />
                 </section>
 
-
-
-                <div className={styles.girlImages} >
+                <div className={styles.girlImages}>
                     <h2>Photos ({photos.length})</h2>
                     <section className={styles.girlImages__container}>
                         {
                             [photos[0], photos[1], photos[2]].map((image) => (
-                                <img onError={handleImageError} src={image?.url} alt={girlInfo?.name} />
+                                <img onError={handleImageError} src={image?.url} alt={girlInfo?.name} key={image?.url} />
                             ))
                         }
                     </section>
                     <Button text="View More" className={styles.girlImage__button} />
                 </div>
 
-                <div className={styles.girlVideos} >
+                <div className={styles.girlVideos}>
                     <h2>Videos ({videos.length})</h2>
                     <section className={styles.girlVideos__container}>
                         {
                             [videos[0], videos[1]].map((video) => (
-                                <video controls>
+                                <video controls key={video?.url}>
                                     <source src={video?.url} type="video/mp4" />
                                 </video>
                             ))
@@ -112,22 +127,21 @@ export const GirlPage = ({ girlId }: Props) => {
                 </section>
 
                 <section className={styles.girlServices}>
-                    <h2 className={styles.girlServices__title}>SERVICES PRICING </h2>
-                    <section className={styles.girlServices__girlServicesSection}>
-                        {
-                            girlInfo.services.map((service) => (
-                                <Button onClick={() => handleServiceClick(service.idService)} text={service.title} />
-                            ))
-                        }
-                    </section>
-                    <section className={styles.girlServices__girlSubServicesSection}>
-                        {
-                            girlInfo.services.find(service => service.idService === selectedService)?.subServices.map((subService) => (
-                                <SubServiceCard {...subService} description={selectedService + subService.description} />
-                            ))
-                        }
-                    </section>
-                </section>
+          <h2 className={styles.girlServices__title}>SERVICES PRICING</h2>
+          <section className={styles.girlServices__girlServicesSection}>
+            {girlInfo.services.map((service) => (
+              <Button
+                key={service.idService}
+                onClick={() => handleServiceClick(service.idService)}
+                text={serviceNames[service.idService.toString()] || service.title}
+                className={selectedService === service.idService ? styles.selectedButton : ''}
+                style={{ 
+                  backgroundColor: selectedService === service.idService ? 'white' : '', 
+                  color: selectedService === service.idService ? 'black' : '' 
+                }}
+              />
+            ))}
+          </section>
 
                 <section className={styles.girlDescription}>
                     <h2 className={styles.girlDescription__title}>Description of the ad</h2>
@@ -143,7 +157,6 @@ export const GirlPage = ({ girlId }: Props) => {
 
                 <Footer />
             </section>
-
-        </div >
-    )
+        </div>
+    );
 }
