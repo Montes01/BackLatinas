@@ -11,6 +11,8 @@ import CreateClient from './components/templates/createClient';
 import CreateGirls from './components/templates/createGirls';
 import { CommentsClient } from './components/templates/commentsClient/commentsClient';
 import './i18n/i18n';
+import { ClientProfile } from './components/templates/clientProfile/clientProfile';
+
 
 function App() {
   return (
@@ -25,6 +27,7 @@ function App() {
         <Route path={ROUTES.CREATE.CLIENT} element={<CreateClient />} />
         <Route path={ROUTES.CREATE.GIRLS} element={<CreateGirls />} />
         <Route path={ROUTES.COMMENTS.CLIENT} element={<CommentsClient />} />
+        <Route path={ROUTES.PROFILE.CLIENT} element={<ClientProfile />} />
 
         {/* Redireccionamientos */}
         <Route path={ROUTES.ALL} element={<Navigate to={ROUTES.HOME.HOME} />} />

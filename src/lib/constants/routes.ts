@@ -21,4 +21,7 @@ export const ROUTES = {
   COMMENTS: {
     CLIENT: '/commentsClient',
   },
+  PROFILE: {
+    CLIENT: '/clientProfile',
+  },
 };

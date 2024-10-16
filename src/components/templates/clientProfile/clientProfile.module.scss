@@ -1,0 +1,252 @@
+@import '/src/lib/styles/colors.scss';
+
+
+.large_section_wrapper {
+  background-image: url('/public/assets/large-background.png');
+  background-repeat: no-repeat;
+  background-size: cover;
+  &__default_section {
+    padding: 2rem 2rem;
+    background-color: rgba($color: $red-background-color, $alpha: .2);
+    color: $text-base-color;
+  }
+  &__third_section {
+    background-color: transparent;
+  }
+  &__images {
+    display: flex;
+    justify-content: space-evenly;
+    flex-wrap: wrap;
+    gap: 20px;
+    padding: 2rem;
+    &__image {
+      width: 100%;
+      max-width: 200px;
+      height: auto;
+    }
+  }
+  &__aditional_info {
+    color: white;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    gap: 20px;
+    padding: 2rem 2rem;
+    &__points {
+      list-style: decimal;
+      list-style-position: inside;
+    }
+  }
+
+  &__services {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    padding: 2rem 2rem;
+    color: $text-base-color;
+    align-items: center;
+    background-color: rgba($color: $red-background-color, $alpha: .2);
+    &__list {
+      list-style: none;
+      display: flex;
+      justify-content: space-evenly;
+      gap: 20px;
+      flex-wrap: wrap;
+    }
+  }
+
+}
+.main {
+    background-color: #000;
+    color: #fff;
+    min-height: 100vh;
+  }
+  
+  .profileContainer {
+    background-image: url('data:image/svg+xml,...'); // Add your background pattern here
+    background-repeat: repeat;
+    max-width: 600px;
+    margin: 0 auto;
+    padding: 2rem;
+    border-radius: 0.5rem;
+  }
+  
+  .profileHeader {
+    display: flex;
+    align-items: center;
+    margin-bottom: 1.5rem;
+  }
+  
+  .photoContainer {
+    position: relative;
+  }
+  
+  .photoPlaceholder {
+    width: 4rem;
+    height: 4rem;
+    background-color: #4a5568;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+  }
+  
+  .cameraIcon {
+    width: 2rem;
+    height: 2rem;
+    color: #a0aec0;
+  }
+  
+  .fileInput {
+    position: absolute;
+    inset: 0;
+    opacity: 0;
+    cursor: pointer;
+  }
+  
+  .webcamButton {
+    position: absolute;
+    bottom: 0;
+    right: 0;
+    background-color: #e53e3e;
+    border-radius: 50%;
+    padding: 0.25rem;
+  }
+  
+  .webcamIcon {
+    width: 1rem;
+    height: 1rem;
+    color: #fff;
+  }
+  
+  .userInfo {
+    margin-left: 1rem;
+    flex-grow: 1;
+  }
+  
+  .username {
+    color: #ecc94b;
+    font-size: 1.25rem;
+    font-weight: bold;
+  }
+  
+  .userDescription {
+    color: #a0aec0;
+  }
+  
+  .webcamContainer {
+    margin-bottom: 1rem;
+  }
+  
+  .uploadedImageContainer {
+    margin-top: 1rem;
+  }
+  
+  .uploadedImage {
+    width: 100%;
+    height: auto;
+    border-radius: 0.5rem;
+  }
+  
+  .commentsHeader {
+    color: #ecc94b;
+    font-weight: bold;
+    margin-bottom: 1rem;
+  }
+  
+.commentBox {
+    border-bottom: 2px solid red;
+    border-radius: 0.5rem;
+    padding: 1rem;
+    margin-bottom: 1rem;
+}
+  
+  .commentHeader {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 0.5rem;
+  }
+  
+  .userAvatar {
+    width: 2rem;
+    height: 2rem;
+    background-color: #4a5568;
+    border-radius: 50%;
+    margin-right: 0.5rem;
+  }
+  
+  .starRating {
+    display: flex;
+  }
+  
+  .starIcon {
+    width: 1rem;
+    height: 1rem;
+    color: #ecc94b;
+  }
+  
+  .commentText {
+    margin-bottom: 0.5rem;
+  }
+  
+  .commentFooter {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    color: #ffffff;
+    font-size: 0.875rem;
+  }
+
+
+.editButton, .deleteButton {
+  background-color: #ff0000;
+  border: none;
+  border-radius: 50%;
+  padding: 5px;
+  margin-left: 10px;
+}
+
+.deleteIcon, .editIcon {
+  color: #fff;
+  font-size: 16px;
+}
+
+
+// numeros de pasar al siginete comentario 
+.pagination {
+  display: flex;
+  justify-content: center;
+  margin-top: 20px;
+}
+
+.paginationButton, .pageButton {
+  padding: 8px 16px;
+  margin: 0 4px;
+  background-color: black; /* Fondo negro para todos los botones */
+  color: white; /* Texto blanco por defecto */
+  cursor: pointer;
+  border-radius: 4px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: none;
+  width: 30px;
+  height: 30px;
+}
+
+.pageButton.activePage {
+  background-color: rgb(255, 0, 0); /* Fondo rojo para el botón activo */
+  color: rgb(255, 255, 255); /* Texto negro para el botón activo */
+}
+
+.paginationButton.disabled {
+  color: gray;
+  cursor: not-allowed;
+}
+
+.arrowIcon {
+  font-size: 24px;
+  color: red;
+}
