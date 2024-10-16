@@ -5,6 +5,7 @@ import styles from "./clientProfile.module.scss";
 import { Button } from "../../atoms/Button/button";
 import { Footer } from "../../molecules/Footer/footer";
 import Webcam from "react-webcam";
+import { Arrow } from "../../atoms/Arrow/arrow"
 import { Camera, Star, Edit, Delete, ArrowBack, ArrowForward } from "@mui/icons-material";
 
 export const ClientProfile = () => {
@@ -89,6 +90,10 @@ export const ClientProfile = () => {
     <>
       <Header />
       <main className={styles.main}>
+      <div className={styles.girlBase__backContainer}>
+                        <Arrow className={styles.girlBase__backContainer__arrow}/>
+                        <Button text="Back" className={styles.girlBase__backContainer__back} onClick={() => navigate(-1)} />   {/* el boton de back ya retrocede a la pagina anterios */}
+                    </div>
         <div className={styles.profileContainer}>
           <div className={styles.profileHeader}>
             <div className={styles.photoContainer}>

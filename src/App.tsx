@@ -12,6 +12,8 @@ import CreateGirls from './components/templates/createGirls';
 import { CommentsClient } from './components/templates/commentsClient/commentsClient';
 import './i18n/i18n';
 import { ClientProfile } from './components/templates/clientProfile/clientProfile';
+import HomeAdmin from './components/templates/homeAdmin/homeAdmin';
+import { GirlsAdmin } from './components/templates/girlsAdmin/girlsAdmin';
 
 
 function App() {
@@ -28,6 +30,8 @@ function App() {
         <Route path={ROUTES.CREATE.GIRLS} element={<CreateGirls />} />
         <Route path={ROUTES.COMMENTS.CLIENT} element={<CommentsClient />} />
         <Route path={ROUTES.PROFILE.CLIENT} element={<ClientProfile />} />
+        <Route path={ROUTES.HOME.ADMIN.HOME} element={<HomeAdmin />} />
+        <Route path={ROUTES.HOME.ADMIN.GIRLS} element={<GirlsAdmin />} />
 
         {/* Redireccionamientos */}
         <Route path={ROUTES.ALL} element={<Navigate to={ROUTES.HOME.HOME} />} />

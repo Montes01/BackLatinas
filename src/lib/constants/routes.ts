@@ -4,6 +4,11 @@ export const ROUTES = {
     ROOT: '/',
     HOME: '/home',
     GIRLS: '/home/girls',
+    ADMIN: {
+      ROOT: '/admin',
+      HOME: '/HomeAdmin',
+      GIRLS: '/admin/GirlsAdmin',
+    },
   },
   GIRL: {
     ROOT: '/girl',
@@ -16,7 +21,7 @@ export const ROUTES = {
   },
   CREATE: {
     CLIENT: '/createClient',
-    GIRLS: '/createGirls', 
+    GIRLS: '/createGirls',
   },
   COMMENTS: {
     CLIENT: '/commentsClient',
