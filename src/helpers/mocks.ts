@@ -20,7 +20,7 @@ const exampleSubService: SubService = {
 const exampleService: Service = {
     description: 'example',
     idService: 1,
-    title: 'example',
+    title: 'ServiceTitle',
     subServices: new Array(9).fill(undefined).map((_, index) => { return { ...exampleSubService, idSubService: index } }),
     women: []
 }
@@ -40,7 +40,7 @@ const exampleGirl: Women = {
     idWomen: 1,
     mediaList: new Array(15).fill({ url: '', mediaType: MultimediaType.PHOTO, idMedia: 1 }).map((item, index) => (index % 2 === 0 ? item : { ...item, mediaType: MultimediaType.VIDEO })),
     piercings: 0,
-    services: new Array(5).fill(undefined).map((_, index) => { return { ...exampleService, idService: index } }),
+    services: new Array(4).fill(undefined).map((_, index) => { return { ...exampleService, idService: index } }),
     shaving: 'shaved',
     shoeSize: 38,
     smoker: 'no',

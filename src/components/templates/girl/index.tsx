@@ -133,7 +133,7 @@ export const GirlPage = ({ girlId }: Props) => {
               <Button
                 key={service.idService}
                 onClick={() => handleServiceClick(service.idService)}
-                text={serviceNames[service.idService.toString()] || service.title}
+                text={serviceNames[`${service.idService}`] ?? service.title}
                 className={selectedService === service.idService ? styles.selectedButton : ''}
                 style={{ 
                   backgroundColor: selectedService === service.idService ? 'white' : '', 
