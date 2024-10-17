@@ -1,0 +1,223 @@
+@import '/src/lib/styles/colors.scss';
+
+.girls {
+    &__main {
+        display: flex;
+        flex-direction: column;
+        color: $text-base-color;
+        gap: 20px;
+        background-color: black;
+        align-items: center;
+        background-image: url('/assets/girls-large-background.png');
+        background-size: cover;
+        background-repeat: no-repeat;
+        background-position: center;
+        background-color: rgba($red-background-color, 0.3); // Fixed rgba syntax
+
+        &__interests {
+            padding: 3rem;
+            text-align: center;
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+
+            &__title {
+                font-size: 16px;
+                font-weight: 700;
+                color: $text-base-color;
+            }
+
+            &__list {
+                display: flex;
+                gap: 10px;
+                flex-wrap: wrap;
+                justify-content: center;
+
+                &__button {
+                    background-color: $black-background-color;
+                    width: 150px;
+                }
+            }
+        }
+
+        &__categories {
+            background-color: $black-background-color;
+            width: 100%;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding: 2rem;
+
+            &__title {
+                text-transform: uppercase;
+                font-size: 24px;
+                font-weight: 700;
+                color: $main-text-color;
+                margin: auto;
+                text-decoration: underline;
+            }
+
+            &__list {
+                display: grid;
+                grid-template-rows: 1fr 1fr 1fr;
+                grid-template-columns: 1fr 1fr 1fr;
+                gap: 10px;  // Added gap between grid items
+                width: 80%;
+            }
+        }
+    }
+
+    &__large_background {
+        background-image: url('/public/assets/large-background.png');
+
+        &__preview {
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+            padding: 2rem;
+
+            &__title {
+                font-size: 24px;
+                color: $text-base-color;
+                margin: auto;
+            }
+            
+            &__list {
+                display: flex;
+                gap: 20px;
+                flex-wrap: wrap;
+                justify-content: center;
+            }
+        }
+    }
+    .addedGirlContainer {
+        background-color: black;
+        color: white;
+        padding: 1.5rem;
+        max-width: 28rem;
+        margin: 0 auto;
+        border-radius: 0.5rem;
+        background-repeat: repeat;
+    }
+    
+    .addedGirlHeading {
+        font-size: 1.25rem;
+        font-weight: bold;
+        margin-bottom: 1rem;
+        display: flex;
+        flex-direction: row-reverse;
+    }
+    
+    .addedGirlInputContainer {
+        position: relative;
+        margin-bottom: 1rem;
+        
+    }
+    
+    .addedGirlInput {
+        width: 100%;
+        padding: 0.5rem 3rem; // Increased padding for more width
+        background-color: #ffffff; 
+        border-radius: 20px;
+        color: black; 
+        border: none; 
+        display: flex;
+        justify-content: center;
+        margin: 0 auto; // Center horizontally
+
+        &::placeholder {
+            color: #718096;
+        }
+    }
+    
+
+    .searchIcon {
+        position: absolute;
+        right: 0.75rem;
+        top: 0.200rem;
+        color: #7f1d1d;
+    }
+    
+    .buttonGroup {
+        display: grid;
+        grid-template-columns: repeat(2, 1fr);
+        gap: 1rem;
+    }
+    
+    .buttonGroup button {
+        background-color: #7f1d1d;
+        color: white;
+        padding: 0.5rem 1rem;
+        border-radius: 10px;
+        border: none; 
+        transition: background-color 0.3s ease-in-out;
+    
+        &:focus {
+            outline: none;
+            box-shadow: 0 0 0 2px #991b1b; 
+        }
+        .deleteButton {
+            background-color: black;
+            color: white;
+            padding: 0.5rem 1rem;
+            border: 2px solid white;
+            border-radius: 0.5rem;
+            cursor: pointer;
+            transition: background-color 0.3s ease, border-color 0.3s ease;
+        }
+        
+        .deleteButton:hover {
+            background-color: #c82333;
+            border-color: #c82333; 
+        }
+    }
+    
+    .buttonGroup button:hover {
+        background-color: #991b1b;
+    }
+    
+    .buttonGroup button:focus {
+        outline: 2px solid #991b1b;  
+    }
+    .buttonGroup {
+        display: flex; 
+        flex-direction: column;
+        gap: 1rem;
+        margin-top: 1rem; 
+    }
+    
+    .editButton {
+        color: white; 
+        padding: 0.5rem 1rem; 
+        border: none; 
+        border-radius: 0.5rem; 
+        cursor: pointer; 
+        transition: background-color 0.3s ease;
+        position:  center;
+    }
+    
+    .editButton:hover {
+        background-color: #0056b3; 
+    }
+    
+.addedGirlButton {
+    font-size: 24px;          
+    font-weight: bold;        
+    color: $text-base-color;  
+    background-color: #000000; 
+    border: none;            
+    border-radius: 10px;      
+    padding: 0.5rem 1rem;     
+    cursor: pointer;          
+    transition: background-color 0.3s ease;
+
+    &:hover {
+        background-color: #c11919; // 
+    }
+}
+
+    
+    
+}
+
+

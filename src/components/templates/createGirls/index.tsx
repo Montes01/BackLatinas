@@ -144,12 +144,12 @@ export default function CreateGirls() {
             
             <div className={styles.cardContainer}>
               <div className={styles.card}>
-                  <h2>Choose your favorite package</h2>
+                  <h2>🟡 PRIORITY</h2>
                   <h3>1000 NOK</h3>
                   <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip.</p>
               </div>
               <div className={styles.card}>
-                  <h2>Choose your favorite package</h2>
+                  <h2>⚪ PUBLICITY</h2>
                   <h3>800 NOK</h3>
                   <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip.</p>
               </div>

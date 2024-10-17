@@ -103,6 +103,7 @@ export interface Comment {
     user: User;
 }
 
+
 // CategoryFilter.ts
 export interface CategoryFilter {
     idCategoryFilter: number;

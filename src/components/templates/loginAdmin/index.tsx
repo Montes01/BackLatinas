@@ -56,11 +56,11 @@ export default function Login() {
                     {error && <div className={styles.errorMessage}>{error}</div>}
                     <form onSubmit={handleSubmit} className={styles.form}>
                         <div className={styles.inputGroup}>
-                            <label htmlFor="email">Email</label>
+                            <label htmlFor="email">E-mail</label>
                             <input 
                                 id="email" 
                                 type="email" 
-                                placeholder="tu@ejemplo.com" 
+                                placeholder="Enter your user e-mail" 
                                 required 
                                 value={email}
                                 onChange={(e) => setEmail(e.target.value)}
@@ -68,18 +68,19 @@ export default function Login() {
                             />
                         </div>
                         <div className={styles.inputGroup}>
-                            <label htmlFor="password">Contraseña</label>
+                            <label htmlFor="password">Password</label>
                             <input 
                                 id="password" 
                                 type="password" 
+                                placeholder="Enter your password"
                                 required 
                                 value={password}
                                 onChange={(e) => setPassword(e.target.value)}
                                 className={styles.input}
                             />
                         </div>
-                        <Link href="/forgot-password" className={styles.forgotPassword}>
-                            ¿Olvidaste tu contraseña?
+                        <Link href="/forgot-password" className={`${styles.forgotPassword} ${styles.yellowUnderline}`}>
+                        Forgot your password?
                         </Link>
                         <button type="submit" className={styles.submitButton} disabled={isLoading}>
                             {isLoading ? 'Cargando...' : 'Confirmar'}

@@ -1,0 +1,58 @@
+@import '/src/lib/styles/colors.scss';
+
+
+.large_section_wrapper {
+  background-image: url('/public/assets/large-background.png');
+  background-repeat: no-repeat;
+  background-size: cover;
+  &__default_section {
+    padding: 2rem 2rem;
+    background-color: rgba($color: $red-background-color, $alpha: .2);
+    color: $text-base-color;
+  }
+  &__third_section {
+    background-color: transparent;
+  }
+  &__images {
+    display: flex;
+    justify-content: space-evenly;
+    flex-wrap: wrap;
+    gap: 20px;
+    padding: 2rem;
+    &__image {
+      width: 100%;
+      max-width: 200px;
+      height: auto;
+    }
+  }
+  &__aditional_info {
+    color: white;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    gap: 20px;
+    padding: 2rem 2rem;
+    &__points {
+      list-style: decimal;
+      list-style-position: inside;
+    }
+  }
+
+  &__services {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    padding: 2rem 2rem;
+    color: $text-base-color;
+    align-items: center;
+    background-color: rgba($color: $red-background-color, $alpha: .2);
+    &__list {
+      list-style: none;
+      display: flex;
+      justify-content: space-evenly;
+      gap: 20px;
+      flex-wrap: wrap;
+    }
+  }
+
+}
