@@ -1,5 +1,6 @@
 import './App.scss';
 import { BrowserRouter, Navigate, Route, Routes } from 'react-router-dom';
+import Register from './pages/register';
 import { ROUTES } from './lib/constants/routes';
 import HomePage from './pages/home';
 import GirlsPage from './pages/girls';
@@ -7,8 +8,6 @@ import SingleGirl from './pages/single-girl';
 import LoginAdmin from './components/templates/loginAdmin';
 import LoginClient from './components/templates/loginClient';
 import LoginGirls from './components/templates/loginGirls';
-import CreateClient from './components/templates/createClient';
-import CreateGirls from './components/templates/createGirls';
 import { CommentsClient } from './components/templates/commentsClient/commentsClient';
 import './i18n/i18n';
 import { ClientProfile } from './components/templates/clientProfile/clientProfile';
@@ -26,8 +25,8 @@ function App() {
         <Route path={ROUTES.LOGIN.ADMIN} element={<LoginAdmin />} />
         <Route path={ROUTES.LOGIN.CLIENT} element={<LoginClient />} />
         <Route path={ROUTES.LOGIN.GIRLS} element={<LoginGirls />} />
-        <Route path={ROUTES.CREATE.CLIENT} element={<CreateClient />} />
-        <Route path={ROUTES.CREATE.GIRLS} element={<CreateGirls />} />
+        <Route path={ROUTES.CREATE.CLIENT} element={<Register role='client' />} />
+        <Route path={ROUTES.CREATE.GIRLS} element={<Register role='girl' />} />
         <Route path={ROUTES.COMMENTS.CLIENT} element={<CommentsClient />} />
         <Route path={ROUTES.PROFILE.CLIENT} element={<ClientProfile />} />
         <Route path={ROUTES.HOME.ADMIN.HOME} element={<HomeAdmin />} />

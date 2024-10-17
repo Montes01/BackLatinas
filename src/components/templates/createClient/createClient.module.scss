@@ -1,21 +1,22 @@
 @import '/src/lib/styles/colors.scss';
 
-.large_section_wrapper {
+.createClientPage {
   display: flex;
   flex-direction: column;
   justify-content: space-between;
   background-color: black;
-  border-radius: 20px ;
-&__default_section {
-  -webkit-border-radius: 20px;
-  -moz-border-radius: 20px;
-  -ms-border-radius: 20px;
-  -o-border-radius: 20px;
   border-radius: 20px;
-  padding: 2rem;
-  background-color: rgba(255, 0, 0, 0.2);
-  color: #333;
-}
+
+  &__default_section {
+    -webkit-border-radius: 20px;
+    -moz-border-radius: 20px;
+    -ms-border-radius: 20px;
+    -o-border-radius: 20px;
+    border-radius: 20px;
+    padding: 2rem;
+    background-color: rgba(255, 0, 0, 0.2);
+    color: #333;
+  }
 
   .loginPage {
     display: flex;
@@ -30,8 +31,8 @@
   }
 
   .loginContainer {
-    max-width: 400px; 
-    width: 100%; 
+    max-width: 400px;
+    width: 100%;
     padding: 2rem;
     border-radius: 10px;
     text-align: center;
@@ -97,7 +98,7 @@
   @media (max-width: 768px) {
     .loginContainer {
       padding: 1rem;
-      max-width: 90%; 
+      max-width: 90%;
     }
 
     .title {
