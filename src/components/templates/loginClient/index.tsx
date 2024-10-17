@@ -12,7 +12,7 @@ export default function Login() {
   const [isLoading, setIsLoading] = useState(false);
   const [rulesAccepted, setRulesAccepted] = useState(false);
   const [termsAccepted, setTermsAccepted] = useState(false);
-  const [loginResponse, setLoginResponse] = useState(null);
+  const [loginResponse, setLoginResponse] = useState(null as string | null);
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();

@@ -5,7 +5,7 @@
   flex-direction: column;
   justify-content: space-between;
   background-color: black;
-
+  background-image: url('/public/assets/large-background.png');
   &__default_section {
     padding: 2rem 2rem;
     background-color: rgba(255, 0, 0, 0.2);
@@ -19,7 +19,6 @@
     align-items: center;
     justify-content: center;
     background-color: $black-background-color;
-    background-image: url('/path/to/your/background-image.png');
     background-size: cover;
     padding: 0 15%;
   }

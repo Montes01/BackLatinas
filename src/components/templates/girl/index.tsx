@@ -11,19 +11,19 @@ import { GirlList } from "../../organisms/GirlList/girlList";
 import { Arrow } from "../../atoms/Arrow/arrow";
 import { useNavigate } from "react-router-dom";
 
-import WhatsAppButton from "../../atoms/WhatsAppButton/whatsapp-button"; 
+import WhatsAppButton from "../../atoms/WhatsAppButton/whatsapp-button";
 
 interface Props {
     girlId: string;
 }
 
-const serviceNames = {
-    1: "Cam Virtual",
-    2: "Chat Sex SMS",
-    3: "Photos",
-    4: "Videos",
-    5: "Real Sex",
-};
+const serviceNames = [
+    "Cam Virtual",
+    "Chat Sex SMS",
+    "Photos",
+    "Videos",
+    "Real Sex",
+];
 
 export const GirlPage = ({ girlId }: Props) => {
     const [girlInfo, setGirlInfo] = useState({} as Women);
@@ -48,14 +48,14 @@ export const GirlPage = ({ girlId }: Props) => {
 
     const handleServiceClick = (serviceId: number) => {
         setSelectedService(serviceId);
-        setShowCamVirtual(serviceId === 1);
+        //setShowCamVirtual(serviceId === 1);
     };
 
     return girlInfo.name && (
         <div>
             <Header />
             <WhatsAppButton phoneNumber="1234567890" message="Hola! Tengo una pregunta." />
-            <section className={styles.bigBg}></section>
+            <section className={styles.bigBg}>
                 <section className={styles.girlBase}>
                     <div className={styles.girlBase__backContainer}>
                         <Arrow className={styles.girlBase__backContainer__arrow} />
@@ -127,35 +127,36 @@ export const GirlPage = ({ girlId }: Props) => {
                 </section>
 
                 <section className={styles.girlServices}>
-          <h2 className={styles.girlServices__title}>SERVICES PRICING</h2>
-          <section className={styles.girlServices__girlServicesSection}>
-            {girlInfo.services.map((service) => (
-              <Button
-                key={service.idService}
-                onClick={() => handleServiceClick(service.idService)}
-                text={serviceNames[`${service.idService}`] ?? service.title}
-                className={selectedService === service.idService ? styles.selectedButton : ''}
-                style={{ 
-                  backgroundColor: selectedService === service.idService ? 'white' : '', 
-                  color: selectedService === service.idService ? 'black' : '' 
-                }}
-              />
-            ))}
-          </section>
+                    <h2 className={styles.girlServices__title}>SERVICES PRICING</h2>
+                    <section className={styles.girlServices__girlServicesSection}>
+                        {girlInfo.services.map((service) => (
+                            <Button
+                                key={service.idService}
+                                onClick={() => handleServiceClick(service.idService)}
+                                text={service.title ? service.title : serviceNames[service.idService]}
+                                className={selectedService === service.idService ? styles.selectedButton : ''}
+                                style={{
+                                    backgroundColor: selectedService === service.idService ? 'white' : '',
+                                    color: selectedService === service.idService ? 'black' : ''
+                                }}
+                            />
+                        ))}
+                    </section>
 
-                <section className={styles.girlDescription}>
-                    <h2 className={styles.girlDescription__title}>Description of the ad</h2>
-                    <p>{girlInfo.description}</p>
+                    <section className={styles.girlDescription}>
+                        <h2 className={styles.girlDescription__title}>Description of the ad</h2>
+                        <p>{girlInfo.description}</p>
+                    </section>
+
+                    <section className={styles.girlRecomendations}>
+                        <h2 className={styles.girlRecomendations__title}>RECOMENDATIONS</h2>
+                        <ul className={styles.girlRecomendations__list}>
+                            <GirlList girls={girls} />
+                        </ul>
+                    </section>
+
+                    <Footer />
                 </section>
-
-                <section className={styles.girlRecomendations}>
-                    <h2 className={styles.girlRecomendations__title}>RECOMENDATIONS</h2>
-                    <ul className={styles.girlRecomendations__list}>
-                        <GirlList girls={girls} />
-                    </ul>
-                </section>
-
-                <Footer />
             </section>
         </div>
     );

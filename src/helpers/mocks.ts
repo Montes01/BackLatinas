@@ -20,7 +20,7 @@ const exampleSubService: SubService = {
 const exampleService: Service = {
     description: 'example',
     idService: 1,
-    title: 'ServiceTitle',
+    title: "",
     subServices: new Array(9).fill(undefined).map((_, index) => { return { ...exampleSubService, idSubService: index } }),
     women: []
 }
