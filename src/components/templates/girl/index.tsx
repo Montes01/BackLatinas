@@ -12,6 +12,7 @@ import { Arrow } from "../../atoms/Arrow/arrow";
 import { useNavigate } from "react-router-dom";
 
 import WhatsAppButton from "../../atoms/WhatsAppButton/whatsapp-button";
+import { BackButton } from "../../molecules/BackButton/backButton";
 
 interface Props {
     girlId: string;
@@ -57,10 +58,7 @@ export const GirlPage = ({ girlId }: Props) => {
             <WhatsAppButton phoneNumber="1234567890" message="Hola! Tengo una pregunta." />
             <section className={styles.bigBg}>
                 <section className={styles.girlBase}>
-                    <div className={styles.girlBase__backContainer}>
-                        <Arrow className={styles.girlBase__backContainer__arrow} />
-                        <Button text="Back" className={styles.girlBase__backContainer__back} onClick={() => navigate(-1)} />
-                    </div>
+                    <BackButton />
                     <section className={styles.girlBase__infoSection}>
                         <div className={styles.girlBase__infoSection__info}>
                             <h1 className={styles.girlBase__infoSection__info__name}>{girlInfo?.name}</h1>

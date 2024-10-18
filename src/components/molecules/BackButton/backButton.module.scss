@@ -1,0 +1,17 @@
+.backContainer {
+    display: flex;
+    align-items: center;
+    cursor: pointer;
+    width: fit-content;
+
+    &__arrow {
+        transform: scale(1.2);
+    }
+
+    &__back {
+        background-color: transparent;
+        padding: 10px;
+        align-self: start;
+        border-radius: 10px;
+    }
+}

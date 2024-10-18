@@ -29,7 +29,7 @@ export default function CreateGirls() {
     }
 
     // Validar formato de email
-    const validateEmail = (email) => /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
+    const validateEmail = (email: any) => /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
     if (!validateEmail(email)) {
       setError("El formato del email no es válido.");
       setIsLoading(false);
@@ -72,7 +72,7 @@ export default function CreateGirls() {
       <main className={styles.large_section_wrapper}>
         <div className={styles.loginContainer}>
           <h2 className={styles.title}>Sign Up</h2>
-          {error && <div className={styles.errorMessage}>{error}</div>}
+          {error && <span className={styles.errorMessage}>{error}</span>}
           {registerResponse && (
             <div className={styles.successMessage}>{registerResponse}</div>
           )}
