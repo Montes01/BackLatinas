@@ -1,0 +1,26 @@
+@import '/src/lib/styles/colors.scss';
+.rulesSection {
+    display: flex;
+    flex-direction: column;
+    align-items: start;
+    gap: 10px;
+    color: white;
+    
+    &__label {
+        color: white;
+        display: flex;
+        justify-content: flex-start;
+        &__text {
+            color: white;
+        }
+    }
+
+    &__text {
+        max-width: 50ch;
+        
+        &--important {
+            max-width: 50ch;
+            color: $main-text-color;
+        }
+    }
+}

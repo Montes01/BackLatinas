@@ -1,31 +1,33 @@
 import { useState } from "react";
 import axios from "axios";
 import { Header } from "../../molecules/Header/header";
-import styles from './createClient.module.scss'; // Asegúrate de que esta ruta sea correcta
+import styles from './createClient.module.scss';
 import { Footer } from "../../molecules/Footer/footer";
 import Link from "next/link";
-import { Arrow } from "../../atoms/Arrow/arrow"
-import { Button } from "../../atoms/Button/button"
-import { useNavigate } from "react-router-dom"
+import { BackButton } from "../../molecules/BackButton/backButton";
+import { Input } from "../../atoms/Input/input";
+import { Select } from "../../atoms/Select/select";
+import { GENDER_OPTIONS } from "../../../lib/constants/general";
+import { environment } from '../../../lib/config/environment'
+import { Rule } from "../../atoms/Rule/rule";
+import { RULE_TEXT, TERMS_AND_CONDITIONS_TEXT } from "../../../lib/constants/registerConstants";
 
 export default function CreateClient() {
-    const [email, setEmail] = useState("");
-    const [password, setPassword] = useState("");
-    const [userName, setUserName] = useState("");
-    const [nationality, setNationality] = useState("");
-    const [gender, setGender] = useState("");
-    const [phoneNumber, setPhoneNumber] = useState("");
     const [error, setError] = useState("");
     const [isLoading, setIsLoading] = useState(false);
     const [registerResponse, setRegisterResponse] = useState("");
-    const navigate = useNavigate()
-
+    console.log(environment.URLS.BACK_URL)
     const handleSubmit = async (e: React.FormEvent) => {
         e.preventDefault();
-        setError("");
         setIsLoading(true);
-
-        // Validación de campos
+        setError("");
+        const formData = new FormData(e.target as HTMLFormElement);
+        const userName = formData.get("userName") as string;
+        const email = formData.get("email") as string;
+        const password = formData.get("password") as string
+        const nationality = formData.get("nationality") as string;
+        const gender = formData.get("gender") as string;
+        const phoneNumber = formData.get("phoneNumber") as string;
         if (!userName || !email || !password || !nationality || !gender || !phoneNumber) {
             setError("Por favor, completa todos los campos.");
             setIsLoading(false);
@@ -33,7 +35,7 @@ export default function CreateClient() {
         }
 
         try {
-            const response = await axios.post('https://backlatinassexcam.onrender.com/LatinasSexCam/user/register', {
+            const response = await axios.post(`${environment.URLS.BACK_URL}user/register`, {
                 user_name: userName,
                 email: email,
                 password: password,
@@ -43,13 +45,13 @@ export default function CreateClient() {
             });
 
             if (response.data && response.data.message) {
-                setRegisterResponse(response.data.message); 
+                setRegisterResponse(response.data.message);
             } else {
                 setError("Respuesta del servidor inválida.");
             }
         } catch (err) {
             if (axios.isAxiosError(err) && err.response) {
-                setError(err.response.data.message || "Error en el registro.");
+                setError(err.response.data.message ?? "Error en el registro.");
             } else {
                 setError("Error al conectar con el servidor.");
             }
@@ -62,10 +64,7 @@ export default function CreateClient() {
         <div className={styles.createClientPage}>
             <Header />
             <main className={styles.large_section_wrapper}>
-            <div className={styles.girlBase__backContainer}>
-                        <Arrow className={styles.girlBase__backContainer__arrow}/>
-                        <Button text="Back" className={styles.girlBase__backContainer__back} onClick={() => navigate(-1)} />   {/* el boton de back ya retrocede a la pagina anterios */}
-                    </div>
+                <BackButton />
                 <div className={styles.loginContainer}>
                     <h2 className={styles.title}>Sign Up</h2>
                     {error && <div className={styles.errorMessage}>{error}</div>}
@@ -73,108 +72,14 @@ export default function CreateClient() {
                         <div className={styles.successMessage}>{registerResponse}</div>
                     )}
                     <form onSubmit={handleSubmit} className={styles.form}>
-                        <div className={styles.inputGroup}>
-                            <label htmlFor="userName">User Name</label>
-                            <input
-                                id="userName"
-                                type="text"
-                                placeholder="Enter your user name"
-                                required
-                                value={userName}
-                                onChange={(e) => setUserName(e.target.value)}
-                                className={styles.input}
-                            />
-                        </div>
-
-                        <div className={styles.inputGroup}>
-                            <label htmlFor="nationality">Nationality</label>
-                            <input
-                                id="nationality"
-                                type="text"
-                                placeholder="Enter your nationality"
-                                required
-                                value={nationality}
-                                onChange={(e) => setNationality(e.target.value)}
-                                className={styles.input}
-                            />
-                        </div>
-
-                        <div className={styles.inputGroup}>
-                            <label htmlFor="gender">Gender</label>
-                            <select
-                                id="gender"
-                                required
-                                value={gender}
-                                onChange={(e) => setGender(e.target.value)}
-                                className={styles.input}
-                            >
-                                <option value="">Enter your gender</option>
-                                <option value="male">Male</option>
-                                <option value="female">Female</option>
-                                <option value="other">Other</option>
-                            </select>
-                        </div>
-
-                        <div className={styles.inputGroup}>
-                            <label htmlFor="phoneNumber">Phone Number</label>
-                            <input
-                                id="phoneNumber"
-                                type="tel"
-                                placeholder="Phone Number"
-                                required
-                                value={phoneNumber}
-                                onChange={(e) => setPhoneNumber(e.target.value)}
-                                className={styles.input}
-                            />
-                        </div>
-
-                        <div className={styles.inputGroup}>
-                            <label htmlFor="email">E-mail</label>
-                            <input
-                                id="email"
-                                type="email"
-                                placeholder="Enter your e-mail"
-                                required
-                                value={email}
-                                onChange={(e) => setEmail(e.target.value)}
-                                className={styles.input}
-                            />
-                        </div>
-
-                        <div className={styles.inputGroup}>
-                            <label htmlFor="password">Password</label>
-                            <input
-                                id="password"
-                                type="password"
-                                placeholder="Enter your password"
-                                required
-                                value={password}
-                                onChange={(e) => setPassword(e.target.value)}
-                                className={styles.input}
-                            />
-                        </div>
-
-                        <div className={styles.rulesSection}>
-                            <input
-                                type="checkbox"
-                                id="rules"
-                                required // Añade esta línea si es obligatorio aceptar las reglas
-                            />
-                            <label htmlFor="rules">Rules</label>
-                            <p style={{ color: "white" }}>
-                                By using this application, you agree to comply with the following rules. It is important that you read the terms carefully to ensure a safe and positive experience.
-
-                            </p>
-                        </div>
-
-                        <div className={styles.termsSection}>
-                            <input
-                                type="checkbox"
-                                id="terms"
-                                required // Añade esta línea si es obligatorio aceptar los términos
-                            />
-                            <label htmlFor="terms">I accept the Terms and Conditions</label>
-                        </div>
+                        <Input label="User Name" type="text" placeholder="Enter your user name" required name="userName" />
+                        <Input label="Nationality" type="text" placeholder="Enter your nationality" required name="nationality" />
+                        <Select options={GENDER_OPTIONS} label="Gender" />
+                        <Input label="Phone Number" type="tel" placeholder="Phone Number" required name="phoneNumber" />
+                        <Input label="E-mail" type="email" placeholder="Enter your e-mail" required name="email" />
+                        <Input label="Password" type="password" placeholder="Enter your password" required name="password" />
+                        <Rule rule={RULE_TEXT} title="Rules" important/>
+                        <Rule title={TERMS_AND_CONDITIONS_TEXT} labelUrl="/home" />
 
                         <p className={styles.registerLink}>
                             Do you already have an account? Log in
