@@ -1,0 +1,150 @@
+@import '/src/lib/styles/colors.scss';
+
+.large_section_wrapper {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  background-color: black;
+
+  &__default_section {
+    padding: 2rem 2rem;
+    background-color: rgba(255, 0, 0, 0.2);
+    color: #333;
+  }
+
+  .loginPage {
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+    align-items: center;
+    justify-content: center;
+    background-color: $black-background-color;
+    background-image: url('/path/to/your/background-image.png');
+    background-size: cover;
+    padding: 0 15%;
+  }
+
+  .loginContainer {
+    max-width: 400px; // Asegúrate de que el ancho máximo sea apropiado
+    width: 100%; // Utiliza el 100% del ancho disponible
+    padding: 2rem;
+    border-radius: 10px;
+    text-align: center;
+    margin: 0 auto;
+  }
+
+  .title {
+    font-size: 32px;
+    font-weight: bold;
+    margin-bottom: 20px;
+    color: $main-text-color;
+  }
+
+  .errorMessage,
+  .successMessage {
+    font-size: 16px;
+    margin-bottom: 20px;
+    color: #fff;
+  }
+
+  .form {
+    display: flex;
+    flex-direction: column;
+  }
+
+  .inputGroup {
+    margin-bottom: 20px;
+  }
+
+  .input {
+    padding: 10px;
+    font-size: 16px;
+    border-radius: 5px;
+    width: 100%;
+    background-color: #fff;
+    -webkit-border-radius: 20px;
+  }
+
+  .forgotPassword {
+    font-size: 14px;
+    color: $main-text-color;
+    text-decoration: none;
+    margin-bottom: 20px;
+  }
+
+  .rulesSection,
+  .termsSection {
+    margin-bottom: 20px;
+    color: $main-text-color; // Asignando el color principal
+    text-align: justify;
+  }
+
+  .rulesSection p,
+  .link {
+    color: $main-text-color;
+  }
+
+  p {
+    color: #fff; // Aplica color blanco a todos los párrafos
+  }
+
+  .link {
+    color: #fff; // Asegura que el enlace también sea blanco
+  }
+
+  .submitButton {
+    padding: 10px 15px;
+    font-weight: bold;
+    border: none;
+    border-radius: 10px;
+    background-color: $red-background-color;
+    color: #fff;
+    cursor: pointer;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 0 auto;
+    -webkit-border-radius: 10px;
+  }
+
+  .submitButton:disabled {
+    background-color: $disabled-color;
+    cursor: not-allowed;
+  }
+
+  .link {
+    text-decoration: none;
+    color: $main-text-color;
+  }
+
+  .registerLink {
+    color: #fff;
+  }
+
+  label {
+    color: white;
+    display: flex;
+  }
+
+  @media (max-width: 768px) {
+    .loginContainer {
+      padding: 1rem;
+      max-width: 90%; // Ajusta el ancho máximo para que se adapte a pantallas pequeñas
+    }
+
+    .title {
+      font-size: 24px;
+      margin-bottom: 15px;
+    }
+
+    .input {
+      padding: 8px;
+      font-size: 14px;
+    }
+
+    .submitButton {
+      padding: 8px 16px;
+      font-size: 14px;
+    }
+  }
+}

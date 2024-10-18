@@ -14,11 +14,7 @@ export const ROUTES = {
     ROOT: '/girl',
     SINGLE_GIRL: '/girl/:id',
   },
-  LOGIN: {
-    ADMIN: '/loginAdmin',
-    CLIENT: '/loginClient',
-    GIRLS: '/loginGirls',
-  },
+  LOGIN: '/login',
   CREATE: {
     CLIENT: '/createClient',
     GIRLS: '/createGirls',
