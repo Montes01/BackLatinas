@@ -65,7 +65,7 @@ export const Header = () => {
                     <div ref={menuRef} className={styles[`header__nav__menu__items${isMenuOpen ? '' : '--closed'}`]}>
                         <NavButton
                             text={t('sign_in')}
-                            path="/loginAdmin"
+                            path="/login"
                             className={styles.header__nav__menu__items__main}
                         />
                         <NavButton

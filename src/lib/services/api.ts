@@ -1,13 +1,21 @@
-import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
-import { Comment } from "../types/types";
-export const latinasApi = createApi({
-    reducerPath: "latinasApi",
-    baseQuery: fetchBaseQuery({ baseUrl: import.meta.env.VITE_API_URL }),
-    endpoints: (builder) => ({
-        getComments: builder.query<Comment[], {}>({
-            query: () => "comments",
-        }),
-    }),
-});
+import axios from "axios"
 
-export const { useGetCommentsQuery } = latinasApi;
+export const Post_Method = async (method: string, url: string, body: any) => {
+    let error = null
+    let data = null
+    let status = null
+    let isLoading = true
+    try {
+        const response = await axios.post(url, { ...body, method, })
+        data = response.data
+        status = response.status
+        isLoading = false
+    } catch (error) {
+        if (axios.isAxiosError(error) && error.response) {
+            error = error.response.data.message ?? "Hubo un error."
+        } else {
+            error = "Error al conectar con el servidor."
+        }
+    }
+    return { data, status, error }
+}

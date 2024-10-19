@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { GET_HOME_IMAGES_MOCK as useGetHomeImagesQuery, GET_SERVICES_MOCKS as useGetServicesQuery, GET_COMMENTS_MOCK as useGetCommentsQuery } from "../../../helpers/mocks";
+import { GET_HOME_IMAGES_MOCK as useGetHomeImagesQuery, GET_SERVICES_MOCKS as useGetServicesQuery } from "../../../helpers/mocks";
 import { HOME_TEXTS } from "../../../lib/constants/homeConstants";
 import { Header } from "../../molecules/Header/header"
 import styles from './home.module.scss';
@@ -8,6 +8,7 @@ import { Button } from "../../atoms/Button/button";
 import { Comment as commentType } from "../../../lib/types/types";
 import { Footer } from "../../molecules/Footer/footer";
 import { Comments } from "../../organisms/Comments/comments";
+import { environment } from '../../../lib/config/environment'
 export const Home = () => {
     const [girlImages, setGirlImages] = useState<Array<string>>([]);
     const [services, setServices] = useState<Array<Service>>([]);
@@ -15,8 +16,19 @@ export const Home = () => {
     useEffect(() => {
         useGetHomeImagesQuery().then((images) => setGirlImages(images));
         useGetServicesQuery().then((services) => setServices(services));
-        useGetCommentsQuery().then((comments) => setComments(comments));
+
     }, []);
+
+    useEffect(() => {
+        fetch(environment.URLS.BACK_URL + '/comments', {method: 'GET'})
+            .then(response => response.json())
+            .then(data => {
+                console.log(data);
+                setComments(data);
+            })
+            .catch(err => console.error(err));
+    }, []);
+
     return (
         <>
             <Header />
@@ -60,7 +72,7 @@ export const Home = () => {
                         }
                     </ul>
                 </section>
-                <Comments comments={comments} />            
+                <Comments comments={comments} />
                 <Footer />
             </main>
 
