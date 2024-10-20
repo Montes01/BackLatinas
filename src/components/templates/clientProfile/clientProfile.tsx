@@ -8,6 +8,8 @@ import Webcam from "react-webcam";
 import { Camera, Edit, ArrowBack, ArrowForward } from "@mui/icons-material";
 import { BackButton } from "../../molecules/BackButton/backButton";
 import { Comment as CommentRender } from "../../atoms/Comment/comment";
+import { useAppSelector } from "../../../lib/contexts/hooks";
+import { Comment } from "../../../lib/types/types";
 
 export const ClientProfile = () => {
   const [comments, setComments] = useState<Array<Comment>>([]);
@@ -16,7 +18,7 @@ export const ClientProfile = () => {
   const webcamRef = useRef<Webcam>(null);
   const [currentPage, setCurrentPage] = useState(1);
   const commentsPerPage = 4;
-
+  const user = useAppSelector((state) => state.auth.user);
   // Obtener comentarios
   const fetchComments = async () => {
     try {
@@ -80,7 +82,7 @@ export const ClientProfile = () => {
               </button>
             </div>
             <div className={styles.userInfo}>
-              <h2 className={styles.username}>User92771</h2>
+              <h2 className={styles.username}>{user?.nombre}</h2>
               <p className={styles.userDescription}>Norwegian Man</p>
             </div>
             <button className={styles.editButton}>
@@ -147,8 +149,8 @@ export const ClientProfile = () => {
             </div>
           )}
         </div>
+        <Footer />
       </main>
-      <Footer />
     </>
   );
 };

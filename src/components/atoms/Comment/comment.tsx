@@ -10,6 +10,7 @@ export const Comment = ({ comment, canEdit }: { comment: type, canEdit?: boolean
   const [editMode, setEditMode] = useState<boolean>(false);
 
   const handleImageError = () => {
+    alert('Error al cargar la imagen');
     setImageError(true);
   }
   const handleEdit = () => {
