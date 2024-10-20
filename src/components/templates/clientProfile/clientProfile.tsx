@@ -5,7 +5,7 @@ import styles from "./clientProfile.module.scss";
 import { Button } from "../../atoms/Button/button";
 import { Footer } from "../../molecules/Footer/footer";
 import Webcam from "react-webcam";
-import { Camera, Edit,  ArrowBack, ArrowForward } from "@mui/icons-material";
+import { Camera, Edit, ArrowBack, ArrowForward } from "@mui/icons-material";
 import { BackButton } from "../../molecules/BackButton/backButton";
 import { Comment as CommentRender } from "../../atoms/Comment/comment";
 
@@ -96,7 +96,7 @@ export const ClientProfile = () => {
                 screenshotFormat="image/jpeg"
                 width="100%"
               />
-              <Button text="Capture Photo" onClick={handleCaptureImage}/>
+              <Button text="Capture Photo" onClick={handleCaptureImage} />
             </div>
           )}
 

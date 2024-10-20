@@ -1,0 +1,43 @@
+@import '/src/lib/styles/colors.scss';
+.items {
+    background-color: white;
+    border-radius: 5px;
+    padding: 10px;
+    width: 200px;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    justify-content: center;
+    align-items: flex-start;
+    position: absolute;
+    right: 0;
+    top: 100%;
+    font-weight: bold;
+
+    * {
+        color: $black-text-color;
+        text-align: center;
+        text-decoration: none;
+    }
+
+    &--closed {
+        display: none;
+    }
+
+    hr {
+        width: 100%;
+        border: .5px solid  $red-text-color;
+    }
+
+    &__main {
+        background-color: transparent !important;
+        color: $red-text-color !important;
+        padding: 0 !important;
+        * {
+            background-color: transparent !important;
+            color: $red-text-color !important;
+            padding: 0 !important;
+            color: $red-text-color !important;
+        }
+    }
+}

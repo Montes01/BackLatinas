@@ -7,14 +7,27 @@ import GirlsPage from './pages/girls';
 import SingleGirl from './pages/single-girl';
 import { CommentsClient } from './components/templates/commentsClient/commentsClient';
 import './i18n/i18n';
-import { ClientProfile } from './components/templates/clientProfile/clientProfile';
 import HomeAdmin from './components/templates/homeAdmin/homeAdmin';
 import { GirlsAdmin } from './components/templates/girlsAdmin/girlsAdmin';
 import Login from './pages/login';
 import Profile from './pages/profile';
-
-
+import { useEffect } from 'react';
+import { useAppDispatch } from './lib/contexts/hooks';
+import { setUser } from './lib/contexts/auth/authSlice';
+import { parseJwt } from './helpers/jwt';
 function App() {
+  const dispatch = useAppDispatch();
+
+  useEffect(() => {
+    const token = localStorage.getItem('token');
+    if (token) {
+      const decoded = parseJwt(token);
+      console.log(decoded);
+      dispatch(setUser(decoded));
+    }
+  }, [])
+
+
   return (
     <BrowserRouter>
       <Routes>

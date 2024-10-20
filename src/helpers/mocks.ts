@@ -149,21 +149,24 @@ export const GET_COMMENTS_MOCK = async (): Promise<Array<Comment>> => {
                 stars: 5,
                 user: exampleUser,
                 createdAt: new Date().getDate().toString(),
-                idComment: 1
+                idComment: 1,
+                userName: 'jhon doe'
             },
             {
                 comment: 'Excellent all, beautiful girls.',
                 stars: 4,
                 user: exampleUser,
                 createdAt: new Date().getDate().toString(),
-                idComment: 2
+                idComment: 2,
+                userName: 'jhon doe'
             },
             {
                 comment: 'Fabulous, they are all super attentive and beautiful.',
                 stars: 5,
                 user: exampleUser,
                 createdAt: new Date().getDate().toString(),
-                idComment: 3
+                idComment: 3,
+                userName: 'jhon doe'
             },
         ])
     })
