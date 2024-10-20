@@ -9,6 +9,26 @@
     padding: 10px;
     border-bottom: 1px solid #e0e0e0;
 
+    &__actions {
+        display: flex;
+        flex-direction: column;
+        gap: 10px;
+        &__edit {
+            color: white;
+            border-radius: 20px;
+            border: none;
+            padding: 5px;
+            background-color: $red-background-color;
+        }
+        &__delete {
+            color: white;
+            border-radius: 20px;
+            border: none;
+            padding: 5px;
+            background-color: $red-background-color;
+        }
+    }
+
     .comment_wrapper__avatar {
         background-color: $red-background-color;
         align-content: center;
@@ -40,6 +60,10 @@
 
         &__comment {
             font-size: .9rem;
+
+            &--edit {
+
+            }
         }
     }
 

@@ -5,12 +5,11 @@ import styles from "./clientProfile.module.scss";
 import { Button } from "../../atoms/Button/button";
 import { Footer } from "../../molecules/Footer/footer";
 import Webcam from "react-webcam";
-import { Arrow } from "../../atoms/Arrow/arrow"
-import { Camera, Star, Edit, Delete, ArrowBack, ArrowForward } from "@mui/icons-material";
+import { Camera, Edit,  ArrowBack, ArrowForward } from "@mui/icons-material";
+import { BackButton } from "../../molecules/BackButton/backButton";
+import { Comment as CommentRender } from "../../atoms/Comment/comment";
 
 export const ClientProfile = () => {
-  const [girlImages, setGirlImages] = useState<Array<string>>([]);
-  const [services, setServices] = useState<Array<Service>>([]);
   const [comments, setComments] = useState<Array<Comment>>([]);
   const [showWebcam, setShowWebcam] = useState(false);
   const [uploadedImage, setUploadedImage] = useState<File | null>(null);
@@ -29,36 +28,6 @@ export const ClientProfile = () => {
       console.error("Error al obtener los comentarios:", error);
     }
   };
-
-  // Editar comentario
-  const handleEditComment = async (id: number, updatedText: string) => {
-    try {
-      await axios.put(
-        `https://backlatinassexcam.onrender.com/LatinasSexCam/editComment/2${id}`,
-        {
-          text: updatedText,
-        }
-      );
-      console.log(`Comentario ${id} editado con éxito`);
-      fetchComments(); // Actualiza los comentarios después de editar
-    } catch (error) {
-      console.error("Error al editar el comentario:", error);
-    }
-  };
-
-  // Borrar comentario
-  const handleDeleteComment = async (id: number) => {
-    try {
-      await axios.delete(
-        `https://backlatinassexcam.onrender.com/LatinasSexCam/deleteComment/2${id}`
-      );
-      console.log(`Comentario ${id} eliminado con éxito`);
-      fetchComments(); // Actualiza los comentarios después de eliminar
-    } catch (error) {
-      console.error("Error al eliminar el comentario:", error);
-    }
-  };
-
   useEffect(() => {
     fetchComments();
   }, []);
@@ -90,10 +59,7 @@ export const ClientProfile = () => {
     <>
       <Header />
       <main className={styles.main}>
-      <div className={styles.girlBase__backContainer}>
-                        <Arrow className={styles.girlBase__backContainer__arrow}/>
-                        <Button text="Back" className={styles.girlBase__backContainer__back} onClick={() => navigate(-1)} />   {/* el boton de back ya retrocede a la pagina anterios */}
-                    </div>
+        <BackButton />
         <div className={styles.profileContainer}>
           <div className={styles.profileHeader}>
             <div className={styles.photoContainer}>
@@ -130,7 +96,7 @@ export const ClientProfile = () => {
                 screenshotFormat="image/jpeg"
                 width="100%"
               />
-              <Button onClick={handleCaptureImage}>Capture Photo</Button>
+              <Button text="Capture Photo" onClick={handleCaptureImage}/>
             </div>
           )}
 
@@ -145,47 +111,9 @@ export const ClientProfile = () => {
           )}
 
           <h3 className={styles.commentsHeader}>Your Comments</h3>
-          {currentComments.map((comment, index) => (
-  <div key={index} className={styles.commentBox}>
-    <div className={styles.commentHeader}>
-      <div className={styles.userInfo}>
-        <div className={styles.userAvatar}></div>
-        <span className={styles.username}>User92771</span>
-      </div>
-      <div className={styles.starRating}>
-        {[...Array(5)].map((_, i) => (
-          <Star key={i} className={styles.starIcon} />
-        ))}
-      </div>
-    </div>
-    <p className={styles.commentText}>{comment.text}</p>
-    <div className={styles.commentFooter}>
-      <span className={styles.commentDate}>
-        Publicado el {new Date(comment.createdAt).toLocaleString('es-ES', {
-          year: 'numeric',
-          month: 'long',
-          day: 'numeric',
-          hour: '2-digit',
-          minute: '2-digit'
-        })}
-      </span>
-      <div className={styles.commentActions}>
-        <button
-          className={styles.editButton}
-          onClick={() => handleEditComment(comment.id, comment.text)}
-        >
-          <Edit className={styles.editIcon} />
-        </button>
-        <button
-          className={styles.deleteButton}
-          onClick={() => handleDeleteComment(comment.id)}
-        >
-          <Delete className={styles.deleteIcon} />
-        </button>
-      </div>
-    </div>
-  </div>
-))}
+          {currentComments.map((comment) => (
+            <CommentRender comment={comment} canEdit />
+          ))}
 
 
           {comments.length > commentsPerPage && (
@@ -201,9 +129,8 @@ export const ClientProfile = () => {
               {Array.from({ length: totalPages }, (_, i) => i + 1).map((number) => (
                 <button
                   key={number}
-                  className={`${styles.pageButton} ${
-                    currentPage === number ? styles.activePage : ''
-                  }`}
+                  className={`${styles.pageButton} ${currentPage === number ? styles.activePage : ''
+                    }`}
                   onClick={() => handlePageChange(number)}
                 >
                   {number}
@@ -220,8 +147,8 @@ export const ClientProfile = () => {
             </div>
           )}
         </div>
-        <Footer />
       </main>
+      <Footer />
     </>
   );
 };

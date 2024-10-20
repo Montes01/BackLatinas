@@ -11,6 +11,7 @@ import { ClientProfile } from './components/templates/clientProfile/clientProfil
 import HomeAdmin from './components/templates/homeAdmin/homeAdmin';
 import { GirlsAdmin } from './components/templates/girlsAdmin/girlsAdmin';
 import Login from './pages/login';
+import Profile from './pages/profile';
 
 
 function App() {
@@ -24,7 +25,7 @@ function App() {
         <Route path={ROUTES.CREATE.CLIENT} element={<Register role='client' />} />
         <Route path={ROUTES.CREATE.GIRLS} element={<Register role='girl' />} />
         <Route path={ROUTES.COMMENTS.CLIENT} element={<CommentsClient />} />
-        <Route path={ROUTES.PROFILE.CLIENT} element={<ClientProfile />} />
+        <Route path={ROUTES.PROFILE.CLIENT} element={<Profile />} />
         <Route path={ROUTES.HOME.ADMIN.HOME} element={<HomeAdmin />} />
         <Route path={ROUTES.HOME.ADMIN.GIRLS} element={<GirlsAdmin />} />
 
