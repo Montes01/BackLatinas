@@ -1,5 +1,4 @@
 import { useState } from "react";
-import axios from "axios";
 import { Header } from "../../molecules/Header/header";
 import styles from './createClient.module.scss';
 import { Footer } from "../../molecules/Footer/footer";
@@ -8,17 +7,29 @@ import { BackButton } from "../../molecules/BackButton/backButton";
 import { Input } from "../../atoms/Input/input";
 import { Select } from "../../atoms/Select/select";
 import { GENDER_OPTIONS } from "../../../lib/constants/general";
-import { environment } from '../../../lib/config/environment'
 import { Rule } from "../../atoms/Rule/rule";
 import { RULE_TEXT, TERMS_AND_CONDITIONS_TEXT } from "../../../lib/constants/registerConstants";
+import { Button } from "../../atoms/Button/button";
+import { register } from "../../../lib/services/api";
+import { AlertModal, AlertModalProps } from "../../molecules/AlertModal/alertModal";
 
 export default function CreateClient() {
     const [error, setError] = useState("");
-    const [isLoading, setIsLoading] = useState(false);
     const [registerResponse, setRegisterResponse] = useState("");
+    const [modalProps, setModalProps] = useState({
+        isOpen: false,
+        isLoading: false,
+        message: '',
+        onOk: () => { }
+    } as AlertModalProps);
+
     const handleSubmit = async (e: React.FormEvent) => {
         e.preventDefault();
-        setIsLoading(true);
+        setModalProps(props => ({
+            ...props, isLoading: true, isOpen: true, message: 'Registering', onOk: () => {
+                setModalProps(props => ({ ...props, isOpen: false }));
+            }
+        }));
         setError("");
         const formData = new FormData(e.target as HTMLFormElement);
         const userName = formData.get("userName") as string;
@@ -29,10 +40,14 @@ export default function CreateClient() {
         const phoneNumber = formData.get("phoneNumber") as string;
         if (!userName || !email || !password || !nationality || !gender || !phoneNumber) {
             setError("Por favor, completa todos los campos.");
-            setIsLoading(false);
             return;
         }
-
+        const rules = formData.get("rules") as string;
+        const terms = formData.get("terms") as string;
+        if (!rules || !terms) {
+            setError("Por favor, acepta las reglas y los términos y condiciones.");
+            return;
+        }
         const body = {
             user_name: userName,
             email: email,
@@ -41,67 +56,53 @@ export default function CreateClient() {
             gender: gender,
             phoneNumber: phoneNumber
         }
-
-        console.log(body)
         try {
-            const response = await axios.post(`${environment.URLS.BACK_URL}/user/register`, body);
-
-            if (response.data && response.data.message) {
-                setRegisterResponse(response.data.message);
-            } else {
-                setError("Respuesta del servidor inválida.");
-            }
+            await register(body);
+            setModalProps(props => ({ ...props, isLoading: false, message: 'Registered successfully' }));
         } catch (err) {
-            if (axios.isAxiosError(err) && err.response) {
-                setError(err.response.data.message ?? "Error en el registro.");
-            } else {
-                setError("Error al conectar con el servidor.");
-                console.error(err)
-            }
-        } finally {
-            setIsLoading(false);
+            setError((err as Error).message)
+            setModalProps(props => ({ ...props, isLoading: false, message: 'Error registering' }));
         }
+
+
     };
 
     return (
-        <div className={styles.createClientPage}>
-            <Header />
-            <main className={styles.large_section_wrapper}>
-                <BackButton />
-                <div className={styles.loginContainer}>
-                    <h2 className={styles.title}>Sign Up</h2>
-                    {error && <div className={styles.errorMessage}>{error}</div>}
-                    {registerResponse && (
-                        <div className={styles.successMessage}>{registerResponse}</div>
-                    )}
-                    <form onSubmit={handleSubmit} className={styles.form}>
-                        <Input label="User Name" type="text" placeholder="Enter your user name" required name="userName" />
-                        <Input label="Nationality" type="text" placeholder="Enter your nationality" required name="nationality" />
-                        <Select options={GENDER_OPTIONS} label="Gender" name="gender" />
-                        <Input label="Phone Number" type="tel" placeholder="Phone Number" required name="phoneNumber" />
-                        <Input label="E-mail" type="email" placeholder="Enter your e-mail" required name="email" />
-                        <Input label="Password" type="password" placeholder="Enter your password" required name="password" />
-                        <Rule rule={RULE_TEXT} title="Rules" important />
-                        <Rule title={TERMS_AND_CONDITIONS_TEXT} labelUrl="/home" />
+        <>
+            <div className={styles.createClientPage}>
+                <Header />
+                <main className={styles.large_section_wrapper}>
+                    <BackButton />
+                    <div className={styles.loginContainer}>
+                        <h2 className={styles.title}>Sign Up</h2>
+                        {error && <div className={styles.errorMessage}>{error}</div>}
+                        {registerResponse && (
+                            <div className={styles.successMessage}>{registerResponse}</div>
+                        )}
+                        <form onSubmit={handleSubmit} className={styles.form}>
+                            <Input label="User Name" type="text" placeholder="Enter your user name" required name="userName" />
+                            <Input label="Nationality" type="text" placeholder="Enter your nationality" required name="nationality" />
+                            <Select options={GENDER_OPTIONS} label="Gender" name="gender" />
+                            <Input label="Phone Number" type="tel" placeholder="Phone Number" required name="phoneNumber" />
+                            <Input label="E-mail" type="email" placeholder="Enter your e-mail" required name="email" />
+                            <Input label="Password" type="password" placeholder="Enter your password" required name="password" />
+                            <Rule rule={RULE_TEXT} title="Rules" important name={"rules"} />
+                            <Rule title={TERMS_AND_CONDITIONS_TEXT} labelUrl="/home" name={"terms"} />
 
-                        <p className={styles.registerLink}>
-                            Do you already have an account? Log in
-                            <Link href="/login" className={styles.link}> Here</Link>
-                        </p>
+                            <p className={styles.registerLink}>
+                                Do you already have an account?
+                                <Link href="/login" className={styles.link}> Here</Link>
+                            </p>
 
-                        <div className={styles.benefitsSection}>
-                            <p><strong>Do you want to see your benefits when registering on our platform?</strong></p>
-                        </div>
-                        <button
-                            type="submit"
-                            className={styles.submitButton}
-                        >
-                            {isLoading ? "Cargando..." : "Confirmar"}
-                        </button>
-                    </form>
-                </div>
-            </main>
-            <Footer />
-        </div>
+                            <a href="/" className={styles.benefitsSection}>Do you want to see your benefits when registering on our platform?</a>
+
+                            <Button text="Confirmar" type="submit" className={styles.submitButton} />
+                        </form>
+                    </div>
+                </main>
+                <Footer />
+            </div>
+            <AlertModal {...modalProps} />
+        </>
     );
 }

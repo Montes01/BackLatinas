@@ -9,7 +9,7 @@ import { AlertModal, AlertModalProps } from "../../molecules/AlertModal/alertMod
 import { deleteComment } from "../../../lib/services/api";
 import { useAppSelector } from "../../../lib/contexts/hooks";
 export const Comment = ({ comment, canEdit }: { comment: type, canEdit?: boolean }) => {
-  const [imageError, setImageError] = useState<boolean>(false);
+  const [imageError, setImageError] = useState<boolean>(true);
   const [editMode, setEditMode] = useState<boolean>(false);
   const user = useAppSelector(state => state.auth.user);
   const [modalProps, setModalProps] = useState({
@@ -20,9 +20,8 @@ export const Comment = ({ comment, canEdit }: { comment: type, canEdit?: boolean
     onCancel: () => { },
   } as AlertModalProps);
 
-  const handleImageError = () => {
-    alert('Error al cargar la imagen');
-    setImageError(true);
+  const handleImageError = (event: React.SyntheticEvent<HTMLImageElement, Event>) => {
+    event.currentTarget.src = '/assets/default-girl.png'
   }
   const handleEdit = () => {
     setEditMode(e => !e);
@@ -88,7 +87,7 @@ export const Comment = ({ comment, canEdit }: { comment: type, canEdit?: boolean
             onOk: () => { setModalProps({ ...modalProps, isOpen: false }) }
           });
 
-        } 
+        }
       },
       onCancel: () => setModalProps({ ...modalProps, isOpen: false }),
     });

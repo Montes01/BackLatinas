@@ -5,6 +5,7 @@ import { useAppDispatch } from "../../../lib/contexts/hooks";
 import styles from './hamburguer.module.scss';
 import { Button } from "../../atoms/Button/button";
 import { setUser } from "../../../lib/contexts/auth/authSlice";
+import { tokenName } from "../../../lib/constants/general";
 interface Props {
     isMenuOpen: boolean;
     menuRef: React.RefObject<HTMLDivElement>;
@@ -16,7 +17,7 @@ export const Hamburguer = ({ isMenuOpen, menuRef }: Props) => {
 
 
     const handleLogout = () => {
-        localStorage.removeItem('token');
+        localStorage.removeItem(tokenName);
         window.location.href = '/';
         dispatch(setUser(null));
     }

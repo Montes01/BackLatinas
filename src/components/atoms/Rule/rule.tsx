@@ -5,16 +5,18 @@ interface Props {
     important?: boolean
     children?: React.ReactNode
     labelUrl?: string
+    name?: string
 }
 import styles from './rule.module.scss'
 
-export const Rule = ({ rule, required, title, important, children, labelUrl }: Props) => {
+export const Rule = ({ rule, required, title, important, children, labelUrl, name }: Props) => {
     return (
         <div className={styles.rulesSection}>
             <label className={styles.rulesSection__label}>
                 <input
                     type="checkbox"
                     required={required}
+                    name={name}
                 />
                 {
                     labelUrl ? (

@@ -4,8 +4,9 @@
   display: flex;
   flex-direction: column;
   justify-content: space-between;
-  background-color: black;
   border-radius: 20px;
+
+  background-image: url('/assets/large-background.png');
 
   &__default_section {
     -webkit-border-radius: 20px;
@@ -25,7 +26,6 @@
     align-items: center;
     justify-content: center;
     background-color: $black-background-color;
-    background-image: url('/path/to/your/background-image.png'); // Asegúrate de cambiar esta ruta
     background-size: cover;
     padding: 0 15%;
   }
@@ -56,40 +56,24 @@
   .form {
     display: flex;
     flex-direction: column;
-    align-items: center;
     gap: 20px;
   }
 
-  .inputGroup {
-    margin-bottom: 20px;
-  }
-
-  .input {
-    padding: 10px;
-    font-size: 16px;
-    border-radius: 5px;
-    width: 100%;
-    background-color: #fff;
-    border-radius: 20px;
-  }
-
-  .submitButton {
-    padding: 10px 15px;
-    font-weight: bold;
-    border: none;
-    border-radius: 10px;
-    background-color: $red-background-color;
-    color: #fff;
-    cursor: pointer;
+  .registerLink {
     display: flex;
-    justify-content: center;
-    align-items: center;
-    margin: 0 auto;
+    justify-content: space-between;
+    color: white;
+    text-align: start;
   }
 
-  .submitButton:disabled {
-    background-color: $disabled-color;
-    cursor: not-allowed;
+  .link {
+    color: $main-text-color;
+    font-size: 20px;
+  }
+
+  .benefitsSection {
+    color: white;
+    text-align: start;
   }
 
   label {
