@@ -5,3 +5,5 @@ export const GENDER_OPTIONS = [
     { label: 'Female', value: 'F' },
     { label: 'Other', value: 'O' },
 ];
+
+export const tokenName = 'LatinasSexCamToken';

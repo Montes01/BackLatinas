@@ -15,11 +15,12 @@ import { useEffect } from 'react';
 import { useAppDispatch } from './lib/contexts/hooks';
 import { setUser } from './lib/contexts/auth/authSlice';
 import { parseJwt } from './helpers/jwt';
+import { tokenName } from './lib/constants/general';
 function App() {
   const dispatch = useAppDispatch();
 
   useEffect(() => {
-    const token = localStorage.getItem('token');
+    const token = localStorage.getItem(tokenName);
     if (token) {
       const decoded = parseJwt(token);
       console.log(decoded);
