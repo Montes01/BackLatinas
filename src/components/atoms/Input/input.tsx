@@ -14,6 +14,7 @@ export const Input = ({ label, type, onChange, placeholder, required, error, nam
                 required={required}
                 onChange={onChange}
                 className={styles.inputGroup__input}
+                name={name}
             />
             {error && <div className={styles.errorMessage}>{error}</div>}
         </div>

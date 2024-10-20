@@ -111,3 +111,12 @@ export interface CategoryFilter {
     name: string;
     women: Women[];
 }
+
+//LoginResponse
+
+export interface LoginResponse {
+    sub: string;
+    exp: number;
+    nombre: string;
+    rol: Role;
+}

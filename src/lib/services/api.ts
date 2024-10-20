@@ -1,21 +1,28 @@
 import axios from "axios"
+import { LoginResponse } from "../types/types";
+import { parseJwt } from "../../helpers/jwt";
+import { environment } from "../config/environment";
 
-export const Post_Method = async (method: string, url: string, body: any) => {
-    let error = null
-    let data = null
-    let status = null
-    let isLoading = true
+export const login = async ({ email, password }: { email: string, password: string }, callback: (user: LoginResponse) => void) => {
+
     try {
-        const response = await axios.post(url, { ...body, method, })
-        data = response.data
-        status = response.status
-        isLoading = false
-    } catch (error) {
-        if (axios.isAxiosError(error) && error.response) {
-            error = error.response.data.message ?? "Hubo un error."
+        const response = await axios.post(`${environment.URLS.BACK_URL}/user/login`, {
+            email,
+            password
+        });
+
+        if (response.data && response.data.token) {
+            localStorage.setItem('token', response.data.token);
+            const decoded = parseJwt(response.data.token);
+            callback(decoded as LoginResponse)
         } else {
-            error = "Error al conectar con el servidor."
+            throw new Error("Respuesta del servidor inválida.");
+        }
+    } catch (err) {
+        if (axios.isAxiosError(err) && err.response) {
+            throw new Error(err.response.data.message ?? "Error en el inicio de sesión.");
+        } else {
+            throw new Error("Error al conectar con el servidor.");
         }
     }
-    return { data, status, error }
 }

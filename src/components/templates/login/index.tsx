@@ -6,11 +6,15 @@ import { Footer } from "../../molecules/Footer/footer";
 import Link from "next/link";
 import { Input } from "../../atoms/Input/input";
 import { BackButton } from "../../molecules/BackButton/backButton";
+import { useAppDispatch } from "../../../lib/contexts/hooks";
+import { login } from "../../../lib/services/api";
+import { LoginResponse } from "../../../lib/types/types";
+import { setUser } from "../../../lib/contexts/auth/authSlice";
 
 export const Login = () => {
     const [error, setError] = useState("");
     const [isLoading, setIsLoading] = useState(false);
-
+    const dispatch = useAppDispatch();
     const handleSubmit = async (e: React.FormEvent) => {
         e.preventDefault();
         setError("");
@@ -23,25 +27,17 @@ export const Login = () => {
             setIsLoading(false);
             return;
         }
+        const body = { email: email, password: password }
+        const callback = (user: LoginResponse) => {
+            dispatch(setUser(user));
+        }
 
         try {
-            const response = await axios.post('https://backlatinassexcam.onrender.com/LatinasSexCam/user/login', {
-                email,
-                password
-            });
-
-            if (response.data && response.data.token) {
-                localStorage.setItem('token', response.data.token);
-            } else {
-                setError("Respuesta del servidor inválida.");
-            }
+           await login(body, callback);
         } catch (err) {
-            if (axios.isAxiosError(err) && err.response) {
-                setError(err.response.data.message ?? "Error en el inicio de sesión.");
-            } else {
-                setError("Error al conectar con el servidor.");
-            }
-        } finally {
+            setError((err as Error).message)
+        }
+        finally {
             setIsLoading(false);
         }
     };
@@ -65,8 +61,8 @@ export const Login = () => {
                         </button>
                     </form>
                 </div>
-            </main>
             <Footer />
+            </main>
         </div>
     );
 }

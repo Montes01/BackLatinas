@@ -16,7 +16,6 @@ export default function CreateClient() {
     const [error, setError] = useState("");
     const [isLoading, setIsLoading] = useState(false);
     const [registerResponse, setRegisterResponse] = useState("");
-    console.log(environment.URLS.BACK_URL)
     const handleSubmit = async (e: React.FormEvent) => {
         e.preventDefault();
         setIsLoading(true);
@@ -34,15 +33,18 @@ export default function CreateClient() {
             return;
         }
 
+        const body = {
+            user_name: userName,
+            email: email,
+            password: password,
+            nacionality: nationality,
+            gender: gender,
+            phoneNumber: phoneNumber
+        }
+
+        console.log(body)
         try {
-            const response = await axios.post(`${environment.URLS.BACK_URL}user/register`, {
-                user_name: userName,
-                email: email,
-                password: password,
-                nacionality: nationality,
-                gender: gender,
-                phoneNumber: phoneNumber
-            });
+            const response = await axios.post(`${environment.URLS.BACK_URL}/user/register`, body);
 
             if (response.data && response.data.message) {
                 setRegisterResponse(response.data.message);
@@ -54,6 +56,7 @@ export default function CreateClient() {
                 setError(err.response.data.message ?? "Error en el registro.");
             } else {
                 setError("Error al conectar con el servidor.");
+                console.error(err)
             }
         } finally {
             setIsLoading(false);
@@ -74,11 +77,11 @@ export default function CreateClient() {
                     <form onSubmit={handleSubmit} className={styles.form}>
                         <Input label="User Name" type="text" placeholder="Enter your user name" required name="userName" />
                         <Input label="Nationality" type="text" placeholder="Enter your nationality" required name="nationality" />
-                        <Select options={GENDER_OPTIONS} label="Gender" />
+                        <Select options={GENDER_OPTIONS} label="Gender" name="gender" />
                         <Input label="Phone Number" type="tel" placeholder="Phone Number" required name="phoneNumber" />
                         <Input label="E-mail" type="email" placeholder="Enter your e-mail" required name="email" />
                         <Input label="Password" type="password" placeholder="Enter your password" required name="password" />
-                        <Rule rule={RULE_TEXT} title="Rules" important/>
+                        <Rule rule={RULE_TEXT} title="Rules" important />
                         <Rule title={TERMS_AND_CONDITIONS_TEXT} labelUrl="/home" />
 
                         <p className={styles.registerLink}>
@@ -88,14 +91,13 @@ export default function CreateClient() {
 
                         <div className={styles.benefitsSection}>
                             <p><strong>Do you want to see your benefits when registering on our platform?</strong></p>
-                            <button
-                                type="submit"
-                                className={styles.submitButton}
-                                disabled={isLoading}
-                            >
-                                {isLoading ? "Cargando..." : "Confirmar"}
-                            </button>
                         </div>
+                        <button
+                            type="submit"
+                            className={styles.submitButton}
+                        >
+                            {isLoading ? "Cargando..." : "Confirmar"}
+                        </button>
                     </form>
                 </div>
             </main>

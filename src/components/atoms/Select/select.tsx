@@ -10,6 +10,7 @@ export const Select = ({ label, options, value, onChange, name }: SelectProps) =
         <div className={styles.selectGroup}>
             <label htmlFor={name}>{label}</label>
             <select
+                name={name}
                 id={name}
                 required
                 value={value}

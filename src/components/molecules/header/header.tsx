@@ -1,13 +1,13 @@
 import { MouseEventHandler, useEffect, useRef, useState } from "react";
 import { HOME_TEXTS } from "../../../lib/constants/homeConstants";
 import { IconMenu } from "../../atoms/MenuIcon/menuIcon";
-import { NavButton } from "../../atoms/NavButton/navButton";
 import styles from './header.module.scss';
 import ReactFlagsSelect from "react-flags-select";
-import { useTranslation } from "react-i18next";
+import { Hamburguer } from "../Hamburguer/hamburguer";
+import i18n from "../../../i18n/i18n";
+import { t } from "i18next";
 
 export const Header = () => {
-    const { t, i18n } = useTranslation();
     const [isMenuOpen, setIsMenuOpen] = useState(false);
     const [selectedCountry, setSelectedCountry] = useState('US');
     const navRef = useRef<HTMLDivElement>(null);
@@ -62,23 +62,7 @@ export const Header = () => {
                     <div ref={navRef} className={styles.header__nav__menu__icon}>
                         <IconMenu onClick={handleMenuClick} />
                     </div>
-                    <div ref={menuRef} className={styles[`header__nav__menu__items${isMenuOpen ? '' : '--closed'}`]}>
-                        <NavButton
-                            text={t('sign_in')}
-                            path="/login"
-                            className={styles.header__nav__menu__items__main}
-                        />
-                        <NavButton
-                            text={t('sign_up')}
-                            path="/createClient"
-                            className={styles.header__nav__menu__items__main}
-                        />
-                        <hr />
-                        <NavButton text={t('home')} path="/home" />
-                        <NavButton text={t('girls')} path="/home/girls" />
-                        <NavButton text={t('comments')} path="/comments" />
-                        <NavButton text={t('join_our_team')} path="/join" />
-                    </div>
+                    <Hamburguer isMenuOpen={isMenuOpen} menuRef={menuRef} />
                 </div>
             </header>
             <main className={styles.header__content}>
