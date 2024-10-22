@@ -1,5 +1,5 @@
 import axios from "axios"
-import {  LoginResponse } from "../types/types";
+import { GirlResponse, LoginResponse } from "../types/types";
 import { parseJwt } from "../../helpers/jwt";
 import { environment } from "../config/environment";
 import { tokenName } from "../constants/general";
@@ -28,7 +28,7 @@ export const login = async ({ email, password }: { email: string, password: stri
     }
 }
 
-export const register = async (body: { user_name: string, email: string, password: string, nacionality: string,}) => {
+export const register = async (body: { user_name: string, email: string, password: string, nacionality: string, }) => {
     try {
         const response = await axios.post(`${environment.URLS.BACK_URL}/user/register`, body);
         if (response.status !== 201) {
@@ -46,7 +46,7 @@ export const register = async (body: { user_name: string, email: string, passwor
     }
 }
 
-export const deleteComment = async ( idComment: number , comment: { comment: string, email: string, Stars: number}) => {
+export const deleteComment = async (idComment: number, comment: { comment: string, email: string, Stars: number }) => {
     try {
         console.log(`Eliminando comentario ${idComment}...`);
         const response = await axios.delete(
@@ -66,3 +66,12 @@ export const deleteComment = async ( idComment: number , comment: { comment: str
     }
 }
 
+export const getGirls = async (): Promise<GirlResponse[]> => {
+    try {
+        const response = await axios.get(`${environment.URLS.BACK_URL}/women/womens`);
+        return response.data;
+    } catch (err) {
+        console.error("Error al obtener las chicas:", err);
+        throw new Error("Error al obtener las chicas.");
+    }
+}

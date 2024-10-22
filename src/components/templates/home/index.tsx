@@ -72,7 +72,7 @@ export const Home = () => {
                         }
                     </ul>
                 </section>
-                <Comments comments={comments} />
+                <Comments comments={comments} viewMoreButton/>
                 <Footer />
             </main>
 

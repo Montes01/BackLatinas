@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { Category, Service, Comment as CommentType, Women } from "../../../lib/types/types";
+import { Category, Service, Comment as CommentType, Women, GirlResponse } from "../../../lib/types/types";
 import { Header } from "../../molecules/Header/header"
 import styles from './girls.module.scss';
 import { GET_CATEGORIES_MOCK as useGetCategoriesQuery, GET_SERVICES_MOCKS as useGetServicesQuery, GET_COMMENTS_MOCK as useGetCommentsQuery, GET_GIRLS_MOCK as useGetGirlsQuery } from "../../../helpers/mocks";
@@ -7,8 +7,8 @@ import { Button } from "../../atoms/Button/button";
 import { NavButton } from "../../atoms/NavButton/navButton";
 import { Comments } from "../../organisms/Comments/comments";
 import { Footer } from "../../molecules/Footer/footer";
-import { HOME_TEXTS } from "../../../lib/constants/homeConstants";
 import { GirlList } from "../../organisms/GirlList/girlList";
+import { BackButton } from "../../molecules/BackButton/backButton";
 export const GirlsPage = () => {
 
     const [services, setServices] = useState<Array<Service>>([]);
@@ -26,6 +26,7 @@ export const GirlsPage = () => {
             <Header />
             <main className={styles.girls__main}>
                 <section className={styles.girls__main__interests}>
+                    <BackButton className={styles.girls__main__interests__back} />
                     <h2 className={styles.girls__main__interests__title}>What do you want to see today?</h2>
                     <ul className={styles.girls__main__interests__list}>
                         {
@@ -53,7 +54,7 @@ export const GirlsPage = () => {
                 <section className={styles.girls__large_background__preview}>
                     <h4 className={styles.girls__large_background__preview__title}>Total of girls {'x'}</h4>
                     <ul className={styles.girls__large_background__preview__list}>
-                        <GirlList girls={girls} />
+                        <GirlList girls={girls as any} />
                     </ul>
                     
 

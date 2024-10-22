@@ -1,107 +1,79 @@
 import { useEffect, useState } from "react";
-import { useNavigate } from "react-router-dom";
-import {
-  Category,
-  Service,
-  Comment as CommentType,
-  Girl
-} from "../../../lib/types/types"; // Make sure Girl type is defined in types
+import { GirlResponse } from "../../../lib/types/types";
 import { Header } from "../../molecules/Header/header";
 import styles from "./GirlsAdmin.module.scss";
-import {
-  GET_CATEGORIES_MOCK as useGetCategoriesQuery,
-  GET_SERVICES_MOCKS as useGetServicesQuery,
-  GET_COMMENTS_MOCK as useGetCommentsQuery,
-  GET_GIRLS_MOCK as useGetGirlsQuery,
-} from "../../../helpers/mocks";
+import { GET_GIRLS_MOCK as useGetGirlsQuery, } from "../../../helpers/mocks";
 import { Button } from "../../atoms/Button/button";
-import { NavButton } from "../../atoms/NavButton/navButton";
-import { Comments } from "../../organisms/Comments/comments";
 import { Footer } from "../../molecules/Footer/footer";
-import { HOME_TEXTS } from "../../../lib/constants/homeConstants";
-import { GirlList } from "../../organisms/GirlList/girlList";
-import { Arrow } from "../../atoms/Arrow/arrow";
-import { Search } from "lucide-react";
+import { GirlCard } from "../../molecules/GirlCard/girlCard";
+import { BackButton } from "../../molecules/BackButton/backButton";
+import { Input } from "../../atoms/Input/input";
+import { getGirls } from "../../../lib/services/api";
+import { Loader } from "../../atoms/Loader/loader";
 
 export const GirlsAdmin = () => {
-  const [services, setServices] = useState<Array<Service>>([]);
-  const [categories, setCategories] = useState<Array<Category>>([]);
-  const [comments, setComments] = useState<Array<CommentType>>([]);
-  const [girls, setGirls] = useState<Array<Girl>>([]); // Added girls state
-  const navigate = useNavigate();
-
+  const [girls, setGirls] = useState<Array<GirlResponse>>([]);
+  const [loading, setLoading] = useState<boolean>(true);
   useEffect(() => {
-    useGetServicesQuery().then((services) => setServices(services));
-    useGetCategoriesQuery().then((categories) => setCategories(categories));
-    useGetCommentsQuery().then((comments) => setComments(comments));
-    useGetGirlsQuery().then((girls) => setGirls(girls)); // Corrected setGirls usage
+    try {
+      getGirls().then(data => {
+        setLoading(false);
+        setGirls(data)
+      });
+    } catch (err) {
+      console.error(err);
+    }
   }, []);
+
+
+  const handleEdit = (id: number) => {
+  }
+
+  const handleDelete = (id: number) => {
+  }
 
   return (
     <div className={styles.girls}>
       <Header />
       <main className={styles.girls__main}>
-        <div className={styles.girlBase__backContainer}>
-          <Arrow className={styles.girlBase__backContainer__arrow} />
-          <Button
-            text="Back"
-            className={styles.girlBase__backContainer__back}
-            onClick={() => navigate(-1)}
-          />{" "}
-        </div>
         <section className={styles.girls__main__interests}>
+          <BackButton className={styles.girls__main__interests__back} />
           <h2>Manage Profiles</h2>
         </section>
-        <section className={styles.girls__main__categories}>
-<div className={styles.addedGirlContainer}>
-    <Button
-        text="Add Girl"
-        className={styles.addedGirlButton}
-        onClick={() => console.log("Add Girl button clicked")}
-    />
-    <div className={styles.addedGirlInputContainer}>
-        <input
-            type="text"
-            placeholder="Search Girl"
-            className={styles.addedGirlInput}
-        />
-        <Search className={styles.searchIcon} />
-    </div>
-    <div className={styles.buttonGroup}>
-        <button>Independent Girls (20)</button>
-        <button>My Girls (30)</button>
-    </div>
-</div>
-</section>
+        <section className={styles.girls__main__actions}>
+          <section className={styles.girls__main__actions__buttons}>
+            <Button text="Applications" className={styles.girls__main__actions__buttons__applications} />
+            <Button text="Add Girl" className={styles.girls__main__actions__buttons__add} />
+          </section>
+          <Input placeholder="Search girl" label="" className={styles.girls__main__actions__search} />
+          <section className={styles.girls__main__actions__info}>
+            <Button disabled text={`Independent girls`} className={styles.girls__main__actions__info__independent} />
+            <Button disabled text={`My girls`} className={styles.girls__main__actions__info__main} />
+          </section>
+        </section>
 
-      </main>
-      <div className={styles.girls__large_background}>
-        <section className={styles.girls__large_background__preview}>
-          <h4 className={styles.girls__large_background__preview__title}>
-            {/* Total of girls {girls.length} */}
-          </h4>
-          <ul className={styles.girls__large_background__preview__list}>
+        {loading ? <Loader /> :
+          <ul className={styles.girls__main__list}>
             {girls.map((girl) => (
-              <li key={girl.id} className={styles.girlItem}>
-                <GirlList girls={[girl]} />
-                <div className={styles.buttonGroup}>
+              <li key={girl.name} className={styles.girls__main__list__item}>
+                <GirlCard {...girl} />
+                <div className={styles.girls__main__list__item__buttonGroup}>
                   <Button
                     text="Edit"
-                    className={styles.editButton}
-                    onClick={() => handleEdit(girl.id)}
+                    className={styles.girls__main__list__item__buttonGroup__editButton}
+                    onClick={() => handleEdit(girl.age)}
                   />
                   <Button
                     text="Delete"
-                    className={styles.deleteButton}
-                    onClick={() => handleDelete(girl.id)}
+                    className={styles.girls__main__list__item__buttonGroup__deleteButton}
+                    onClick={() => handleDelete(girl.age)}
                   />
                 </div>
               </li>
             ))}
-          </ul>
-        </section>
+          </ul>}
         <Footer />
-      </div>
+      </main>
     </div>
   );
 };

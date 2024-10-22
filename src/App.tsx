@@ -5,7 +5,6 @@ import { ROUTES } from './lib/constants/routes';
 import HomePage from './pages/home';
 import GirlsPage from './pages/girls';
 import SingleGirl from './pages/single-girl';
-import { CommentsClient } from './components/templates/commentsClient/commentsClient';
 import './i18n/i18n';
 import HomeAdmin from './components/templates/homeAdmin/homeAdmin';
 import { GirlsAdmin } from './components/templates/girlsAdmin/girlsAdmin';
@@ -16,6 +15,9 @@ import { useAppDispatch } from './lib/contexts/hooks';
 import { setUser } from './lib/contexts/auth/authSlice';
 import { parseJwt } from './helpers/jwt';
 import { tokenName } from './lib/constants/general';
+import Comments from './pages/comments';
+import Admin from './pages/admin';
+import CreateGirl from './pages/createGirl';
 function App() {
   const dispatch = useAppDispatch();
 
@@ -38,10 +40,11 @@ function App() {
         <Route path={ROUTES.LOGIN} element={<Login />} />
         <Route path={ROUTES.CREATE.CLIENT} element={<Register role='client' />} />
         <Route path={ROUTES.CREATE.GIRLS} element={<Register role='girl' />} />
-        <Route path={ROUTES.COMMENTS.CLIENT} element={<CommentsClient />} />
+        <Route path={ROUTES.COMMENTS} element={<Comments />} />
         <Route path={ROUTES.PROFILE.CLIENT} element={<Profile />} />
         <Route path={ROUTES.HOME.ADMIN.HOME} element={<HomeAdmin />} />
-        <Route path={ROUTES.HOME.ADMIN.GIRLS} element={<GirlsAdmin />} />
+        <Route path={ROUTES.HOME.ADMIN.GIRLS} element={<Admin />} />
+        <Route path={ROUTES.HOME.ADMIN.NEW_GIRL} element={<CreateGirl />} />
 
         {/* Redireccionamientos */}
         <Route path={ROUTES.ALL} element={<Navigate to={ROUTES.HOME.HOME} />} />

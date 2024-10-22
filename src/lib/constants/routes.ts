@@ -5,9 +5,10 @@ export const ROUTES = {
     HOME: '/home',
     GIRLS: '/home/girls',
     ADMIN: {
-      ROOT: '/admin',
-      HOME: '/HomeAdmin',
-      GIRLS: '/admin/GirlsAdmin',
+      ROOT: '/home/admin',
+      HOME: '/home/HomeAdmin',
+      GIRLS: '/home/admin/GirlsAdmin',
+      NEW_GIRL: '/home/admin/GirlsAdmin/new',
     },
   },
   GIRL: {
@@ -19,9 +20,7 @@ export const ROUTES = {
     CLIENT: '/createClient',
     GIRLS: '/createGirls',
   },
-  COMMENTS: {
-    CLIENT: '/commentsClient',
-  },
+  COMMENTS: '/comments',
   PROFILE: {
     CLIENT: '/clientProfile',
   },

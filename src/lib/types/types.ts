@@ -43,7 +43,7 @@ export interface Women {
     tattoos: number;
     status: WomenStatus;
     mediaList: Multimedia[];
-    user: User;
+    user?: User;
     services: Service[];
     categoryFilters: CategoryFilter[];
 }
@@ -119,4 +119,13 @@ export interface LoginResponse {
     exp: number;
     nombre: string;
     rol: Role;
+}
+
+// girlList single response
+
+export interface GirlResponse {
+    profilePhoto: string;
+    name: string
+    nationality: string;
+    age: number;
 }

@@ -1,25 +1,24 @@
 import { useEffect, useState } from "react";
-import { Comment as commentType } from "../../../lib/types/types"; 
+import { Comment as commentType } from "../../../lib/types/types";
 import axios from 'axios';
 import { Header } from "../../molecules/Header/header";
 import styles from './CommentsClient.module.scss';
 import { Footer } from "../../molecules/Footer/footer";
 import { Comments } from "../../organisms/Comments/comments";
+import { Loader } from "../../atoms/Loader/loader";
+import { environment } from "../../../lib/config/environment";
 
 
 export const CommentsClient = () => {
     const [comments, setComments] = useState<Array<commentType>>([]);
     const [loading, setLoading] = useState<boolean>(true);
-    const [error, setError] = useState<string | null>(null);
+    const [_, setError] = useState<string | null>(null);
 
     useEffect(() => {
         const fetchComments = async () => {
             try {
-                const response = await axios.get('https://backlatinassexcam.onrender.com/LatinasSexCam/comments');
-                const uniqueComments = Array.from(new Set(response.data.map((comment: commentType) => comment.idComment)))
-                    .map(id => response.data.find((comment: commentType) => comment.idComment === id));
-                
-                setComments(uniqueComments.filter(Boolean)); // Filtrar cualquier valor undefined
+                const response = await axios.get(`${environment.URLS.BACK_URL}/comments`);
+                setComments(response.data);
             } catch (err) {
                 setError('Error fetching comments');
             } finally {
@@ -30,14 +29,17 @@ export const CommentsClient = () => {
         fetchComments();
     }, []);
 
-    if (loading) return <div>Loading...</div>;
-    if (error) return <div>{error}</div>;
-
+    const viewMore = () => {
+        console.log('View More');
+    }
     return (
         <>
             <Header />
             <main className={styles.large_section_wrapper}>
-                <Comments comments={comments} />
+                {loading ?
+                    <Loader /> :
+                    <Comments comments={comments} viewMoreButton={comments.length > 10} customButtonAction={viewMore}/>
+                }
                 <Footer />
             </main>
         </>

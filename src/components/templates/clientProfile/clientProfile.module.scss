@@ -2,7 +2,7 @@
 
 
 .large_section_wrapper {
-  background-image: url('/public/assets/large-background.png');
+  background-image: url('/assets/large-background.png');
   background-repeat: no-repeat;
   background-size: cover;
   &__default_section {
@@ -61,7 +61,7 @@
     flex-direction: column;
     gap: 2rem;
     padding: 2rem;
-    background-image: url('/public/assets/large-background.png');
+    background-image: url('/assets/large-background.png');
   }
   
   .profileContainer {

@@ -15,12 +15,19 @@
         background-color: rgba($color: $red-background-color, $alpha: 0.3);
 
         &__interests {
-            padding: 3rem;
+            padding: 4rem;
             text-align: center;
             display: flex;
             flex-direction: column;
             gap: 20px;
-
+            position: relative;
+            &__back {
+                position: absolute;
+                top: 5px;
+                left: 0;
+                border-top-left-radius: 0%;
+                border-bottom-left-radius: 0%;
+            }
             &__title {
                 font-size: 16px;
                 font-weight: 700;
@@ -67,7 +74,7 @@
     }
     &__large_background{
 
-        background-image: url('/public/assets/large-background.png');
+        background-image: url('/assets/large-background.png');
         &__preview {
             display: flex;
             flex-direction: column;
