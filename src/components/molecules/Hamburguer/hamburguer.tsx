@@ -5,7 +5,7 @@ import { useAppDispatch } from "../../../lib/contexts/hooks";
 import styles from './hamburguer.module.scss';
 import { Button } from "../../atoms/Button/button";
 import { setUser } from "../../../lib/contexts/auth/authSlice";
-import { adminMenu, loggedMenu, MenuItem, tokenName, unloggedMenu } from "../../../lib/constants/general";
+import { adminMenu, girlMenu, loggedMenu, MenuItem, tokenName, unloggedMenu } from "../../../lib/constants/general";
 import { useEffect, useState } from "react";
 interface Props {
     isMenuOpen: boolean;
@@ -29,10 +29,13 @@ export const Hamburguer = ({ isMenuOpen, menuRef }: Props) => {
             setMenuItems(unloggedMenu)
             return;
         }
-
-        switch (userInfo?.rol?.name) {
+        console.log(userInfo)
+        switch (userInfo?.rol) {
             case 'admin':
                 setMenuItems(adminMenu)
+                break;
+            case 'girl':
+                setMenuItems(girlMenu)
                 break;
             default:
                 setMenuItems(loggedMenu)
@@ -46,15 +49,15 @@ export const Hamburguer = ({ isMenuOpen, menuRef }: Props) => {
 
     return (
         <div ref={menuRef} className={styles[`items${isMenuOpen ? '' : '--closed'}`]}>
-            {!userInfo?.rol?.name ? <NavButton
+            {!userInfo?.rol ? <NavButton
                 text={t('sign_in')}
                 path="/login"
                 className={styles.items__main}
             /> : <Button text={t('log-out')} onClick={handleLogout} className={styles.items__main} />
             }
             <NavButton
-                text={userInfo?.rol?.name ? t('profile') : t('sign_up')}
-                path={userInfo?.rol?.name ? '/clientProfile' : "/createClient"}
+                text={userInfo?.rol ? t('profile') : t('sign_up')}
+                path={userInfo?.rol ? '/clientProfile' : "/createClient"}
                 className={styles.items__main}
             />
             <hr />

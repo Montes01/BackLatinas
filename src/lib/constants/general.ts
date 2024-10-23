@@ -32,7 +32,7 @@ export const unloggedMenu: MenuItem[] = [
     },
     {
         text: 'Join Our Team',
-        path: ROUTES.CREATE.CLIENT
+        path: ROUTES.CREATE.GIRLS
     }
 ]
 

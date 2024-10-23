@@ -6,5 +6,14 @@ export default defineConfig({
   plugins: [react()],
   define: {
     'process.env': process.env
-  }
+  },
+  server: {
+    proxy: {
+      '/api': {
+        target: 'https://backlatinassexcam.onrender.com',
+        changeOrigin: true,
+        rewrite: (path) => path.replace(/^\/api/, ''),
+      },
+    },
+  },
 })

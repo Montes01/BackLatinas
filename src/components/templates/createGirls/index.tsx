@@ -1,68 +1,74 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import axios from "axios";
 import { Header } from "../../molecules/Header/header";
 import styles from "./createGirls.module.scss";
 import { Footer } from "../../molecules/Footer/footer";
-import Link from "next/link";
-
+import { PackageResponse, RegisterWomenRequest } from "../../../lib/types/types";
+import { getPackages, postGirl } from "../../../lib/services/api";
+import { PackageCard } from "../../molecules/PackageCard/packageCard";
+import { Input } from "../../atoms/Input/input";
+import { BackButton } from "../../molecules/BackButton/backButton";
+import { RULE_TEXT, TERMS_AND_CONDITIONS_TEXT } from "../../../lib/constants/registerConstants";
+import { Button } from "../../atoms/Button/button";
+import { Rule } from "../../atoms/Rule/rule";
+import { NavLink } from "react-router-dom";
+import { AlertModal, AlertModalProps } from "../../molecules/AlertModal/alertModal";
+import { useNavigate } from "react-router-dom";
 export default function CreateGirls() {
-  const [name, setName] = useState("");
-  const [userName, setUserName] = useState("");
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
-  const [nationality, setNationality] = useState("");
-  const [phoneNumber, setPhoneNumber] = useState("");
+  const navigate = useNavigate();
   const [error, setError] = useState("");
-  const [isLoading, setIsLoading] = useState(false);
-  const [registerResponse, setRegisterResponse] = useState("");
+  const [modalProps, setModalProps] = useState<AlertModalProps>({
+    isOpen: false,
+    message: "Are you sure you want to create the account",
+    onOk: () => {
+      setModalProps(prev => ({ ...prev, isOpen: true }));
+    },
+    onCancel: () => {
+      setModalProps(prev => ({ ...prev, isOpen: false }));
+    },
+  });
+  const [packages, setPackages] = useState([] as PackageResponse[]);
+  const [selectedPackageId, setSelectedPackageId] = useState(0);
+
+  const handleSelectPackage = (id: number) => {
+    setSelectedPackageId(id);
+  }
+
+  useEffect(() => {
+    getPackages().then((data) => setPackages(data));
+  }, []);
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setError("");
-    setIsLoading(true);
+    const formData = new FormData(e.target as HTMLFormElement);
+    const name = formData.get("name") as string;
+    const userName = formData.get("user_name") as string;
+    const email = formData.get("email") as string;
+    const phoneNumber = formData.get("phone") as string;
+    const password = formData.get("password") as string;
+    const nationality = formData.get("nationality") as string;
+    const idPackage = selectedPackageId;
 
-    // Validar campos
-    if (!name || !userName || !email || !password || !nationality || !phoneNumber) {
+    if (!name || !userName || !email || !password || !nationality || !phoneNumber || !idPackage) {
       setError("Por favor, completa todos los campos.");
-      setIsLoading(false);
       return;
     }
 
-    // Validar formato de email
-    const validateEmail = (email: any) => /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
-    if (!validateEmail(email)) {
-      setError("El formato del email no es válido.");
-      setIsLoading(false);
-      return;
-    }
-
+    const body: RegisterWomenRequest = { name, userName, email, phoneNumber, password, idPackage, nationality };
+    console.log(body);
     try {
-      // Enviar la solicitud de registro
-      const response = await axios.post(
-        "https://backlatinassexcam.onrender.com/LatinasSexCam/user/register",
-        {
-          name,
-          user_name: userName,
-          email,
-          password,
-          nationality,
-          phoneNumber,
-        }
-      );
-
-      if (response.data && response.data.message) {
-        setRegisterResponse(response.data.message);
-      } else {
-        setError("Respuesta del servidor inválida.");
-      }
+      setModalProps(prev => ({
+        ...prev,
+        isOpen: true,
+        onOk: async () => {
+          setModalProps(prev => ({ ...prev, isOpen: true, isLoading: true, message: "Creating account", onCancel: undefined }));
+          await postGirl(body);
+          setModalProps(prev => ({ ...prev, isOpen: true, isLoading: false, message: "Account Created", onOk: () => navigate("/login") }));
+        },
+      }));
     } catch (err) {
-      if (axios.isAxiosError(err) && err.response) {
-        setError(err.response.data.message || "Error en el registro.");
-      } else {
-        setError("Error al conectar con el servidor.");
-      }
-    } finally {
-      setIsLoading(false);
+      setModalProps(prev => ({ ...prev, isOpen: false, isLoading: false, message: "Error creating account" }));
     }
   };
 
@@ -70,141 +76,42 @@ export default function CreateGirls() {
     <div className={styles.loginPage}>
       <Header />
       <main className={styles.large_section_wrapper}>
-        <div className={styles.loginContainer}>
-          <h2 className={styles.title}>Sign Up</h2>
+        <BackButton />
+        <div className={styles.content}>
+
+          <h2 className={styles.large_section_wrapper__title}>Sign Up</h2>
           {error && <span className={styles.errorMessage}>{error}</span>}
-          {registerResponse && (
-            <div className={styles.successMessage}>{registerResponse}</div>
-          )}
-          <form onSubmit={handleSubmit} className={styles.form}>
-            <div className={styles.inputGroup}>
-              <label htmlFor="name">Name</label>
-              <input
-                id="name"
-                type="text"
-                placeholder="Your Full Name"
-                required
-                value={name}
-                onChange={(e) => setName(e.target.value)}
-                className={styles.input}
-              />
-            </div>
 
-            <div className={styles.inputGroup}>
-              <label htmlFor="userName">User Name</label>
-              <input
-                id="userName"
-                type="text"
-                placeholder="User Name"
-                required
-                value={userName}
-                onChange={(e) => setUserName(e.target.value)}
-                className={styles.input}
-              />
-            </div>
-            <div className={styles.inputGroup}>
-              <label htmlFor="email">E-mail</label>
-              <input
-                id="email"
-                type="email"
-                placeholder="example@domain.com"
-                required
-                value={email}
-                onChange={(e) => setEmail(e.target.value)}
-                className={styles.input}
-              />
-            </div>
+          <form onSubmit={handleSubmit} className={styles.large_section_wrapper__form}>
 
-            <div className={styles.inputGroup}>
-              <label htmlFor="phoneNumber">Phone Number</label>
-              <input
-                id="phoneNumber"
-                type="tel"
-                placeholder="Your Phone Number"
-                required
-                value={phoneNumber}
-                onChange={(e) => setPhoneNumber(e.target.value)}
-                className={styles.input}
-              />
-            </div>
+            <Input name="name" label="name" placeholder="Your Full Name" required />
+            <Input name="user_name" label="User Name" placeholder="User Name" required />
+            <Input name="nationality" label="Nationality" placeholder="Enter your nationality" required />
+            <Input name="email" label="email" type="email" placeholder="example@domain.com" required />
+            <Input name="phone" label="Your phone Number" type="tel" placeholder="Your Phone Number" required />
+            <Input name="password" label="password" placeholder="Password" type="password" required />
+            <strong className={styles.large_section_wrapper__form__package}>Choose your favourite package</strong>
+            {packages &&
+              packages.map((pack) => (
+                <PackageCard key={pack.idPackage} {...pack} onChange={handleSelectPackage} checked={selectedPackageId === pack.idPackage} />
+              ))
+            }
+            <Rule rule={RULE_TEXT} title="Rules" important name={"rules"} />
+            <Rule title={TERMS_AND_CONDITIONS_TEXT} labelUrl="/home" name={"terms"} />
 
-            
-
-            <div className={styles.inputGroup}>
-              <label htmlFor="password">Password</label>
-              <input
-                id="password"
-                type="password"
-                required
-                value={password}
-                onChange={(e) => setPassword(e.target.value)}
-                className={styles.input}
-              />
-            </div>
-            
-            <div className={styles.cardContainer}>
-              <div className={styles.card}>
-                  <h2>🟡 PRIORITY</h2>
-                  <h3>1000 NOK</h3>
-                  <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip.</p>
-              </div>
-              <div className={styles.card}>
-                  <h2>⚪ PUBLICITY</h2>
-                  <h3>800 NOK</h3>
-                  <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip.</p>
-              </div>
-            </div>
-
-            <div className={styles.rulesSection}>
-              <input
-                type="checkbox"
-                id="rules"
-                checked={true}
-                onChange={() => {}}
-              />
-              <label htmlFor="rules">Rules</label>
-              <p className="p-girls">
-                By using this application, you agree to comply with the
-                following rules. It is important that you read the terms
-                carefully to ensure a safe and positive experience.
-              </p>
-            </div>
-
-            <div className={styles.termsSection}>
-              <input
-                type="checkbox"
-                id="terms"
-                checked={true}
-                onChange={() => {}}
-              />
-              <label htmlFor="terms">I accept the Terms and Conditions</label>
-            </div>
-
-            <p className={styles.registerLink}>
-              Do you already have an account? Log in
-              <Link href="/login" className={styles.link}>
-                {" "}
-                Here
-              </Link>
+            <p className={styles.large_section_wrapper__form__account}>
+              Do you already have an account? Login <NavLink to="/login" className={styles.link}>Here</NavLink>
             </p>
 
-            <div className={styles.benefitsSection}>
-              <p>
-                Do you want to see your benefits when registering on our
-                platform?
-              </p>
-              <button
-                type="submit"
-                className={styles.submitButton}
-                disabled={isLoading}
-              >
-                {isLoading ? "Registering..." : "Register"}
-              </button>
-            </div>
+            <NavLink to='/' className={styles.large_section_wrapper__form__benefits}>Do you want to see your benefits when registering on our platform?</NavLink>
+
+            <Button text="Confirmar" type="submit" className={styles.large_section_wrapper__form__confirm} />
+
           </form>
+          <Footer />
         </div>
       </main>
-      <Footer />
+      <AlertModal {...modalProps} />
     </div>
   );
 }

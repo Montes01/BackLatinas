@@ -4,7 +4,7 @@ import { Button } from '../../atoms/Button/button'
 import styles from './girlCard.module.scss'
 
 
-export const GirlCard = ({name, age, nationality, profilePhoto }: GirlResponse) => {
+export const GirlCard = ({name, age, nationality, profilePhoto, user_name }: GirlResponse) => {
 
     const onImageError = (event: React.SyntheticEvent<HTMLImageElement, Event>) => {
         event.currentTarget.src = '/assets/default-girl.png'
@@ -19,7 +19,7 @@ export const GirlCard = ({name, age, nationality, profilePhoto }: GirlResponse) 
                 </div>
                 <p className={styles.girlCard__country}>{nationality}</p>
             </div>
-            <Button className={styles.girlCard__button} text="View more" url={ROUTES.GIRL.SINGLE_GIRL.replace(':id', age.toString())} />
+            <Button className={styles.girlCard__button} text="View more" url={ROUTES.GIRL.SINGLE_GIRL.replace(':username', user_name)} />
         </article>
     )
 }

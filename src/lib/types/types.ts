@@ -58,9 +58,9 @@ export enum WomenStatus {
 export interface Service {
     idService: number;
     title: string;
-    description: string;
-    women: Women[];
-    subServices: SubService[];
+    description?: string;
+    women?: Women[];
+    subServices?: SubService[];
 }
 
 // SubService.ts
@@ -99,8 +99,7 @@ export interface Comment {
     idComment: number;
     comment: string;
     stars: number;
-    createdAt: string; // Consider using Date type if you convert this string into a Date object
-    user: User;
+    createdAt: string;
     userName: string;
 }
 
@@ -118,7 +117,7 @@ export interface LoginResponse {
     sub: string;
     exp: number;
     nombre: string;
-    rol: Role;
+    rol: string;
 }
 
 // girlList single response
@@ -128,4 +127,62 @@ export interface GirlResponse {
     name: string
     nationality: string;
     age: number;
+    id: number;
+    user_name: string;
+}
+
+// ServiceList single response
+
+export interface ServiceResponse {
+    idService: number;
+    title: string;
+}
+
+export interface FilterResponse {
+    [key: string]: number;
+};
+
+export interface WomenRequest {
+    user_name: string;
+    nationality: string;
+    name: string;
+    age: number;
+    colorEyes: string;
+    colorHair: string;
+    colorSkin: string;
+    cupSize: string;
+    description: string;
+    height: number;
+    hips: number;
+    piercings: number;
+    shaving: string;
+    shoeSize: number;
+    smoker: string;
+    tattoos: number;
+    weight: number;
+    selectedFilterNames: string[];
+    selectedServiceIds: number[];
+}
+
+export interface PackageResponse {
+    idPackage: number;
+    name: string;
+    price: number;
+    description: string;
+}
+
+export interface RegisterWomenRequest {
+    name: string;
+    userName: string;
+    email: string;
+    phoneNumber: string;
+    password: string;
+    nationality: string;
+    idPackage: number;
+}
+
+export interface CommentRequest {
+    comment: string,
+    stars: number,
+    email: string
 }

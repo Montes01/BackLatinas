@@ -9,11 +9,12 @@ export const ROUTES = {
       HOME: '/home/HomeAdmin',
       GIRLS: '/home/admin/GirlsAdmin',
       NEW_GIRL: '/home/admin/GirlsAdmin/new',
+      EDIT_GIRL: '/home/admin/GirlsAdmin/edit/:username',
     },
   },
   GIRL: {
     ROOT: '/girl',
-    SINGLE_GIRL: '/girl/:id',
+    SINGLE_GIRL: '/girl/:username',
   },
   LOGIN: '/login',
   CREATE: {

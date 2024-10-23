@@ -1,0 +1,56 @@
+@import '/src/lib/styles/colors.scss';
+.check_services {
+    background-color: $red-background-color;
+    border-radius: 20px;
+    position: relative;
+    width: 140px;
+    height: 40px;
+
+    &:hover {
+        background-color: $primary-background;
+
+        label {
+            color: $black-text-color;
+        }
+
+
+    }
+
+    &::before {
+        content: '';
+        position: absolute;
+        top: 50%;
+        left: -5px;
+        transform: translateY(-50%);
+        width: 10px;
+        height: 10px;
+        background-color: $disabled-color;
+        border: 2px solid $disabled-color;
+        border-radius: 50%;
+    }
+
+    &:has(input:checked) {
+        &::before {
+            background-color: $main-text-color;
+        }
+    }
+
+    &__input {
+        display: none;
+    }
+
+    &__label {
+        cursor: pointer;
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        color: $text-base-color;
+        width: 100%;
+        text-align: center;
+        height: 100%;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+}

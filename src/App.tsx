@@ -45,8 +45,9 @@ function App() {
         <Route path={ROUTES.HOME.ADMIN.HOME} element={<HomeAdmin />} />
         <Route path={ROUTES.HOME.ADMIN.GIRLS} element={<Admin />} />
         <Route path={ROUTES.HOME.ADMIN.NEW_GIRL} element={<CreateGirl />} />
-
+        <Route path={ROUTES.HOME.ADMIN.EDIT_GIRL} element={<CreateGirl />} />
         {/* Redireccionamientos */}
+        <Route path={ROUTES.HOME.ADMIN.EDIT_GIRL.replace(":username", "*")} element={<Navigate to={ROUTES.HOME.HOME} />} />
         <Route path={ROUTES.ALL} element={<Navigate to={ROUTES.HOME.HOME} />} />
         <Route path={ROUTES.GIRL.ROOT} element={<Navigate to={ROUTES.HOME.HOME} />} />
       </Routes>

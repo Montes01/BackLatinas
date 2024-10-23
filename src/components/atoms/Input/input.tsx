@@ -1,7 +1,7 @@
 interface InputProps extends React.InputHTMLAttributes<HTMLInputElement> {
     label?: string;
     error?: string;
-    reference: React.RefObject<HTMLInputElement>;
+    reference?: React.RefObject<HTMLInputElement>;
 }
 import styles from './input.module.scss';
 export const Input = ({ label, type, onChange, placeholder, required, error, name, reference, ...rest }: InputProps) => {
