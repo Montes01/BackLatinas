@@ -1,5 +1,5 @@
 import axios from "axios"
-import { Comment, FilterResponse, GirlResponse, LoginResponse, PackageResponse, RegisterWomenRequest, ServiceResponse, SubService, WomenRequest } from "../types/types";
+import { Comment, CommentRequest, FilterResponse, GirlResponse, LoginResponse, PackageResponse, RegisterWomenRequest, ServiceResponse, SubService, UserInfoResponse, WomenRequest } from "../types/types";
 import { parseJwt } from "../../helpers/jwt";
 import { environment } from "../config/environment";
 import { tokenName } from "../constants/general";
@@ -190,7 +190,7 @@ export const getComments = async (): Promise<Comment[]> => {
 
 export const getGirlsCount = async (): Promise<number> => {
     try {
-        const response = await axios.get(`${environment.URLS.BACK_URL}/women/count`); 
+        const response = await axios.get(`${environment.URLS.BACK_URL}/women/count`);
         return response.data;
     } catch (err) {
         console.error("Error al obtener el total de chicas:", err);
@@ -209,5 +209,35 @@ export const deleteGirlByAdmin = async (username: string) => {
     } catch (err) {
         console.error("Error al eliminar la chica:", err);
         throw new Error("There was an error removing the women.");
+    }
+}
+
+export const postComment = async (comment: CommentRequest) => {
+    try {
+        const response = await axios.post(`${environment.URLS.BACK_URL}/newComment`, comment);
+        return response.data;
+    } catch (err) {
+        console.error("Error al publicar el comentario:", err);
+        throw new Error("There was an error posting the comment.");
+    }
+}
+
+export const getUserInfo = async (email: string): Promise<UserInfoResponse> => {
+    try {
+        const response = await axios.post(`${environment.URLS.BACK_URL}/user/info`, { email });
+        return response.data;
+    } catch (err) {
+        console.error("Error al obtener la información del usuario:", err);
+        throw new Error("There was an error getting the user info.");
+    }
+}
+
+export const editComment = async (id: number, comment: CommentRequest) => {
+    try {
+        await axios.put(`${environment.URLS.BACK_URL}/editComment/${id}`, comment);
+        console.log(`Comentario ${id} editado con éxito`);
+    } catch (error) {
+        console.error("Error al editar el comentario:", error);
+        throw new Error("There was an error editing the comment.");
     }
 }

@@ -1,15 +1,15 @@
-import { useState } from "react";
-import { Comment as type } from "../../../lib/types/types"
+import { useRef, useState } from "react";
+import { CommentRequest, Comment as type } from "../../../lib/types/types"
 import { StarRate } from "../StarRate/StarRate";
 import { UserIcon } from "../UserIcon/userIcon";
 import styles from './comment.module.scss';
-import { Delete, Edit } from "@mui/icons-material";
-import axios from "axios";
+import { Delete, Edit, Save } from "@mui/icons-material";
 import { AlertModal, AlertModalProps } from "../../molecules/AlertModal/alertModal";
-import { deleteComment } from "../../../lib/services/api";
+import { deleteComment, editComment } from "../../../lib/services/api";
 import { useAppSelector } from "../../../lib/contexts/hooks";
-export const Comment = ({ comment, canEdit }: { comment: type, canEdit?: boolean }) => {
-  const [imageError, setImageError] = useState<boolean>(true);
+export const Comment = ({ comment, canEdit, reload }: { comment: type, canEdit?: boolean, reload: () => void}) => {
+  const [imageError] = useState<boolean>(true);
+  const inputRef = useRef<HTMLInputElement>(null);
   const [editMode, setEditMode] = useState<boolean>(false);
   const user = useAppSelector(state => state.auth.user);
   const [modalProps, setModalProps] = useState({
@@ -26,20 +26,28 @@ export const Comment = ({ comment, canEdit }: { comment: type, canEdit?: boolean
   const handleEdit = () => {
     setEditMode(e => !e);
     if (editMode) {
-      handleEditComment(comment.idComment, comment.comment);
+      handleEditComment(comment.idComment, {
+        comment: inputRef.current!.value,
+        email: user!.sub,
+        stars: comment.stars,
+      });
     }
   }
 
   // Editar comentario
-  const handleEditComment = async (id: number, updatedText: string) => {
+  const handleEditComment = async (id: number, comment: CommentRequest) => {
     try {
-      await axios.put(
-        `https://backlatinassexcam.onrender.com/LatinasSexCam/editComment/${id}`,
-        {
-          text: updatedText,
+      await editComment(id, comment);
+      setModalProps({
+        ...modalProps,
+        message: 'Coment edited succesfully.',
+        isOpen: true,
+        onCancel: undefined,
+        onOk: () => { 
+          setModalProps({ ...modalProps, isOpen: false })
+          reload();
         }
-      );
-      console.log(`Comentario ${id} editado con éxito`);
+      });
     } catch (error) {
       console.error("Error al editar el comentario:", error);
     }
@@ -108,14 +116,14 @@ export const Comment = ({ comment, canEdit }: { comment: type, canEdit?: boolean
           {
             imageError ?
               <UserIcon className={styles.comment_wrapper__avatar__image} />
-              : <img onError={handleImageError} src={comment.user?.profile_photo} alt="avatar" className={styles.comment_wrapper__avatar__image} />
+              : <img onError={handleImageError} src={comment.userName} alt="avatar" className={styles.comment_wrapper__avatar__image} />
           }
         </div>
         <section className={styles.comment_wrapper__text}>
           <h3 className={styles.comment_wrapper__text__name}>{comment.userName}</h3>
           {
             editMode ?
-              <textarea className={styles['comment_wrapper__text__comment--edit']} defaultValue={comment.comment} /> :
+              <input ref={inputRef} className={styles['comment_wrapper__text__comment--edit']} defaultValue={comment.comment} /> :
               <p className={styles.comment_wrapper__text__comment}>{comment.comment}</p>}
           <small>{comment.createdAt}</small>
         </section>
@@ -130,7 +138,10 @@ export const Comment = ({ comment, canEdit }: { comment: type, canEdit?: boolean
           canEdit && (
             <div className={styles.comment_wrapper__actions}>
               <button className={styles.comment_wrapper__actions__edit} onClick={handleEdit}>
-                <Edit className={styles.comment_wrapper__actions__edit__icon} />
+                {
+                  editMode ?
+                    <Save className={styles.comment_wrapper__actions__edit__icon} /> :
+                    <Edit className={styles.comment_wrapper__actions__edit__icon} />}
               </button>
               <button className={styles.comment_wrapper__actions__delete}>
                 <Delete className={styles.comment_wrapper__actions__delete__icon} onClick={handleDeleteComment} />

@@ -30,7 +30,7 @@ export const GirlPage = ({ username }: Props) => {
     const [girlInfo, setGirlInfo] = useState({} as WomenRequest);
     const [girls, setGirls] = useState([] as GirlResponse[]);
     const [services, setServices] = useState([] as Service[]);
-    const [selectedService, setSelectedService] = useState(0);
+    const [selectedService, setSelectedService] = useState(1);
     const [subservices, setSubservices] = useState([] as SubService[]);
     const navigate = useNavigate();
 

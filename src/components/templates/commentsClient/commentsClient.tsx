@@ -1,12 +1,11 @@
 import { useEffect, useState } from "react";
 import { Comment as commentType } from "../../../lib/types/types";
-import axios from 'axios';
 import { Header } from "../../molecules/Header/header";
 import styles from './CommentsClient.module.scss';
 import { Footer } from "../../molecules/Footer/footer";
 import { Comments } from "../../organisms/Comments/comments";
 import { Loader } from "../../atoms/Loader/loader";
-import { environment } from "../../../lib/config/environment";
+import { getComments } from "../../../lib/services/api";
 
 
 export const CommentsClient = () => {
@@ -15,18 +14,15 @@ export const CommentsClient = () => {
     const [_, setError] = useState<string | null>(null);
 
     useEffect(() => {
-        const fetchComments = async () => {
-            try {
-                const response = await axios.get(`${environment.URLS.BACK_URL}/comments`);
-                setComments(response.data);
-            } catch (err) {
-                setError('Error fetching comments');
-            } finally {
+        getComments()
+            .then((response) => {
+                setComments(response);
                 setLoading(false);
-            }
-        };
-
-        fetchComments();
+            })
+            .catch((error) => {
+                setError(error.message);
+                setLoading(false);
+            });
     }, []);
 
     const viewMore = () => {

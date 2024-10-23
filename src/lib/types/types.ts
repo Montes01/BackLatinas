@@ -186,3 +186,11 @@ export interface CommentRequest {
     stars: number,
     email: string
 }
+
+export interface UserInfoResponse {
+    userName: string,
+    gender: string,
+    numberPhone: string,
+    nationality: string,
+    profilePhoto: string
+}

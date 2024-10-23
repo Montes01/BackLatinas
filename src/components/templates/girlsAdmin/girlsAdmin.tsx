@@ -21,7 +21,8 @@ export const GirlsAdmin = () => {
     onOk: () => { },
     onCancel: () => { }
   });
-  useEffect(() => {
+
+  const settingGirls = () => {
     try {
       getGirls().then(data => {
         setLoading(false);
@@ -30,6 +31,10 @@ export const GirlsAdmin = () => {
     } catch (err) {
       console.error(err);
     }
+  }
+
+  useEffect(() => {
+    settingGirls();
   }, []);
 
 
@@ -45,7 +50,10 @@ export const GirlsAdmin = () => {
             ...prev,
             message: 'Girl deleted succesfully',
             isLoading: false,
-            onOk: () => setModalProps(prev => ({ ...prev, isOpen: false }))
+            onOk: () => setModalProps(prev => {
+              settingGirls();
+              return ({ ...prev, isOpen: false })
+            })
           }));
         }).catch((err) => {
           setModalProps(prev => ({

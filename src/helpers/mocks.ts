@@ -92,9 +92,9 @@ const exampleUser: User = {
 export const GET_HOME_IMAGES_MOCK = async (): Promise<Array<string>> => {
     return new Promise((resolve) => {
         resolve([
-            '/assets/mockAssets/Girl1.png',
-            '/assets/mockAssets/Girl2.png',
-            '/assets/mockAssets/Girl3.png',
+            '/assets/noGirl.png',
+            '/assets/noGirl.png',
+            '/assets/noGirl.png',
         ])
     })
 }

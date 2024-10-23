@@ -1,38 +1,45 @@
 import React, { useEffect, useState, useRef } from "react";
-import axios from "axios";
 import { Header } from "../../molecules/Header/header";
 import styles from "./clientProfile.module.scss";
 import { Button } from "../../atoms/Button/button";
 import { Footer } from "../../molecules/Footer/footer";
 import Webcam from "react-webcam";
-import { Camera, Edit, ArrowBack, ArrowForward } from "@mui/icons-material";
+import { Camera, Edit } from "@mui/icons-material";
 import { BackButton } from "../../molecules/BackButton/backButton";
 import { Comment as CommentRender } from "../../atoms/Comment/comment";
 import { useAppSelector } from "../../../lib/contexts/hooks";
-import { Comment } from "../../../lib/types/types";
+import { Comment, UserInfoResponse } from "../../../lib/types/types";
+import { getComments, getUserInfo } from "../../../lib/services/api";
 
 export const ClientProfile = () => {
   const [comments, setComments] = useState<Array<Comment>>([]);
   const [showWebcam, setShowWebcam] = useState(false);
   const [uploadedImage, setUploadedImage] = useState<File | null>(null);
+  const [userInfo, setUserInfo] = useState(null as UserInfoResponse | null);
   const webcamRef = useRef<Webcam>(null);
-  const [currentPage, setCurrentPage] = useState(1);
-  const commentsPerPage = 4;
   const user = useAppSelector((state) => state.auth.user);
-  // Obtener comentarios
-  const fetchComments = async () => {
+  const [reloadComments, setReloadComments] = useState(false);
+  useEffect(() => {
     try {
-      const response = await axios.get(
-        "https://backlatinassexcam.onrender.com/LatinasSexCam/comments"
-      );
-      setComments(response.data);
+      getComments().then((response) => {
+        setComments(response);
+      });
     } catch (error) {
+      setComments([]);
       console.error("Error al obtener los comentarios:", error);
     }
-  };
+  }, [reloadComments]);
+
   useEffect(() => {
-    fetchComments();
-  }, []);
+    if (user) {
+      getUserInfo(user.sub).then((response) => {
+        setUserInfo(response);
+      });
+    }
+  }, [user]);
+
+
+  const filteredComments = comments.filter((comment) => comment.userName === userInfo?.userName);
 
   const handleImageUpload = (e: React.ChangeEvent<HTMLInputElement>) => {
     if (e.target.files && e.target.files[0]) {
@@ -46,15 +53,6 @@ export const ClientProfile = () => {
       console.log("Captured image:", imageSrc);
       setShowWebcam(false);
     }
-  };
-
-  const indexOfLastComment = currentPage * commentsPerPage;
-  const indexOfFirstComment = indexOfLastComment - commentsPerPage;
-  const currentComments = comments.slice(indexOfFirstComment, indexOfLastComment);
-  const totalPages = Math.ceil(comments.length / commentsPerPage);
-
-  const handlePageChange = (pageNumber: number) => {
-    setCurrentPage(pageNumber);
   };
 
   return (
@@ -113,41 +111,11 @@ export const ClientProfile = () => {
           )}
 
           <h3 className={styles.commentsHeader}>Your Comments</h3>
-          {currentComments.map((comment) => (
-            <CommentRender comment={comment} canEdit />
-          ))}
-
-
-          {comments.length > commentsPerPage && (
-            <div className={styles.pagination}>
-              <button
-                className={`${styles.paginationButton} ${currentPage === 1 ? styles.disabled : ''}`}
-                onClick={() => handlePageChange(currentPage - 1)}
-                disabled={currentPage === 1}
-              >
-                <ArrowBack className={styles.arrowIcon} />
-              </button>
-
-              {Array.from({ length: totalPages }, (_, i) => i + 1).map((number) => (
-                <button
-                  key={number}
-                  className={`${styles.pageButton} ${currentPage === number ? styles.activePage : ''
-                    }`}
-                  onClick={() => handlePageChange(number)}
-                >
-                  {number}
-                </button>
-              ))}
-
-              <button
-                className={`${styles.paginationButton} ${currentPage === totalPages ? styles.disabled : ''}`}
-                onClick={() => handlePageChange(currentPage + 1)}
-                disabled={currentPage === totalPages}
-              >
-                <ArrowForward className={styles.arrowIcon} />
-              </button>
-            </div>
-          )}
+          {
+            filteredComments.map((comment) => (
+              <CommentRender reload={() => setReloadComments(!reloadComments)} comment={comment} canEdit />
+            ))
+          }
         </div>
         <Footer />
       </main>
