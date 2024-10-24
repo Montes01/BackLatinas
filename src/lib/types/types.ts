@@ -129,6 +129,7 @@ export interface GirlResponse {
     age: number;
     id: number;
     user_name: string;
+    namePackage: string;
 }
 
 // ServiceList single response
@@ -162,6 +163,7 @@ export interface WomenRequest {
     weight: number;
     selectedFilterNames: string[];
     selectedServiceIds: number[];
+    photoProfile: string;
 }
 
 export interface PackageResponse {

@@ -1,5 +1,4 @@
 import { useEffect, useState } from "react";
-import axios from "axios";
 import { Header } from "../../molecules/Header/header";
 import styles from "./createGirls.module.scss";
 import { Footer } from "../../molecules/Footer/footer";
@@ -17,7 +16,7 @@ import { useNavigate } from "react-router-dom";
 export default function CreateGirls() {
   const navigate = useNavigate();
   const [error, setError] = useState("");
-  const [modalProps, setModalProps] = useState<AlertModalProps>({
+  const originalModalProps = {
     isOpen: false,
     message: "Are you sure you want to create the account",
     onOk: () => {
@@ -26,7 +25,8 @@ export default function CreateGirls() {
     onCancel: () => {
       setModalProps(prev => ({ ...prev, isOpen: false }));
     },
-  });
+  };
+  const [modalProps, setModalProps] = useState<AlertModalProps>(originalModalProps);
   const [packages, setPackages] = useState([] as PackageResponse[]);
   const [selectedPackageId, setSelectedPackageId] = useState(0);
 
@@ -57,19 +57,25 @@ export default function CreateGirls() {
 
     const body: RegisterWomenRequest = { name, userName, email, phoneNumber, password, idPackage, nationality };
     console.log(body);
-    try {
-      setModalProps(prev => ({
-        ...prev,
-        isOpen: true,
-        onOk: async () => {
-          setModalProps(prev => ({ ...prev, isOpen: true, isLoading: true, message: "Creating account", onCancel: undefined }));
+
+    setModalProps(prev => ({
+      ...prev,
+      isOpen: true,
+      onOk: async () => {
+        setModalProps(prev => ({ ...prev, isOpen: true, isLoading: true, message: "Creating account", onCancel: undefined }));
+        try {
           await postGirl(body);
-          setModalProps(prev => ({ ...prev, isOpen: true, isLoading: false, message: "Account Created", onOk: () => navigate("/login") }));
-        },
-      }));
-    } catch (err) {
-      setModalProps(prev => ({ ...prev, isOpen: false, isLoading: false, message: "Error creating account" }));
-    }
+          setModalProps(prev => ({ ...prev, isOpen: true, isLoading: false, message: "Account Created", onOk: () => navigate("/login"), onCancel: undefined }));
+        } catch (err) {
+          setModalProps(({
+            isOpen: true, isLoading: false, message: "Error creating account", onCancel: undefined, onOk() {
+              setModalProps(originalModalProps);
+            },
+          }));
+        }
+      },
+    }));
+
   };
 
   return (

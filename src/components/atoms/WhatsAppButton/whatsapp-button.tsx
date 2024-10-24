@@ -1,6 +1,5 @@
-
-import { MessageCircle } from "lucide-react";
-import styles from './whatsapp-button.module.scss'; // Importa los estilos
+import styles from './whatsapp-button.module.scss';
+import { WhatsApp } from "@mui/icons-material";
 
 export default function WhatsAppButton({ phoneNumber = "1234567890", message = "Hola! Tengo una pregunta." }) {
     const whatsappUrl = `https://wa.me/${phoneNumber}?text=${encodeURIComponent(message)}`;
@@ -10,10 +9,13 @@ export default function WhatsAppButton({ phoneNumber = "1234567890", message = "
             href={whatsappUrl}
             target="_blank"
             rel="noopener noreferrer"
-            className={styles['whatsapp-button']} 
+            className={styles['whatsapp-button']}
             aria-label="Chatear por WhatsApp"
         >
-            <MessageCircle size={24} />
+            <WhatsApp style={{
+                width: '100%',
+                height: '100%',
+            }} />
         </a>
     );
 }

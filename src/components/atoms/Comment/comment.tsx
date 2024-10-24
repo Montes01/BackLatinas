@@ -81,7 +81,10 @@ export const Comment = ({ comment, canEdit, reload }: { comment: type, canEdit?:
             isOpen: true,
             onCancel: undefined,
             isLoading: false,
-            onOk: () => { setModalProps({ ...modalProps, isOpen: false }) }
+            onOk: () => { 
+              reload();
+              setModalProps({ ...modalProps, isOpen: false })
+             }
           });
 
         } catch (error) {

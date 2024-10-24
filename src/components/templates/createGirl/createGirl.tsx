@@ -13,7 +13,8 @@ import { CheckServices } from '../../molecules/CheckServices/checkServices'
 import { Button } from '../../atoms/Button/button'
 import { Footer } from '../../molecules/Footer/footer'
 import { AlertModal, AlertModalProps } from '../../molecules/AlertModal/alertModal'
-import { useParams } from 'react-router-dom'
+import { useNavigate, useParams } from 'react-router-dom'
+import { UseUploadImage } from '../../../lib/hooks/firebase'
 
 export const CreateGirl = () => {
     const { username } = useParams<{ username: string }>()
@@ -24,7 +25,7 @@ export const CreateGirl = () => {
     const [filters, setFilters] = useState<FilterResponse>({})
     const [areServicesLoading, setAreServicesLoading] = useState(true)
     const [areFiltersLoading, setAreFiltersLoading] = useState(true)
-
+    const navigate = useNavigate()
     const [girlInfo, setGirlInfo] = useState<WomenRequest>({
         age: 0,
         height: 0,
@@ -44,7 +45,8 @@ export const CreateGirl = () => {
         tattoos: 0,
         name: '',
         selectedServiceIds: [] as number[],
-        selectedFilterNames: [] as string[]
+        selectedFilterNames: [] as string[],
+        photoProfile: ''
     })
 
     useEffect(() => {
@@ -78,18 +80,21 @@ export const CreateGirl = () => {
                     await endpoint(girlInfo)
                     setAlertModalProps(prev => ({
                         ...prev,
-                        message: username ? "Girl Updated succesfully" :"Girl Created succesfully",
+                        message: username ? "Girl Updated succesfully" : "Girl Created succesfully",
                         isLoading: false,
                         onCancel: undefined,
-                        onOk: () => setAlertModalProps(prev => ({ ...prev, isOpen: false }))
+                        onOk: () => {
+                            setAlertModalProps({ ...alertModalProps, isOpen: false })
+                            navigate('/home/admin/GirlsAdmin')
+                        }
                     }))
                 } catch (error) {
                     setAlertModalProps(prev => ({
                         ...prev,
-                        message: username ? "There was an error updating the girl" : "There was an error creating the girl",    
+                        message: username ? "There was an error updating the girl" : "There was an error creating the girl",
                         isLoading: false,
                         onCancel: undefined,
-                        onOk: () => setAlertModalProps(prev => ({ ...prev, isOpen: false }))
+                        onOk: () => setAlertModalProps(({ ...alertModalProps, isOpen: false }))
                     }))
                 }
             }
@@ -101,7 +106,7 @@ export const CreateGirl = () => {
     const handleInputBlur = () => {
         setCanEditName(false)
         const name = inputRef.current?.value!
-        const user_name = name.toLowerCase()! + Math.floor(Math.random() * 1000)
+        const user_name = username ?? name.toLowerCase()! + Math.floor(Math.random() * 1000)
         setGirlInfo(prev => ({ ...prev, name, user_name }))
     }
     const handleEditName = () => {
@@ -157,6 +162,14 @@ export const CreateGirl = () => {
     }, [])
 
 
+    const handleProfilePicChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+        if (e.target.files && e.target.files[0]) {
+            UseUploadImage(e.target.files[0], `profile_pics/${girlInfo.user_name}`).then(url => {
+                setGirlInfo(prev => ({ ...prev, photoProfile: url }))
+            })
+        }
+    }
+
     return (
         <div>
             <Header />
@@ -180,8 +193,11 @@ export const CreateGirl = () => {
                     </section>
 
                     <section className={styles.large_section_wrapper__form__profile_pic}>
-                        <label htmlFor="profile_pic" className={styles.large_section_wrapper__form__profile_pic__label}>Chose Profile Photo</label>
-                        <input type="file" id="profile_pic" className={styles.large_section_wrapper__form__profile_pic__input} />
+                        {!girlInfo.photoProfile ?
+                            <label htmlFor="profile_pic" className={styles.large_section_wrapper__form__profile_pic__label}>Chose Profile Photo</label>
+                            : <img src={girlInfo.photoProfile} alt="profile_pic" className={styles.large_section_wrapper__form__profile_pic__photo} />
+                        }
+                        <input type="file" id="profile_pic" className={styles.large_section_wrapper__form__profile_pic__input} onChange={handleProfilePicChange} />
                     </section>
 
                     <section className={styles.large_section_wrapper__form__information}>
@@ -267,7 +283,7 @@ export const CreateGirl = () => {
                         <textarea defaultValue={girlInfo.description} ref={areaRef} id="description" className={styles.large_section_wrapper__form__description__description} disabled={!canEditDescription}></textarea>
                     </section>
                     <section className={styles.large_section_wrapper__form__submit}>
-                        <Button type='submit' className={styles.large_section_wrapper__form__submit__button} text='Accept' />
+                        <Button disabled={canEditName || canEditInfo || canEditDescription} type='submit' className={styles.large_section_wrapper__form__submit__button} text='Accept' />
                     </section>
                 </form>
                 <Footer />

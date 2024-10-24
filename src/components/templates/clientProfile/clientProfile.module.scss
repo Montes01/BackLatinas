@@ -65,7 +65,6 @@
   }
   
   .profileContainer {
-    background-image: url('data:image/svg+xml,...'); // Add your background pattern here
     background-repeat: repeat;
     max-width: 600px;
     margin: 0 auto;
@@ -74,10 +73,11 @@
   }
   
   .profileHeader {
+    flex-wrap: wrap;
     display: flex;
     align-items: center;
     justify-content: space-between;
-    gap: 3rem;
+    gap: 2rem;
   }
   
   .photoContainer {
@@ -123,10 +123,6 @@
     color: #fff;
   }
   
-  .userInfo {
-    margin-left: 1rem;
-    flex-grow: 1;
-  }
   
   .username {
     color: #ecc94b;
@@ -175,6 +171,7 @@
     justify-content: space-between;
     align-items: center;
     margin-bottom: 0.5rem;
+    width: 100%;
   }
   
   .userAvatar {

@@ -1,8 +1,7 @@
 import { Header } from "../../molecules/Header/header";
-import { GET_GIRLS_MOCK as useGetGirlsQuery } from "../../../helpers/mocks";
-import { GirlResponse, Service, SubService, Women, WomenRequest } from "../../../lib/types/types";
+import { GirlResponse, Service, SubService, WomenRequest } from "../../../lib/types/types";
 import styles from './girl.module.scss';
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { Button } from "../../atoms/Button/button";
 import { GirlInfoItem } from "../../atoms/GirlInfoItem/girlInfoItem";
 import { Footer } from "../../molecules/Footer/footer";
@@ -13,6 +12,7 @@ import WhatsAppButton from "../../atoms/WhatsAppButton/whatsapp-button";
 import { BackButton } from "../../molecules/BackButton/backButton";
 import { getGirlByUsername, getGirls, getServices, getSubServices } from "../../../lib/services/api";
 import { SubServiceCard } from "../../molecules/SubServiceCard/SubServiceCard";
+import ReactFlagsSelect from "react-flags-select";
 
 interface Props {
     username: string;
@@ -30,25 +30,34 @@ export const GirlPage = ({ username }: Props) => {
     const [girlInfo, setGirlInfo] = useState({} as WomenRequest);
     const [girls, setGirls] = useState([] as GirlResponse[]);
     const [services, setServices] = useState([] as Service[]);
-    const [selectedService, setSelectedService] = useState(1);
+    const [selectedService, setSelectedService] = useState(girlInfo?.selectedServiceIds?.[0]);
     const [subservices, setSubservices] = useState([] as SubService[]);
     const navigate = useNavigate();
 
     useEffect(() => {
-        getGirlByUsername(username).then(data => setGirlInfo(data));
+        getGirlByUsername(username).then(data => {
+            setGirlInfo(data)
+        });
         getGirls().then(data => setGirls(data));
         getServices().then(data => setServices(data)).catch(_ => setSubservices([]));
     }, [username, navigate]);
 
+    useEffect(() => {
+        if (services.length > 0) {
+            setSelectedService(girlInfo?.selectedServiceIds?.[0]);
+        }
+    }, [services])
+
+
 
     useEffect(() => {
-        if (selectedService) {
+        if (selectedService && services.length > 0) {
             const service = services.find(el => el.idService === selectedService);
             if (service) {
                 getSubServices(service.idService).then(data => setSubservices(data));
             }
         }
-    }, [selectedService, services]);
+    }, [selectedService]);
 
 
     const photos = [] as any;
@@ -77,19 +86,27 @@ export const GirlPage = ({ username }: Props) => {
                         </div>
                         <div className={styles.girlBase__infoSection__nation}>
                             <strong>{girlInfo?.nationality}</strong>
-                            <img src="/assets/flag-example.png" alt="" />
+                            <ReactFlagsSelect
+                                selected={girlInfo.nationality}
+                                showSelectedLabel={false}
+                                showOptionLabel={false}
+                                onSelect={(code) => console.log(code)}
+                                disabled
+                                className={styles.girlBase__infoSection__nation__flag}
+                            />
+
                         </div>
                     </section>
                 </section>
                 <section className={styles.girlPicture}>
-                    <img onError={handleImageError} src={girlInfo?.user_name} alt={girlInfo?.name} />
+                    <img src={girlInfo?.photoProfile ?? '/assets/noGirl.png'} alt={girlInfo?.name} />
                 </section>
 
                 <div className={styles.girlImages}>
                     <h2>Photos ({photos.length})</h2>
                     <section className={styles.girlImages__container}>
                         {
-                            photos.map((image:any) => (
+                            photos.map((image: any) => (
                                 <img onError={handleImageError} src={image?.url} alt={girlInfo?.name} key={image?.url} />
                             ))
                         }
@@ -101,7 +118,7 @@ export const GirlPage = ({ username }: Props) => {
                     <h2>Videos ({videos.length})</h2>
                     <section className={styles.girlVideos__container}>
                         {
-                            videos.map((video:any) => (
+                            videos.map((video: any) => (
                                 <video controls key={video?.url}>
                                     <source src={video?.url} type="video/mp4" />
                                 </video>

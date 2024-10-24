@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { GET_HOME_IMAGES_MOCK as useGetHomeImagesQuery, GET_SERVICES_MOCKS as useGetServicesQuery } from "../../../helpers/mocks";
 import { HOME_TEXTS } from "../../../lib/constants/homeConstants";
 import { Header } from "../../molecules/Header/header"
@@ -8,18 +8,18 @@ import { Button } from "../../atoms/Button/button";
 import { Comment as commentType } from "../../../lib/types/types";
 import { Footer } from "../../molecules/Footer/footer";
 import { Comments } from "../../organisms/Comments/comments";
-import { environment } from '../../../lib/config/environment'
 import { Rating } from "@mui/material";
 import { useAppSelector } from "../../../lib/contexts/hooks";
 import { AlertModal, AlertModalProps } from "../../molecules/AlertModal/alertModal";
 import { useNavigate } from "react-router-dom";
-import { postComment } from "../../../lib/services/api";
+import { getComments, getServices, postComment } from "../../../lib/services/api";
 export const Home = () => {
     const [girlImages, setGirlImages] = useState<Array<string>>([]);
     const [services, setServices] = useState<Array<Service>>([]);
     const [comments, setComments] = useState<Array<commentType>>([]);
     const [commentStars, setCommentStars] = useState<number>(0);
     const navigate = useNavigate();
+    const areaRef = useRef<HTMLTextAreaElement>(null);
     const [modalProps, setModalProps] = useState<AlertModalProps>({
 
         isOpen: false,
@@ -30,7 +30,7 @@ export const Home = () => {
     const userInfo = useAppSelector(state => state.auth.user);
     useEffect(() => {
         useGetHomeImagesQuery().then((images) => setGirlImages(images));
-        useGetServicesQuery().then((services) => setServices(services));
+        getServices().then((services) => setServices(services));
 
     }, []);
 
@@ -72,7 +72,10 @@ export const Home = () => {
                         isLoading: false,
                         isOpen: true,
                         onOk: () => {
+                            gettingComments();
                             setModalProps({ ...modalProps, isOpen: false });
+                            setCommentStars(0);
+                            areaRef.current!.value = '';
                         },
                         onCancel: undefined
                     });
@@ -92,14 +95,18 @@ export const Home = () => {
     }
 
     useEffect(() => {
-        fetch(environment.URLS.BACK_URL + '/comments', { method: 'GET' })
-            .then(response => response.json())
-            .then(data => {
-                console.log(data);
-                setComments(data);
-            })
-            .catch(err => console.error(err));
+        gettingComments()
     }, []);
+
+    const gettingComments = () => {
+        try {
+            getComments().then(data => {
+                setComments(data);
+            });
+        } catch (err) {
+            console.error(err);
+        }
+    }
 
     return (
         <>
@@ -148,7 +155,7 @@ export const Home = () => {
                 <section className={styles.large_section_wrapper__comment}>
                     <h2 className={styles.large_section_wrapper__comment__title}>Leave a comment</h2>
                     <form onSubmit={handleComment} className={styles.large_section_wrapper__comment__form}>
-                        <textarea name="comment" />
+                        <textarea ref={areaRef} name="comment" />
                         <Rating name="simple-controlled" value={commentStars} onChange={handleStarsChange} />
                         <Button text="Send" type="submit" disabled={false} className={styles.large_section_wrapper__comment__form__button} />
                     </form>

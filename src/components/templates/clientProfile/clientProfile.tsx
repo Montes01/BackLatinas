@@ -18,17 +18,19 @@ export const ClientProfile = () => {
   const [userInfo, setUserInfo] = useState(null as UserInfoResponse | null);
   const webcamRef = useRef<Webcam>(null);
   const user = useAppSelector((state) => state.auth.user);
-  const [reloadComments, setReloadComments] = useState(false);
   useEffect(() => {
+    gettingComments()
+  }, []);
+  
+  const gettingComments = () => {
     try {
       getComments().then((response) => {
         setComments(response);
       });
     } catch (error) {
-      setComments([]);
       console.error("Error al obtener los comentarios:", error);
     }
-  }, [reloadComments]);
+  }
 
   useEffect(() => {
     if (user) {
@@ -81,7 +83,7 @@ export const ClientProfile = () => {
             </div>
             <div className={styles.userInfo}>
               <h2 className={styles.username}>{user?.nombre}</h2>
-              <p className={styles.userDescription}>Norwegian Man</p>
+              <p className={styles.userDescription}>{userInfo?.nationality} {userInfo?.gender}</p>
             </div>
             <button className={styles.editButton}>
               <Edit className={styles.editIcon} />
@@ -113,7 +115,7 @@ export const ClientProfile = () => {
           <h3 className={styles.commentsHeader}>Your Comments</h3>
           {
             filteredComments.map((comment) => (
-              <CommentRender reload={() => setReloadComments(!reloadComments)} comment={comment} canEdit />
+              <CommentRender reload={gettingComments} comment={comment} canEdit />
             ))
           }
         </div>

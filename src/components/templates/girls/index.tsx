@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { Category, Service, Comment as CommentType, Women, GirlResponse, FilterResponse } from "../../../lib/types/types";
+import { Service, Comment as CommentType,  GirlResponse, FilterResponse } from "../../../lib/types/types";
 import { Header } from "../../molecules/Header/header"
 import styles from './girls.module.scss';
 import { Button } from "../../atoms/Button/button";

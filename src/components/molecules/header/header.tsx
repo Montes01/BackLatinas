@@ -6,13 +6,14 @@ import ReactFlagsSelect from "react-flags-select";
 import { Hamburguer } from "../Hamburguer/hamburguer";
 import i18n from "../../../i18n/i18n";
 import { t } from "i18next";
+import { useAppSelector } from "../../../lib/contexts/hooks";
 
 export const Header = () => {
     const [isMenuOpen, setIsMenuOpen] = useState(false);
     const [selectedCountry, setSelectedCountry] = useState('US');
     const navRef = useRef<HTMLDivElement>(null);
     const menuRef = useRef<HTMLDivElement>(null);
-
+    const userInfo = useAppSelector(state => state.auth.user);
     const handleMenuClick: MouseEventHandler = () => {
         setIsMenuOpen(!isMenuOpen);
     }
@@ -60,8 +61,10 @@ export const Header = () => {
                         countries={["US", "GB", "FR", "DE", "IT", "ES"]}
                     />
                     <div ref={navRef} className={styles.header__nav__menu__icon}>
+                        {userInfo?.rol === "admin" ? <div className={styles.header__nav__menu__admin_text}> Admin </div> : null}
                         <IconMenu onClick={handleMenuClick} />
                     </div>
+
                     <Hamburguer isMenuOpen={isMenuOpen} menuRef={menuRef} />
                 </div>
             </header>
