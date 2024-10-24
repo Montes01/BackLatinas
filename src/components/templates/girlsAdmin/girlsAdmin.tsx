@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { GirlResponse } from "../../../lib/types/types";
 import { Header } from "../../molecules/Header/header";
-import styles from "./GirlsAdmin.module.scss";
+import styles from "./girlsAdmin.module.scss";
 import { Button } from "../../atoms/Button/button";
 import { Footer } from "../../molecules/Footer/footer";
 import { GirlCard } from "../../molecules/GirlCard/girlCard";
