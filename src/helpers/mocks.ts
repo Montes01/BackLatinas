@@ -1,4 +1,4 @@
-import { Service, Comment, Women, WomenStatus, UserStatus, Category, User, MultimediaType, SubService } from "../lib/types/types.ts"
+import { Service, Comment, Women, WomenStatus, UserStatus, Category, MultimediaType, SubService } from "../lib/types/types.ts"
 
 const exampleSubService: SubService = {
     quantity: 1,
@@ -67,24 +67,24 @@ const exampleGirl: Women = {
     weight: 60
 }
 
-const exampleUser: User = {
-    comments: [],
-    email: 'example',
-    gender: 'femenine',
-    id_user: 1,
-    nacionality: 'spanish',
-    password: '1234',
-    phoneNumber: '123456789',
-    profile_photo: 'example',
-    role: {
-        id_role: 1,
-        name: 'user',
-        users: []
-    },
-    status: UserStatus.ACTIVE,
-    user_name: 'jhon doe',
-    women: []
-}
+// const exampleUser: User = {
+//     comments: [],
+//     email: 'example',
+//     gender: 'femenine',
+//     id_user: 1,
+//     nacionality: 'spanish',
+//     password: '1234',
+//     phoneNumber: '123456789',
+//     profile_photo: 'example',
+//     role: {
+//         id_role: 1,
+//         name: 'user',
+//         users: []
+//     },
+//     status: UserStatus.ACTIVE,
+//     user_name: 'jhon doe',
+//     women: []
+// }
 
 
 //GET
@@ -147,7 +147,7 @@ export const GET_COMMENTS_MOCK = async (): Promise<Array<Comment>> => {
             {
                 comment: 'Beautiful girls 😍🥰',
                 stars: 5,
-                user: exampleUser,
+                // user: exampleUser,
                 createdAt: new Date().getDate().toString(),
                 idComment: 1,
                 userName: 'jhon doe'
@@ -155,7 +155,7 @@ export const GET_COMMENTS_MOCK = async (): Promise<Array<Comment>> => {
             {
                 comment: 'Excellent all, beautiful girls.',
                 stars: 4,
-                user: exampleUser,
+                // user: exampleUser,
                 createdAt: new Date().getDate().toString(),
                 idComment: 2,
                 userName: 'jhon doe'
@@ -163,7 +163,7 @@ export const GET_COMMENTS_MOCK = async (): Promise<Array<Comment>> => {
             {
                 comment: 'Fabulous, they are all super attentive and beautiful.',
                 stars: 5,
-                user: exampleUser,
+                // user: exampleUser,
                 createdAt: new Date().getDate().toString(),
                 idComment: 3,
                 userName: 'jhon doe'

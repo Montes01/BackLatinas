@@ -7,7 +7,7 @@ import { Delete, Edit, Save } from "@mui/icons-material";
 import { AlertModal, AlertModalProps } from "../../molecules/AlertModal/alertModal";
 import { deleteComment, editComment } from "../../../lib/services/api";
 import { useAppSelector } from "../../../lib/contexts/hooks";
-export const Comment = ({ comment, canEdit, reload }: { comment: type, canEdit?: boolean, reload: () => void}) => {
+export const Comment = ({ comment, canEdit, reload }: { comment: type, canEdit?: boolean, reload?: () => void}) => {
   const [imageError] = useState<boolean>(true);
   const inputRef = useRef<HTMLInputElement>(null);
   const [editMode, setEditMode] = useState<boolean>(false);
@@ -45,7 +45,7 @@ export const Comment = ({ comment, canEdit, reload }: { comment: type, canEdit?:
         onCancel: undefined,
         onOk: () => { 
           setModalProps({ ...modalProps, isOpen: false })
-          reload();
+          reload?.();
         }
       });
     } catch (error) {
@@ -82,7 +82,7 @@ export const Comment = ({ comment, canEdit, reload }: { comment: type, canEdit?:
             onCancel: undefined,
             isLoading: false,
             onOk: () => { 
-              reload();
+              reload?.();
               setModalProps({ ...modalProps, isOpen: false })
              }
           });

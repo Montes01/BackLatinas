@@ -1,5 +1,5 @@
 import { useEffect, useRef, useState } from "react";
-import { GET_HOME_IMAGES_MOCK as useGetHomeImagesQuery, GET_SERVICES_MOCKS as useGetServicesQuery } from "../../../helpers/mocks";
+import { GET_HOME_IMAGES_MOCK as useGetHomeImagesQuery } from "../../../helpers/mocks";
 import { HOME_TEXTS } from "../../../lib/constants/homeConstants";
 import { Header } from "../../molecules/Header/header"
 import styles from './home.module.scss';

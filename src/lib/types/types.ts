@@ -83,10 +83,8 @@ export interface Role {
 
 // Multimedia.ts
 export interface Multimedia {
-    idMedia: number;
     mediaType: MultimediaType;
     url: string;
-    women?: Women;
 }
 
 export enum MultimediaType {
@@ -195,4 +193,10 @@ export interface UserInfoResponse {
     numberPhone: string,
     nationality: string,
     profilePhoto: string
+}
+
+export interface MediaRequest {
+    user_name: string;
+    url: string;
+    mediaType: MultimediaType;
 }

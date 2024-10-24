@@ -1,5 +1,5 @@
 import axios from "axios"
-import { Comment, CommentRequest, FilterResponse, GirlResponse, LoginResponse, PackageResponse, RegisterWomenRequest, ServiceResponse, SubService, UserInfoResponse, WomenRequest } from "../types/types";
+import { Comment, CommentRequest, FilterResponse, GirlResponse, LoginResponse, MediaRequest, PackageResponse, RegisterWomenRequest, ServiceResponse, SubService, UserInfoResponse, WomenRequest } from "../types/types";
 import { parseJwt } from "../../helpers/jwt";
 import { environment } from "../config/environment";
 import { tokenName } from "../constants/general";
@@ -239,5 +239,24 @@ export const editComment = async (id: number, comment: CommentRequest) => {
     } catch (error) {
         console.error("Error al editar el comentario:", error);
         throw new Error("There was an error editing the comment.");
+    }
+}
+
+export const uploadGirlImage = async (request: MediaRequest) => {
+    try {
+        await axios.post(`${environment.URLS.BACK_URL}/women/upload`, request);
+    } catch (error) {
+        console.error("Error al subir la imagen de la chica:", error);
+        throw new Error("There was an error uploading the  image.");
+    }
+}
+
+export const getMedia = async (username: string) => {   
+    try {
+        const response = await axios.get(`${environment.URLS.BACK_URL}/women/multimedia/${username}`);
+        return response.data;
+    } catch (error) {
+        console.error("Error al obtener la multimedia de la chica:", error);
+        throw new Error("There was an error getting the media.");
     }
 }

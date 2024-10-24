@@ -16,7 +16,7 @@ export const Comments = ({ comments, customButtonAction, viewMoreButton }: Props
 
       <ul className={styles.comments__list}>
         {comments.map((comment, index) => (
-          <Comment key={`Comment-${index}`} comment={comment} />
+          <Comment  key={`Comment-${index}`} comment={comment} />
         ))}
       </ul>
       {

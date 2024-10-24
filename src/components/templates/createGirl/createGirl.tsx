@@ -4,10 +4,10 @@ import { Header } from '../../molecules/Header/header'
 import styles from './createGirl.module.scss'
 import { Input } from '../../atoms/Input/input'
 import { useEffect, useRef, useState } from 'react'
-import { Edit, Save } from '@mui/icons-material'
+import { Edit, Publish, Save } from '@mui/icons-material'
 import { GirlInfoItem } from '../../atoms/GirlInfoItem/girlInfoItem'
-import { FilterResponse, ServiceResponse, WomenRequest } from '../../../lib/types/types'
-import { getFilters, getGirlByUsername, getServices, postGirlByAdmin, updateGirlByAdmin } from '../../../lib/services/api'
+import { FilterResponse, Multimedia, MultimediaType, ServiceResponse, WomenRequest } from '../../../lib/types/types'
+import { getFilters, getGirlByUsername, getMedia, getServices, postGirlByAdmin, updateGirlByAdmin, uploadGirlImage } from '../../../lib/services/api'
 import { Loader } from '../../atoms/Loader/loader'
 import { CheckServices } from '../../molecules/CheckServices/checkServices'
 import { Button } from '../../atoms/Button/button'
@@ -25,6 +25,7 @@ export const CreateGirl = () => {
     const [filters, setFilters] = useState<FilterResponse>({})
     const [areServicesLoading, setAreServicesLoading] = useState(true)
     const [areFiltersLoading, setAreFiltersLoading] = useState(true)
+    const [girlMedia, setGirlMedia] = useState<Multimedia[]>([])
     const navigate = useNavigate()
     const [girlInfo, setGirlInfo] = useState<WomenRequest>({
         age: 0,
@@ -48,6 +49,17 @@ export const CreateGirl = () => {
         selectedFilterNames: [] as string[],
         photoProfile: ''
     })
+
+    const gettingMedia = () => {
+        if (!username) return
+        getMedia(username).then((data) => {
+            setGirlMedia(data)
+        })
+    }
+
+    useEffect(() => {
+        gettingMedia()
+    }, [])
 
     useEffect(() => {
         if (username) {
@@ -106,7 +118,7 @@ export const CreateGirl = () => {
     const handleInputBlur = () => {
         setCanEditName(false)
         const name = inputRef.current?.value!
-        const user_name = username ?? name.toLowerCase()! + Math.floor(Math.random() * 1000)
+        const user_name = username ?? `${name}_${girlInfo.nationality}_${crypto.randomUUID()}`
         setGirlInfo(prev => ({ ...prev, name, user_name }))
     }
     const handleEditName = () => {
@@ -132,6 +144,21 @@ export const CreateGirl = () => {
 
     const handleInfoItemChange = (key: string, text: string) => {
         setGirlInfo(prev => ({ ...prev, [key]: text }))
+    }
+
+    const handleUploadPic = async (e: React.ChangeEvent<HTMLInputElement>) => {
+        const { name, user_name } = girlInfo
+        if (e.target.files && e.target.files[0]) {
+            UseUploadImage(e.target.files[0], `girl_media/${user_name}/${name}_${crypto.randomUUID()}`).then(async (url) => {
+                try {
+                    alert('Imagen subida correctamente')
+                    await uploadGirlImage({ user_name: user_name, url: url, mediaType: MultimediaType.PHOTO })
+                    gettingMedia()
+                } catch (error) {
+                    console.error('Error al subir la imagen:', error)
+                }
+            })
+        }
     }
 
     useEffect(() => {
@@ -192,13 +219,26 @@ export const CreateGirl = () => {
                         <Input defaultValue={girlInfo?.name} disabled={!canEditName} reference={inputRef} onBlur={handleInputBlur} placeholder="Name" className={styles.large_section_wrapper__form__name__input} />
                     </section>
 
-                    <section className={styles.large_section_wrapper__form__profile_pic}>
+                    <section className={styles[`large_section_wrapper__form__profile_pic${username ? '--edit' : ''}`]}>
                         {!girlInfo.photoProfile ?
                             <label htmlFor="profile_pic" className={styles.large_section_wrapper__form__profile_pic__label}>Chose Profile Photo</label>
                             : <img src={girlInfo.photoProfile} alt="profile_pic" className={styles.large_section_wrapper__form__profile_pic__photo} />
                         }
                         <input type="file" id="profile_pic" className={styles.large_section_wrapper__form__profile_pic__input} onChange={handleProfilePicChange} />
                     </section>
+
+                    <section className={styles.large_section_wrapper__form__pics}>
+                        {
+                            girlMedia.map((media, index) => (
+                                <img key={index} src={media.url} alt={`media_${index}`} className={styles.large_section_wrapper__form__pics__photo} />
+                            ))
+                        }
+                        <div className={styles.large_section_wrapper__form__pics__button}>
+                                <input onChange={handleUploadPic} type="file" className={styles.large_section_wrapper__form__pics__button__input} />
+                                <Publish className={styles.large_section_wrapper__form__pics__button__icon} />
+                        </div>
+                    </section>
+
 
                     <section className={styles.large_section_wrapper__form__information}>
                         <h2 className={styles.large_section_wrapper__form__information__title}>Information</h2>

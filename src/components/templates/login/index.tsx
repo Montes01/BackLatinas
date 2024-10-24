@@ -1,5 +1,4 @@
 import { useState } from "react";
-import axios from "axios";
 import { Header } from "../../molecules/Header/header";
 import styles from './login.module.scss';
 import { Footer } from "../../molecules/Footer/footer";

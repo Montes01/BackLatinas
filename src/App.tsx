@@ -7,7 +7,6 @@ import GirlsPage from './pages/girls';
 import SingleGirl from './pages/single-girl';
 import './i18n/i18n';
 import HomeAdmin from './components/templates/homeAdmin/homeAdmin';
-import { GirlsAdmin } from './components/templates/girlsAdmin/girlsAdmin';
 import Login from './pages/login';
 import Profile from './pages/profile';
 import { useEffect } from 'react';

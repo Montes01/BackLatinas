@@ -15,7 +15,7 @@ import { AlertModal, AlertModalProps } from "../../molecules/AlertModal/alertMod
 
 export default function CreateClient() {
     const [error, setError] = useState("");
-    const [registerResponse, setRegisterResponse] = useState("");
+    const [registerResponse, _] = useState("");
     const [modalProps, setModalProps] = useState({
         isOpen: false,
         isLoading: false,

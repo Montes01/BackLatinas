@@ -100,17 +100,21 @@
 
     &__container {
         align-items: center;
-        justify-content: center;
         display: flex;
-        width: auto;
+        width: 90%;
         gap: 20px;
-        justify-content: flex-end;
-
+        overflow-x: auto;
+        scrollbar-width: thin;
+        scrollbar-color: $text-base-color $black-text-color;
+        scrollbar-gutter: 10px;
         video,
         img {
-            width: 100%;
-            max-width: 200px;
+            min-width: 260px;
+            max-width: 260px;
+            min-height: 150px;
+            max-height: 150px;
             border-radius: 10px;
+            object-fit: cover;
         }
 
     }

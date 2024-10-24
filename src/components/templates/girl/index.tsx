@@ -1,7 +1,7 @@
 import { Header } from "../../molecules/Header/header";
-import { GirlResponse, Service, SubService, WomenRequest } from "../../../lib/types/types";
+import { GirlResponse, Multimedia, MultimediaType, Service, SubService, WomenRequest } from "../../../lib/types/types";
 import styles from './girl.module.scss';
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useState } from "react";
 import { Button } from "../../atoms/Button/button";
 import { GirlInfoItem } from "../../atoms/GirlInfoItem/girlInfoItem";
 import { Footer } from "../../molecules/Footer/footer";
@@ -10,7 +10,7 @@ import { useNavigate } from "react-router-dom";
 
 import WhatsAppButton from "../../atoms/WhatsAppButton/whatsapp-button";
 import { BackButton } from "../../molecules/BackButton/backButton";
-import { getGirlByUsername, getGirls, getServices, getSubServices } from "../../../lib/services/api";
+import { getGirlByUsername, getGirls, getMedia, getServices, getSubServices } from "../../../lib/services/api";
 import { SubServiceCard } from "../../molecules/SubServiceCard/SubServiceCard";
 import ReactFlagsSelect from "react-flags-select";
 
@@ -32,15 +32,22 @@ export const GirlPage = ({ username }: Props) => {
     const [services, setServices] = useState([] as Service[]);
     const [selectedService, setSelectedService] = useState(girlInfo?.selectedServiceIds?.[0]);
     const [subservices, setSubservices] = useState([] as SubService[]);
+    const [girlMedia, setGirlMedia] = useState<Multimedia[]>([]);
     const navigate = useNavigate();
 
     useEffect(() => {
         getGirlByUsername(username).then(data => {
             setGirlInfo(data)
-        });
+        }).catch(_ => navigate('/home'));
         getGirls().then(data => setGirls(data));
         getServices().then(data => setServices(data)).catch(_ => setSubservices([]));
     }, [username, navigate]);
+
+
+    useEffect(() => {
+        getMedia(username).then(data => setGirlMedia(data));
+    }, [username]);
+
 
     useEffect(() => {
         if (services.length > 0) {
@@ -60,8 +67,8 @@ export const GirlPage = ({ username }: Props) => {
     }, [selectedService]);
 
 
-    const photos = [] as any;
-    const videos = [] as any;
+    const photos = girlMedia.filter(el => el.mediaType === MultimediaType.PHOTO);
+    const videos = girlMedia.filter(el => el.mediaType === MultimediaType.VIDEO);
 
     const handleImageError = (event: React.SyntheticEvent<HTMLImageElement, Event>) => {
         event.currentTarget.src = '/assets/noGirl.png';
