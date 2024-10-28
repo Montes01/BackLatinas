@@ -145,7 +145,7 @@ export const Home = () => {
                         {
                             services.map((service, index) => (
                                 <li key={`Service-${index}`}>
-                                    <Button text={service.title} type="button" disabled={false} />
+                                    <Button text={service.title} type="button" disabled={false}  className={styles.large_section_wrapper__services__list__item} />
                                 </li>
                             ))
                         }

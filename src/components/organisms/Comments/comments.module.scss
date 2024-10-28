@@ -3,9 +3,9 @@
 
 .comments {
     display: flex;
-    padding: $marked-padding;
+    padding: $unmarked-padding;
     flex-direction: column;
-    gap: 40px;
+    gap: $normal-gap;
 
     &__title {
         color: $main-text-color;

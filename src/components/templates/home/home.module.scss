@@ -1,5 +1,6 @@
 @import '/src/lib/styles/colors.scss';
 @import '/src/lib/styles/sizes.scss';
+@import '/src/lib/styles/responsive.scss';
 
 .large_section_wrapper {
   background-image: url('/assets/large-background.png');
@@ -45,32 +46,40 @@
     &__points {
       list-style: decimal;
       list-style-position: inside;
+      display: flex;
+      flex-direction: column;
+      
+      gap: $normal-gap;
     }
   }
 
   &__services {
     display: flex;
     flex-direction: column;
-    gap: 20px;
-    padding: 2rem 2rem;
+    gap: 15px;
+    padding: $minimum-padding;
     color: $text-base-color;
     align-items: center;
     background-color: rgba($color: $red-background-color, $alpha: .2);
 
     &__list {
-      list-style: none;
       display: flex;
-      justify-content: space-evenly;
-      gap: 20px;
       flex-wrap: wrap;
+      justify-content: center;
+      align-items: center;
+      gap: 10px;
+      list-style: none;
     }
+
+
+
   }
 
   &__comment {
     display: flex;
     flex-direction: column;
     gap: 20px;
-    padding:  $unmarked-padding;
+    padding: $unmarked-padding;
     color: $text-base-color;
 
     &__form {

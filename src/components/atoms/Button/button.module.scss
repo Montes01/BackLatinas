@@ -1,16 +1,24 @@
 @import '/src/lib/styles/colors.scss';
+@import '/src/lib/styles/sizes.scss';
+
 .button {
     background-color: $red-background-color;
-    color: #fff;
-    padding: 10px 20px;
-    border: none;
-    border-radius: 15px;
-    font-size: .9rem;
+    color: $text-base-color;
+    width: $button-width;
+    height: $button-height;
+    font-size: $base-pharagraph-size;
+    border-radius: $interactive-radius;
+    font-weight: normal;
+    box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
     cursor: pointer;
+    border: none;
     font-weight: 600;
     transition: background-color 0.3s;
     text-decoration: none;
     text-align: center;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 
     &:disabled {
         opacity: 0.5;
