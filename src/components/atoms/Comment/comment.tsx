@@ -7,11 +7,12 @@ import { Delete, Edit, Save } from "@mui/icons-material";
 import { AlertModal, AlertModalProps } from "../../molecules/AlertModal/alertModal";
 import { deleteComment, editComment } from "../../../lib/services/api";
 import { useAppSelector } from "../../../lib/contexts/hooks";
-export const Comment = ({ comment, canEdit, reload }: { comment: type, canEdit?: boolean, reload?: () => void}) => {
+export const Comment = ({ comment, canEdit, reload }: { comment: type, canEdit?: boolean, reload?: () => void }) => {
   const [imageError] = useState<boolean>(true);
   const inputRef = useRef<HTMLInputElement>(null);
   const [editMode, setEditMode] = useState<boolean>(false);
   const user = useAppSelector(state => state.auth.user);
+  const [isCompressed, setIsCompressed] = useState<boolean>(comment.comment.length > 50);
   const [modalProps, setModalProps] = useState({
     isOpen: false,
     isLoading: false,
@@ -43,7 +44,7 @@ export const Comment = ({ comment, canEdit, reload }: { comment: type, canEdit?:
         message: 'Coment edited succesfully.',
         isOpen: true,
         onCancel: undefined,
-        onOk: () => { 
+        onOk: () => {
           setModalProps({ ...modalProps, isOpen: false })
           reload?.();
         }
@@ -81,10 +82,10 @@ export const Comment = ({ comment, canEdit, reload }: { comment: type, canEdit?:
             isOpen: true,
             onCancel: undefined,
             isLoading: false,
-            onOk: () => { 
+            onOk: () => {
               reload?.();
               setModalProps({ ...modalProps, isOpen: false })
-             }
+            }
           });
 
         } catch (error) {
@@ -103,14 +104,6 @@ export const Comment = ({ comment, canEdit, reload }: { comment: type, canEdit?:
       onCancel: () => setModalProps({ ...modalProps, isOpen: false }),
     });
 
-    // try {
-    //   await axios.delete(
-    //     `https://backlatinassexcam.onrender.com/LatinasSexCam/deleteComment/2${id}`
-    //   );
-    //   console.log(`Comentario ${id} eliminado con éxito`);
-    // } catch (error) {
-    //   console.error("Error al eliminar el comentario:", error);
-    // }
   };
   return (
     <>
@@ -124,11 +117,33 @@ export const Comment = ({ comment, canEdit, reload }: { comment: type, canEdit?:
         </div>
         <section className={styles.comment_wrapper__text}>
           <h3 className={styles.comment_wrapper__text__name}>{comment.userName}</h3>
-          {
-            editMode ?
-              <input ref={inputRef} className={styles['comment_wrapper__text__comment--edit']} defaultValue={comment.comment} /> :
-              <p className={styles.comment_wrapper__text__comment}>{comment.comment}</p>}
-          <small>{comment.createdAt}</small>
+          <div className={styles.comment_wrapper__text__wrapper}>
+
+            {
+              editMode ?
+                <input ref={inputRef} className={styles['comment_wrapper__text__wrapper__comment--edit']} defaultValue={comment.comment} /> :
+                <p className={styles.comment_wrapper__text__wrapper__comment}>
+                  {isCompressed ? comment.comment?.slice(0, 50) : comment.comment}
+                  {' '}
+                  {
+                    comment.comment.length > 50 && !editMode &&
+                    <>
+                      {
+                        isCompressed ?
+                          <button className={styles.comment_wrapper__text__wrapper__comment__more} onClick={() => setIsCompressed(false)}>View More...</button> :
+                          <button className={styles.comment_wrapper__text__wrapper__comment__more} onClick={() => setIsCompressed(true)}>View Less...</button>
+                      }
+                    </>
+                  }
+                </p>
+            }
+          </div>
+          <small className={styles.comment_wrapper__text__date}>{
+            'Comment created at ' +
+            new Date(comment.createdAt).toLocaleDateString()
+            + ' ' +
+            new Date(comment.createdAt).toLocaleTimeString()
+          }</small>
         </section>
         <div className={styles.comment_wrapper__rate}>
           {
