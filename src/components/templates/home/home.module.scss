@@ -1,5 +1,5 @@
 @import '/src/lib/styles/colors.scss';
-
+@import '/src/lib/styles/sizes.scss';
 
 .large_section_wrapper {
   background-image: url('/assets/large-background.png');
@@ -7,9 +7,13 @@
   background-size: cover;
 
   &__default_section {
-    padding: 2rem 2rem;
     background-color: rgba($color: $red-background-color, $alpha: .2);
     color: $text-base-color;
+    padding: $unmarked-padding;
+
+    &__paragraph {
+      font-size: $base-pharagraph-size ;
+    }
   }
 
   &__third_section {
@@ -20,13 +24,12 @@
     display: flex;
     justify-content: space-evenly;
     flex-wrap: wrap;
-    gap: 20px;
-    padding: 2rem;
+    gap: 5px;
 
     &__image {
       width: 100%;
-      max-width: 200px;
-      height: auto;
+      max-width: 161px;
+      height: 109px;
     }
   }
 
@@ -35,8 +38,9 @@
     display: flex;
     flex-direction: column;
     justify-content: center;
+    font-size: $base-pharagraph-size;
     gap: 20px;
-    padding: 2rem 2rem;
+    padding: $unmarked-padding;
 
     &__points {
       list-style: decimal;
@@ -66,7 +70,7 @@
     display: flex;
     flex-direction: column;
     gap: 20px;
-    padding: 2rem 2rem;
+    padding:  $unmarked-padding;
     color: $text-base-color;
 
     &__form {

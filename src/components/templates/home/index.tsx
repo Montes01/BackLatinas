@@ -113,10 +113,10 @@ export const Home = () => {
             <Header />
             <main className={styles.large_section_wrapper}>
                 <section className={styles.large_section_wrapper__default_section}>
-                    {HOME_TEXTS.PHARAGRAHPS.SECOND_SECTION}
+                    <p className={styles.large_section_wrapper__default_section__paragraph}>{HOME_TEXTS.PHARAGRAHPS.SECOND_SECTION}</p>
                 </section>
                 <section className={`${styles.large_section_wrapper__default_section} ${styles.large_section_wrapper__third_section}`}>
-                    {HOME_TEXTS.PHARAGRAHPS.THIRD_SECTION}
+                    <p className={styles.large_section_wrapper__default_section__paragraph}>{HOME_TEXTS.PHARAGRAHPS.THIRD_SECTION}</p>
                 </section>
                 <section className={styles.large_section_wrapper__images}>
                     {

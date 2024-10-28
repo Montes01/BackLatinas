@@ -1,5 +1,6 @@
 @import './lib/styles/colors.scss';
 @import './lib/styles/fonts.scss';
+@import './lib/styles/sizes.scss';
 * {
     margin: 0;
     padding: 0;
@@ -10,4 +11,20 @@
 body {
     font-family: 'Roboto', sans-serif;
     background-color: $main-page-color;
+}
+
+p {
+    font-size: $base-pharagraph-size;
+}
+
+h1 {
+    font-size: $base-title-size;
+}
+
+h2 {
+    font-size: $base-title-size;
+}
+
+h3 {
+    font-size: $base-title-size;
 }

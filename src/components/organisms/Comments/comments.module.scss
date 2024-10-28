@@ -1,17 +1,31 @@
 @import '/src/lib/styles/colors.scss';
+@import '/src/lib/styles/sizes.scss';
 
 .comments {
     display: flex;
-    padding: 2rem;
+    padding: $marked-padding;
     flex-direction: column;
     gap: 40px;
 
     &__title {
-        font-size: 24px;
-        font-weight: 700;
-        color: white;
+        color: $main-text-color;
+        font-size: $base-title-size;
+        position: relative;
+        width: fit-content;
         margin: auto;
+
+        &::before {
+            content: '';
+            position: absolute;
+            width: 70%;
+            height: 1px;
+            background-color: $main-text-color;
+            bottom: -1px;
+            left: 50%;
+            transform: translateX(-50%);
+        }
     }
+
 
     &__list {
         display: flex;
