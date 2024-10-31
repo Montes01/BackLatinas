@@ -1,4 +1,5 @@
 @import '/src/lib/styles/colors.scss';
+@import '/src/lib/styles/sizes.scss';
 
 .girls {
     &__main {
@@ -15,23 +16,22 @@
         background-color: rgba($color: $red-background-color, $alpha: 0.3);
 
         &__interests {
-            padding: 4rem;
             text-align: center;
             display: flex;
             flex-direction: column;
-            gap: 20px;
+            gap: 10px;
+            padding: 5px 0;
             position: relative;
+
             &__back {
-                position: absolute;
-                top: 5px;
-                left: 0;
                 border-top-left-radius: 0%;
                 border-bottom-left-radius: 0%;
             }
+
             &__title {
-                font-size: 16px;
-                font-weight: 700;
+                font-weight: 100;
                 color: $text-base-color;
+                font-size: $base-subtitle-size;
             }
 
             &__list {
@@ -42,7 +42,6 @@
 
                 &__button {
                     background-color: $black-background-color;
-                    width: 150px;
                 }
             }
         }
@@ -53,44 +52,59 @@
             display: flex;
             flex-direction: column;
             align-items: center;
-            padding: 2rem;
+            gap: 20px;
+            padding: 20px;
+            &__title {
+                font-size: 100;
+                text-align: center;
+                color: $main-text-color;
+                font-size: $base-title-size;
+                position: relative;
+                text-transform: uppercase;
+                &::before {
+                    content: '';
+                    position: absolute;
+                    width: 130%;
+                    height: 1px;
+                    background-color: $main-text-color;
+                    bottom: -1px;
+                    left: 50%;
+                    transform: translateX(-50%);
+                }
+            }
+            &__list {
+                display: flex;
+                flex-wrap: wrap;
+                width: 100%;
+                gap: 10px;
+
+                &__item {
+                    flex: calc(30% - 10px);
+                    font-size: 12px;
+                }
+            }
+        }
+    }
+
+    &__large_background {
+
+        background-image: url('/assets/large-background.png');
+        padding: $minimum-padding;
+
+        &__preview {
+            display: flex;
+            flex-direction: column;
+            gap: $normal-gap;
 
             &__title {
-                text-transform: uppercase;
-                font-size: 24px;
-                font-weight: 700;
-                color: $main-text-color;
-                margin: auto;
-                text-decoration: underline;
+                color: $text-base-color;
             }
 
             &__list {
                 display: grid;
-                grid-template-rows: 1fr 1fr 1fr;
-                grid-template-columns: 1fr 1fr 1fr;
-                width: 80%;
-            }
-        }
-    }
-    &__large_background{
-
-        background-image: url('/assets/large-background.png');
-        &__preview {
-            display: flex;
-            flex-direction: column;
-            gap: 20px;
-            padding: 2rem;
-            &__title {
-                font-size: 24px;
-                color: $text-base-color;
-                margin: auto;
-            }
-            
-            &__list {
-                display: flex;
-                gap: 20px;
-                flex-wrap: wrap;
-                justify-content: center;
+                grid-template-columns: repeat(auto-fill, minmax($card-width, 1fr));
+                gap: $normal-gap;
+                justify-items: center;
             }
         }
     }

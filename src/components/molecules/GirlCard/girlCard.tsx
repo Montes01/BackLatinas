@@ -15,7 +15,7 @@ export const GirlCard = ({ name, nationality, profilePhoto, user_name, namePacka
             <img onError={onImageError} className={styles.girlCard__picture} src={profilePhoto} alt={name} />
             <div className={styles.girlCard__info}>
                 <div className={styles.girlCard__info__nameContainer}>
-                    <h3 className={styles.girlCard__name}>{name}</h3>
+                    <h3 className={styles.girlCard__info__nameContainer__name}>{name}</h3>
                     {isVerified && <StarRate style={
                         {
                             color: '#FFD700',

@@ -1,10 +1,40 @@
 @import '/src/lib/styles/colors.scss';
-
+@import '/src/lib/styles/sizes.scss';
 
 .large_section_wrapper {
   background-image: url('/assets/large-background.png');
   background-repeat: no-repeat;
   background-size: cover;
-  
-  padding: 2rem;
+  padding-top: 2rem;
+
+  &__empty {
+    opacity: 0;
+    display: flex;
+    padding: $unmarked-padding;
+    padding-top: 0;
+    flex-direction: column;
+    gap: $normal-gap;
+    pointer-events: none;
+  }
+
+  &__pagination {
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+    flex-wrap: wrap;
+
+    &__button {
+      background-color: $text-base-color;
+      color: $red-background-color;
+      width: 20px;
+      height: 20px;
+
+      &--active {
+        width: 20px;
+        height: 20px;
+        background-color: $red-background-color;
+        color: $text-base-color;
+      }
+    }
+  }
 }

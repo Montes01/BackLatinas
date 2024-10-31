@@ -1,20 +1,33 @@
+@import "/src/lib/styles/colors.scss";
+@import "/src/lib/styles/sizes.scss";
+
 .backContainer {
-    display: flex;
-    align-items: center;
+    background-color: $black-background-color;
+
+    color: $text-base-color;
+    width: $button-width - 2;
+    height: $button-height + 4;
+    font-size: $base-pharagraph-size;
+    border-radius: $special-radius;
+    font-weight: normal;
     cursor: pointer;
-    background-color: black;
-    padding: 7px 20px;
-    width: fit-content;
-    border-radius: 10px;
+    border: none;
+    text-decoration: none;
+    text-align: center;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: $small-gap;
+
     &__arrow {
-        transform: scale(1.2);
         color: white;
     }
 
     &__back {
+        padding: 0;
+        width: fit-content;
         background-color: transparent;
-        padding: 10px;
-        align-self: start;
         border-radius: 10px;
+
     }
 }

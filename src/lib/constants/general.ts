@@ -70,3 +70,6 @@ export const girlMenu: MenuItem[] = [
         path: ROUTES.ALL
     }
 ]
+
+
+export const maxCommentsPerPage = 5;

@@ -7,10 +7,10 @@ export const BackButton = (props: Props) => {
     const navigate = useNavigate();
 
     return (
-        <div {...props} className={`${styles.backContainer} ${props.className}`} onClick={() => navigate(-1)}>
+        <div {...props} className={`${styles.backContainer} ${props.className}`} onClick={() => navigate('/home')}>
             <Arrow className={styles.backContainer__arrow} />
             <Button
-                text="Back"
+                text="Go Back"
                 className={styles.backContainer__back}
             />
         </div>

@@ -1,10 +1,14 @@
+@import "/src/lib/styles/sizes.scss";
 .inputGroup {
+    display: flex;
+    flex-direction: column;
+    gap: $small-gap;
     width: 100%;
     &__input {
+        padding: $input-padding;
+        font-size: $base-pharagraph-size;
+        border-radius: $interactive-radius;
         border: none;
-        padding: 10px;
-        font-size: 16px;
-        border-radius: 5px;
         width: 100%;
         background-color: #fff;
         border-radius: 20px;

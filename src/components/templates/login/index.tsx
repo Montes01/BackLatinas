@@ -80,7 +80,7 @@ export const Login = () => {
                                 Forgot your password?
                             </Link>
                             <button type="submit" className={styles.submitButton} disabled={isLoading}>
-                                {isLoading ? 'Cargando...' : 'Confirmar'}
+                                {isLoading ? 'Loading...' : 'Confirm'}
                             </button>
                         </form>
                     </div>

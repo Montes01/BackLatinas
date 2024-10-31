@@ -4,11 +4,10 @@
 
 .large_section_wrapper {
   background-image: url('/assets/large-background.png');
-  background-repeat: no-repeat;
-  background-size: cover;
+  background-repeat: repeat;
 
   &__default_section {
-    background-color: rgba($color: $red-background-color, $alpha: .2);
+    background-color: rgba($color: $red-background-color, $alpha: .5);
     color: $text-base-color;
     padding: $unmarked-padding;
 
@@ -48,7 +47,7 @@
       list-style-position: inside;
       display: flex;
       flex-direction: column;
-      
+
       gap: $normal-gap;
     }
   }
@@ -60,7 +59,7 @@
     padding: $minimum-padding;
     color: $text-base-color;
     align-items: center;
-    background-color: rgba($color: $red-background-color, $alpha: .2);
+    background-color: rgba($color: $red-background-color, $alpha: .5);
 
     &__list {
       display: flex;
@@ -94,7 +93,7 @@
 
       textarea {
         min-width: 100%;
-        background-color: darken($color: $primary-color, $amount: 45%);
+        background-color: rgba($color: $black-background-color, $alpha: 0.3);
         outline: none;
         max-width: 100%;
         padding: 10px;

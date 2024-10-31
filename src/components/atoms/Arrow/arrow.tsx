@@ -5,8 +5,8 @@ export const Arrow = (props: Props) => {
         <svg
             fill="currentColor"
             viewBox="0 0 16 16"
-            height="1em"
-            width="1em"
+            height="1.7rem"
+            width="1.7rem"
             {...props}
         >
             <path

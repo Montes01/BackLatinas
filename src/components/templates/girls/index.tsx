@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { Service, Comment as CommentType,  GirlResponse, FilterResponse } from "../../../lib/types/types";
+import { Service, Comment as CommentType, GirlResponse, FilterResponse } from "../../../lib/types/types";
 import { Header } from "../../molecules/Header/header"
 import styles from './girls.module.scss';
 import { Button } from "../../atoms/Button/button";
@@ -26,7 +26,7 @@ export const GirlsPage = () => {
     useEffect(() => {
         getGirlsCount().then((count) => setTotalGirls(count));
     }, [])
-        
+
     return (
         <div className={styles.girls}>
             <Header />
@@ -35,6 +35,7 @@ export const GirlsPage = () => {
                     <BackButton className={styles.girls__main__interests__back} />
                     <h2 className={styles.girls__main__interests__title}>What do you want to see today?</h2>
                     <ul className={styles.girls__main__interests__list}>
+                        <Button text="View All" className={styles.girls__main__interests__list__button} />
                         {
                             services.map((service) => (
                                 <Button text={service.title} className={styles.girls__main__interests__list__button} />
@@ -60,7 +61,7 @@ export const GirlsPage = () => {
                 <section className={styles.girls__large_background__preview}>
                     <h4 className={styles.girls__large_background__preview__title}>Total of girls {totalGirls}</h4>
                     <ul className={styles.girls__large_background__preview__list}>
-                        <GirlList girls={girls as any} />
+                        <GirlList girls={girls} />
                     </ul>
 
 
