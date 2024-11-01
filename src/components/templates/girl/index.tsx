@@ -1,5 +1,5 @@
 import { Header } from "../../molecules/Header/header";
-import { GirlResponse, Multimedia, MultimediaType, Service, SubService, WomenRequest } from "../../../lib/types/types";
+import { GirlResponse, Multimedia, MultimediaType, Service, SubService, WomenResponse } from "../../../lib/types/types";
 import styles from './girl.module.scss';
 import { useEffect, useState } from "react";
 import { Button } from "../../atoms/Button/button";
@@ -13,6 +13,7 @@ import { BackButton } from "../../molecules/BackButton/backButton";
 import { getGirlByUsername, getGirls, getMedia, getServices, getSubServices } from "../../../lib/services/api";
 import { SubServiceCard } from "../../molecules/SubServiceCard/SubServiceCard";
 import ReactFlagsSelect from "react-flags-select";
+import { StarRate } from "../../atoms/StarRate/StarRate";
 
 interface Props {
     username: string;
@@ -27,7 +28,7 @@ const serviceNames = [
 ];
 
 export const GirlPage = ({ username }: Props) => {
-    const [girlInfo, setGirlInfo] = useState({} as WomenRequest);
+    const [girlInfo, setGirlInfo] = useState({} as WomenResponse);
     const [girls, setGirls] = useState([] as GirlResponse[]);
     const [services, setServices] = useState([] as Service[]);
     const [selectedService, setSelectedService] = useState(girlInfo?.selectedServiceIds?.[0]);
@@ -88,7 +89,11 @@ export const GirlPage = ({ username }: Props) => {
                     <BackButton />
                     <section className={styles.girlBase__infoSection}>
                         <div className={styles.girlBase__infoSection__info}>
-                            <h1 className={styles.girlBase__infoSection__info__name}>{girlInfo?.name}</h1>
+                            <h1 className={styles.girlBase__infoSection__info__name}>
+                                {girlInfo?.name}
+                                {' '}
+                                {girlInfo.packageSelect === 'PRIORITY' && <StarRate />}
+                            </h1>
                             <p className={styles.girlBase__infoSection__info__description}>24 Hour Contact</p>
                         </div>
                         <div className={styles.girlBase__infoSection__nation}>
@@ -197,8 +202,8 @@ export const GirlPage = ({ username }: Props) => {
                         </ul>
                     </section>
 
-                    <Footer />
                 </section>
+                <Footer />
             </section>
         </div>
     );

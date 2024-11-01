@@ -200,3 +200,7 @@ export interface MediaRequest {
     url: string;
     mediaType: MultimediaType;
 }
+
+export interface WomenResponse extends WomenRequest {
+    packageSelect: string;
+}

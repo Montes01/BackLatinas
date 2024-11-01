@@ -1,5 +1,9 @@
+
+@import '/src/lib/styles/sizes.scss';
 .item {
     display: flex;
     padding: 2px;
     justify-content: space-between;
+    font-size: $base-pharagraph-size;
+    font-weight: 100;
 }

@@ -1,12 +1,13 @@
 @import './lib/styles/colors.scss';
 @import './lib/styles/fonts.scss';
 @import './lib/styles/sizes.scss';
-* {
+* > * {
     margin: 0;
     padding: 0;
     box-sizing: border-box;
     font-family: 'GildaDisplay', sans-serif;
     line-height: $base-line-height;
+    font-weight: 100;
 }
 
 body {

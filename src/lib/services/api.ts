@@ -1,5 +1,5 @@
 import axios from "axios"
-import { Comment, CommentRequest, FilterResponse, GirlResponse, LoginResponse, MediaRequest, PackageResponse, RegisterWomenRequest, ServiceResponse, SubService, UserInfoResponse, WomenRequest } from "../types/types";
+import { Comment, CommentRequest, FilterResponse, GirlResponse, LoginResponse, MediaRequest, PackageResponse, RegisterWomenRequest, ServiceResponse, SubService, UserInfoResponse, WomenRequest, WomenResponse } from "../types/types";
 import { parseJwt } from "../../helpers/jwt";
 import { environment } from "../config/environment";
 import { tokenName } from "../constants/general";
@@ -130,7 +130,7 @@ export const updateGirlByAdmin = async (women: WomenRequest) => {
     }
 }
 
-export const getGirlByUsername = async (username: string): Promise<WomenRequest> => {
+export const getGirlByUsername = async (username: string): Promise<WomenResponse> => {
     console.log('username', username);
     try {
         const response = await axios.post(`${environment.URLS.BACK_URL}/women/info`, {
@@ -139,7 +139,7 @@ export const getGirlByUsername = async (username: string): Promise<WomenRequest>
 
         const mapServiceIds = response.data.services.map((service: { idService: number }) => service.idService);
         const mapFilterNames = response.data.categoryFilters.map((filter: { name: string }) => filter.name);
-        const body = { ...response.data as WomenRequest, selectedServiceIds: mapServiceIds, selectedFilterNames: mapFilterNames }
+        const body = { ...response.data as WomenResponse, selectedServiceIds: mapServiceIds, selectedFilterNames: mapFilterNames }
         console.log('body', body);
         return body;
     } catch (err) {
