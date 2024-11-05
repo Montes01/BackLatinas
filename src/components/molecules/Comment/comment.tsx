@@ -15,6 +15,7 @@ interface CommentBoxProps {
 export const CommentBox = ({ onComment }: CommentBoxProps) => {
     const navigate = useNavigate();
     const userInfo = useAppSelector(state => state.auth.user);
+
     const areaRef = useRef<HTMLTextAreaElement>(null);
     const [commentStars, setCommentStars] = useState<number>(0);
     const [modalProps, setModalProps] = useState<AlertModalProps>({
@@ -82,7 +83,7 @@ export const CommentBox = ({ onComment }: CommentBoxProps) => {
             }
         });
     }
-    return (
+    return userInfo?.rol !== 'admin' && (
         <>
             <section className={styles.comment}>
                 <h2 className={styles.comment__title}>Leave a comment</h2>

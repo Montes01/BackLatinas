@@ -8,15 +8,16 @@ interface Props {
 import styles from "./comments.module.scss";
 import { Button } from "../../atoms/Button/button";
 import { ROUTES } from "../../../lib/constants/routes";
+import { useAppSelector } from "../../../lib/contexts/hooks";
 export const Comments = ({ comments, customButtonAction, viewMoreButton }: Props) => {
-
+  const userInfo = useAppSelector(state => state.auth.user);
   return (
     <section className={styles.comments}>
       <h2 className={styles.comments__title}>Comments</h2>
 
       <ul className={styles.comments__list}>
         {comments.map((comment, index) => (
-          <Comment  key={`Comment-${index}`} comment={comment} />
+          <Comment  key={`Comment-${index}`} comment={comment} canDelete={userInfo?.rol == 'admin'} />
         ))}
       </ul>
       {

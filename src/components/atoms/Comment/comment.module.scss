@@ -9,16 +9,18 @@
     padding: 15px;
     border-bottom: 2px solid $main-page-color;
     position: relative;
+    justify-content: space-between;
     &__actions {
         display: flex;
         flex-direction: column;
+        align-items: flex-end;
         gap: 10px;
 
         &__edit {
             color: white;
             border-radius: 20px;
             border: none;
-            padding: 5px;
+            padding: 2px;
             background-color: $red-background-color;
         }
 
@@ -26,7 +28,7 @@
             color: white;
             border-radius: 20px;
             border: none;
-            padding: 5px;
+            padding: 2px;
             background-color: $red-background-color;
         }
     }
@@ -56,6 +58,8 @@
         display: flex;
         flex-direction: column;
         gap: 5px;
+        flex: 1
+        ;
         color: white;
 
 
@@ -82,13 +86,12 @@
                     color: $main-text-color;
                     cursor: pointer;
                 }
-                &--edit {}
             }
         }
     }
 
     .comment_wrapper__rate {
-        position: absolute;
+        position: sticky;
         right: 15px;
         top: 15px;
         display: flex;

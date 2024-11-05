@@ -7,7 +7,7 @@ import { Delete, Edit, Save } from "@mui/icons-material";
 import { AlertModal, AlertModalProps } from "../../molecules/AlertModal/alertModal";
 import { deleteComment, editComment } from "../../../lib/services/api";
 import { useAppSelector } from "../../../lib/contexts/hooks";
-export const Comment = ({ comment, canEdit, reload }: { comment: type, canEdit?: boolean, reload?: () => void }) => {
+export const Comment = ({ comment, canEdit, reload, canDelete }: { comment: type, canEdit?: boolean, reload?: () => void, canDelete?: boolean }) => {
   const [imageError] = useState<boolean>(true);
   const inputRef = useRef<HTMLInputElement>(null);
   const [editMode, setEditMode] = useState<boolean>(false);
@@ -152,21 +152,24 @@ export const Comment = ({ comment, canEdit, reload }: { comment: type, canEdit?:
             ))
           }
         </div>
-        {
-          canEdit && (
-            <div className={styles.comment_wrapper__actions}>
+        <div className={styles.comment_wrapper__actions}>
+          {
+            canEdit && (
               <button className={styles.comment_wrapper__actions__edit} onClick={handleEdit}>
                 {
                   editMode ?
                     <Save className={styles.comment_wrapper__actions__edit__icon} /> :
                     <Edit className={styles.comment_wrapper__actions__edit__icon} />}
               </button>
-              <button className={styles.comment_wrapper__actions__delete}>
-                <Delete className={styles.comment_wrapper__actions__delete__icon} onClick={handleDeleteComment} />
-              </button>
-            </div>
-          )
-        }
+            )
+          }
+          {
+            canDelete &&
+            <button className={styles.comment_wrapper__actions__delete}>
+              <Delete className={styles.comment_wrapper__actions__delete__icon} onClick={handleDeleteComment} />
+            </button>
+          }
+        </div>
       </article>
       <AlertModal {...modalProps} />
     </>
