@@ -1,9 +1,14 @@
 @import "/src/lib/styles/sizes.scss";
+@import "/src/lib/styles/colors.scss";
 .inputGroup {
     display: flex;
     flex-direction: column;
-    gap: $small-gap;
+    gap: $minimum-gap;
     width: 100%;
+    color: $text-base-color;
+    align-items: flex-start;
+    font-size: $base-pharagraph-size;
+
     &__input {
         padding: $input-padding;
         font-size: $base-pharagraph-size;

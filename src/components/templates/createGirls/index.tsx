@@ -13,9 +13,9 @@ import { Rule } from "../../atoms/Rule/rule";
 import { NavLink } from "react-router-dom";
 import { AlertModal, AlertModalProps } from "../../molecules/AlertModal/alertModal";
 import { useNavigate } from "react-router-dom";
+import { isEmail, isPhoneNumber } from "../../../helpers/validators";
 export default function CreateGirls() {
   const navigate = useNavigate();
-  const [error, setError] = useState("");
   const originalModalProps = {
     isOpen: false,
     message: "Are you sure you want to create the account",
@@ -29,6 +29,10 @@ export default function CreateGirls() {
   const [modalProps, setModalProps] = useState<AlertModalProps>(originalModalProps);
   const [packages, setPackages] = useState([] as PackageResponse[]);
   const [selectedPackageId, setSelectedPackageId] = useState(0);
+  const [checkedRules, setCheckedRules] = useState({
+    rules: false,
+    terms: false,
+  });
 
   const handleSelectPackage = (id: number) => {
     setSelectedPackageId(id);
@@ -38,9 +42,12 @@ export default function CreateGirls() {
     getPackages().then((data) => setPackages(data));
   }, []);
 
+  const showModal = (message: string) => {
+    setModalProps({ isOpen: true, message, onOk: () => setModalProps(originalModalProps), onCancel: undefined });
+  }
+
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    setError("");
     const formData = new FormData(e.target as HTMLFormElement);
     const name = formData.get("name") as string;
     const userName = formData.get("user_name") as string;
@@ -51,8 +58,19 @@ export default function CreateGirls() {
     const idPackage = selectedPackageId;
 
     if (!name || !userName || !email || !password || !nationality || !phoneNumber || !idPackage) {
-      setError("Por favor, completa todos los campos.");
-      return;
+      return showModal("All fields are required");
+    }
+
+    if (!isEmail(email)) {
+      return showModal('Please enter a valid email');
+    }
+
+    if (!isPhoneNumber(phoneNumber)) {
+      return showModal('Please enter a valid phone number');
+    }
+
+    if (!checkedRules.rules || !checkedRules.terms) {
+      return showModal("You must accept the rules and terms and conditions");
     }
 
     const body: RegisterWomenRequest = { name, userName, email, phoneNumber, password, idPackage, nationality };
@@ -86,24 +104,23 @@ export default function CreateGirls() {
         <div className={styles.content}>
 
           <h2 className={styles.large_section_wrapper__title}>Sign Up</h2>
-          {error && <span className={styles.errorMessage}>{error}</span>}
 
           <form onSubmit={handleSubmit} className={styles.large_section_wrapper__form}>
 
-            <Input name="name" label="name" placeholder="Your Full Name" required />
-            <Input name="user_name" label="User Name" placeholder="User Name" required />
-            <Input name="nationality" label="Nationality" placeholder="Enter your nationality" required />
-            <Input name="email" label="email" type="email" placeholder="example@domain.com" required />
-            <Input name="phone" label="Your phone Number" type="tel" placeholder="Your Phone Number" required />
-            <Input name="password" label="password" placeholder="Password" type="password" required />
+            <Input name="name" label="name" placeholder="Your Full Name" />
+            <Input name="user_name" label="User Name" placeholder="User Name" />
+            <Input name="nationality" label="Nationality" placeholder="Enter your nationality" />
+            <Input name="email" label="email" type="email" placeholder="example@domain.com" />
+            <Input name="phone" label="Your phone Number" type="tel" placeholder="Your Phone Number" />
+            <Input name="password" label="password" placeholder="Password" type="password" />
             <strong className={styles.large_section_wrapper__form__package}>Choose your favourite package</strong>
             {packages &&
               packages.map((pack) => (
                 <PackageCard key={pack.idPackage} {...pack} onChange={handleSelectPackage} checked={selectedPackageId === pack.idPackage} />
               ))
             }
-            <Rule rule={RULE_TEXT} title="Rules" important name={"rules"} />
-            <Rule title={TERMS_AND_CONDITIONS_TEXT} labelUrl="/home" name={"terms"} />
+            <Rule rule={RULE_TEXT} title="Rules" important name={"rules"} onChange={(e) => setCheckedRules(prev => ({ ...prev, rules: e }))} />
+            <Rule title={TERMS_AND_CONDITIONS_TEXT} labelUrl="/home" name={"terms"} onChange={(e) => setCheckedRules(prev => ({ ...prev, terms: e }))} />
 
             <p className={styles.large_section_wrapper__form__account}>
               Do you already have an account? Login <NavLink to="/login" className={styles.link}>Here</NavLink>

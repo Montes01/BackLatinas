@@ -28,7 +28,7 @@ export const login = async ({ email, password }: { email: string, password: stri
     }
 }
 
-export const register = async (body: { user_name: string, email: string, password: string, nacionality: string, }) => {
+export const register = async (body: { user_name: string, email: string, password: string, nationality: string, }) => {
     try {
         const response = await axios.post(`${environment.URLS.BACK_URL}/user/register`, body);
         if (response.status !== 201) {

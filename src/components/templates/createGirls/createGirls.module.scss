@@ -1,8 +1,5 @@
 @import '/src/lib/styles/colors.scss';
 
-.content {
-  padding: 0 15%;
-}
 .large_section_wrapper {
 
   background-image: url('/assets/large-background.png');
@@ -36,14 +33,15 @@
     }
     &__account {
       color: $text-base-color;
-      font-size: 20px;
+      font-size: $base-pharagraph-size;
       & * {
         color: $main-text-color;
       }
     }
 
-    &__benefits {
-      color: $text-base-color;
+    &__benefit {
+      color: white;
+      text-align: start;
     }
   }
 

@@ -1,17 +1,20 @@
 @import '/src/lib/styles/colors.scss';
+@import '/src/lib/styles/sizes.scss';
 .rulesSection {
     display: flex;
     flex-direction: column;
     align-items: start;
-    gap: 10px;
-    color: white;
+    gap: $small-gap;
+    color: $text-base-color;
     justify-content: start;
+    font-size: $base-pharagraph-size;
     &__label {
-        color: white;
+        color: $text-base-color;
         display: flex;
         justify-content: flex-start;
+        gap: $small-gap;
         &__text {
-            color: white;
+            color: $text-base-color;
         }
     }
 

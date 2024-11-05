@@ -1,105 +1,64 @@
 @import '/src/lib/styles/colors.scss';
+@import '/src/lib/styles/sizes.scss';
 
-.createClientPage {
+.create-client-page {
   display: flex;
   flex-direction: column;
   justify-content: space-between;
   border-radius: 20px;
-
   background-image: url('/assets/large-background.png');
 
-  &__default_section {
-    -webkit-border-radius: 20px;
-    -moz-border-radius: 20px;
-    -ms-border-radius: 20px;
-    -o-border-radius: 20px;
-    border-radius: 20px;
-    padding: 2rem;
-    background-color: rgba(255, 0, 0, 0.2);
-    color: #333;
+
+  &__main {
+    padding: 10px 0;
   }
 
-  .loginPage {
-    display: flex;
-    flex-direction: column;
-    min-height: 100vh;
-    align-items: center;
-    justify-content: center;
-    background-color: $black-background-color;
-    background-size: cover;
-    padding: 0 15%;
-  }
-
-  .loginContainer {
+  &__login-container {
     max-width: 400px;
     width: 100%;
-    padding: 2rem;
     border-radius: 10px;
     text-align: center;
     margin: 0 auto;
+    padding: $unmarked-padding;
   }
 
-  .title {
-    font-size: 32px;
-    font-weight: bold;
-    margin-bottom: 20px;
+  &__title {
+    text-transform: uppercase;
     color: $main-text-color;
   }
 
-  .errorMessage,
-  .successMessage {
-    font-size: 16px;
+  &__error-message,
+  &__success-message {
     margin-bottom: 20px;
     color: #fff;
   }
 
-  .form {
+  &__form {
     display: flex;
     flex-direction: column;
-    gap: 20px;
+    gap: $normal-gap;
   }
 
-  .registerLink {
+  &__register-link {
     display: flex;
     justify-content: space-between;
     color: white;
     text-align: start;
+    align-items: flex-end;
   }
 
-  .link {
+  &__link {
     color: $main-text-color;
-    font-size: 20px;
   }
 
-  .benefitsSection {
+  &__benefits-section {
     color: white;
     text-align: start;
+    font-size: $base-pharagraph-size;
   }
 
-  label {
-    color: white;
-    display: flex;
+  &__submit-button {
+    margin: 0 auto;
   }
 
-  @media (max-width: 768px) {
-    .loginContainer {
-      padding: 1rem;
-      max-width: 90%;
-    }
-
-    .title {
-      font-size: 24px;
-      margin-bottom: 15px;
-    }
-
-    .input {
-      padding: 8px;
-      font-size: 14px;
-    }
-
-    .submitButton {
-      padding: 8px 16px;
-      font-size: 14px;
-    }
-  }
 }

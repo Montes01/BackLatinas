@@ -12,96 +12,116 @@ import { RULE_TEXT, TERMS_AND_CONDITIONS_TEXT } from "../../../lib/constants/reg
 import { Button } from "../../atoms/Button/button";
 import { register } from "../../../lib/services/api";
 import { AlertModal, AlertModalProps } from "../../molecules/AlertModal/alertModal";
+import { isEmail, isPhoneNumber } from "../../../helpers/validators";
 
 export default function CreateClient() {
-    const [error, setError] = useState("");
-    const [registerResponse, _] = useState("");
-    const [modalProps, setModalProps] = useState({
+    const [checkedRules, setCheckedRules] = useState({
+        rules: false,
+        terms: false,
+    });
+
+    const initialModalProps = {
         isOpen: false,
         isLoading: false,
         message: '',
-        onOk: () => { }
-    } as AlertModalProps);
+        onOk: () => { },
+    } as AlertModalProps;
+
+    const [modalProps, setModalProps] = useState(initialModalProps);
+
+    const showModal = (message: string, loading: boolean = false) => {
+        setModalProps({
+            isLoading: loading,
+            message,
+            onOk: () => setModalProps(initialModalProps),
+            isOpen: true,
+        });
+    };
 
     const handleSubmit = async (e: React.FormEvent) => {
         e.preventDefault();
-        setModalProps(props => ({
-            ...props, isLoading: true, isOpen: true, message: 'Registering', onOk: () => {
-                setModalProps(props => ({ ...props, isOpen: false }));
-            }
-        }));
-        setError("");
+        showModal('Registering', true);
+
         const formData = new FormData(e.target as HTMLFormElement);
         const userName = formData.get("userName") as string;
         const email = formData.get("email") as string;
-        const password = formData.get("password") as string
+        const password = formData.get("password") as string;
         const nationality = formData.get("nationality") as string;
         const gender = formData.get("gender") as string;
         const phoneNumber = formData.get("phoneNumber") as string;
+
         if (!userName || !email || !password || !nationality || !gender || !phoneNumber) {
-            setError("Por favor, completa todos los campos.");
-            return;
+            return showModal('Please fill all the fields');
         }
-        const rules = formData.get("rules") as string;
-        const terms = formData.get("terms") as string;
-        if (!rules || !terms) {
-            setError("Por favor, acepta las reglas y los términos y condiciones.");
-            return;
+
+        if (!isEmail(email)) {
+            return showModal('Please enter a valid email');
         }
+
+        if (!isPhoneNumber(phoneNumber)) {
+            return showModal('Please enter a valid phone number');
+        }
+
+        if (!checkedRules.rules || !checkedRules.terms) {
+            return showModal('Please accept the rules and terms');
+        }
+
         const body = {
             user_name: userName,
-            email: email,
-            password: password,
-            nacionality: nationality,
-            gender: gender,
-            phoneNumber: phoneNumber
-        }
+            email,
+            password,
+            nationality,
+            gender,
+            phoneNumber,
+        };
+
         try {
             await register(body);
-            setModalProps(props => ({ ...props, isLoading: false, message: 'Registered successfully' }));
+            showModal('Registered successfully', false);
         } catch (err) {
-            setError((err as Error).message)
-            setModalProps(props => ({ ...props, isLoading: false, message: 'Error registering' }));
+            showModal('Error registering', false);
         }
-
-
     };
+
 
     return (
         <>
-            <div className={styles.createClientPage}>
+            <div className={styles["create-client-page"]}>
                 <Header />
-                <main className={styles.large_section_wrapper}>
+                <main className={styles["create-client-page__main"]}>
                     <BackButton />
-                    <div className={styles.loginContainer}>
-                        <h2 className={styles.title}>Sign Up</h2>
-                        {error && <div className={styles.errorMessage}>{error}</div>}
-                        {registerResponse && (
-                            <div className={styles.successMessage}>{registerResponse}</div>
-                        )}
-                        <form onSubmit={handleSubmit} className={styles.form}>
-                            <Input label="User Name" type="text" placeholder="Enter your user name" required name="userName" />
-                            <Input label="Nationality" type="text" placeholder="Enter your nationality" required name="nationality" />
+                    <div className={styles["create-client-page__login-container"]}>
+                        <h2 className={styles["create-client-page__title"]}>
+                            Sign Up
+                        </h2>
+                        <form onSubmit={handleSubmit} className={styles["create-client-page__form"]}>
+                            <Input label="User Name" type="text" placeholder="Enter your user name" name="userName" />
+                            <Input label="Nationality" type="text" placeholder="Enter your nationality" name="nationality" />
                             <Select options={GENDER_OPTIONS} label="Gender" name="gender" />
-                            <Input label="Phone Number" type="tel" placeholder="Phone Number" required name="phoneNumber" />
-                            <Input label="E-mail" type="email" placeholder="Enter your e-mail" required name="email" />
-                            <Input label="Password" type="password" placeholder="Enter your password" required name="password" />
-                            <Rule rule={RULE_TEXT} title="Rules" important name={"rules"} />
-                            <Rule title={TERMS_AND_CONDITIONS_TEXT} labelUrl="/home" name={"terms"} />
+                            <Input label="Phone Number" type="tel" placeholder="Phone Number" name="phoneNumber" />
+                            <Input label="E-mail" type="email" placeholder="Enter your e-mail" name="email" />
+                            <Input label="Password" type="password" placeholder="Enter your password" name="password" />
+                            <Rule rule={RULE_TEXT} title="Rules" important name="rules" onChange={(e) => setCheckedRules(prev => ({ ...prev, rules: e }))} />
+                            <Rule title={TERMS_AND_CONDITIONS_TEXT} labelUrl="/home" name="terms" onChange={(e) => setCheckedRules(prev => ({ ...prev, terms: e }))} />
 
-                            <p className={styles.registerLink}>
+                            <p className={styles["create-client-page__register-link"]}>
                                 Do you already have an account?
-                                <Link href="/login" className={styles.link}> Here</Link>
+                                <Link href="/login" className={styles["create-client-page__link"]}>
+                                    Here
+                                </Link>
                             </p>
 
-                            <a href="/" className={styles.benefitsSection}>Do you want to see your benefits when registering on our platform?</a>
+                            <a href="/" className={styles["create-client-page__benefits-section"]}>
+                                Do you want to see your benefits when registering on our platform?
+                            </a>
 
-                            <Button text="Confirmar" type="submit" className={styles.submitButton} />
+                            <Button text="Confirmar" type="submit" className={styles["create-client-page__submit-button"]} />
                         </form>
                     </div>
                 </main>
                 <Footer />
             </div>
+
             <AlertModal {...modalProps} />
         </>
     );
