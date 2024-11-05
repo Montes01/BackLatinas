@@ -1,0 +1,34 @@
+@import '/src/lib/styles/colors.scss';
+@import '/src/lib/styles/sizes.scss';
+.comment {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    padding: $unmarked-padding;
+    color: $text-base-color;
+
+    &__form {
+        display: flex;
+        gap: 20px;
+        align-items: center;
+        flex-direction: column;
+
+        * {
+            color: $main-text-color;
+        }
+
+        textarea {
+            min-width: 100%;
+            background-color: rgba($color: $black-background-color, $alpha: 0.3);
+            outline: none;
+            max-width: 100%;
+            padding: 10px;
+            font-size: 1rem;
+            color: $text-base-color;
+        }
+
+        &__button {
+            color: $text-base-color;
+        }
+    }
+}

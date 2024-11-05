@@ -9,6 +9,7 @@ import { Footer } from "../../molecules/Footer/footer";
 import { GirlList } from "../../organisms/GirlList/girlList";
 import { BackButton } from "../../molecules/BackButton/backButton";
 import { getComments, getFilters, getGirls, getGirlsCount, getServices } from "../../../lib/services/api";
+import { CommentBox } from "../../molecules/Comment/comment";
 export const GirlsPage = () => {
 
     const [services, setServices] = useState<Array<Service>>([]);
@@ -19,9 +20,19 @@ export const GirlsPage = () => {
     useEffect(() => {
         getServices().then((services) => setServices(services));
         getFilters().then((categories) => setCategories(categories));
-        getComments().then((comments) => setComments(comments));
+        gettingComments();
         getGirls().then(girl => setGirls(girl));
     }, []);
+
+    const gettingComments = () => {
+        try {
+            getComments().then(data => {
+                setComments(data);
+            });
+        } catch (err) {
+            console.error(err);
+        }
+    }
 
     useEffect(() => {
         getGirlsCount().then((count) => setTotalGirls(count));
@@ -30,6 +41,8 @@ export const GirlsPage = () => {
     return (
         <div className={styles.girls}>
             <Header />
+            <div className={styles.girls__wire_bg}/>
+            <div className={styles.girls__full_bg}/>
             <main className={styles.girls__main}>
                 <section className={styles.girls__main__interests}>
                     <BackButton className={styles.girls__main__interests__back} />
@@ -71,6 +84,7 @@ export const GirlsPage = () => {
 
 
                 <Comments comments={comments} />
+                <CommentBox onComment={gettingComments} />
                 <Footer />
             </div>
         </div>
