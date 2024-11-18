@@ -40,4 +40,9 @@
             color: $red-text-color !important;
         }
     }
+
+    &__logout {
+        background-color: $red-background-color;
+        color: white;
+    }
 }

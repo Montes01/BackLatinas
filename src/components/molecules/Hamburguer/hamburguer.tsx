@@ -53,7 +53,7 @@ export const Hamburguer = ({ isMenuOpen, menuRef }: Props) => {
                 text={t('sign_in')}
                 path="/login"
                 className={styles.items__main}
-            /> : <Button text={t('log-out')} onClick={handleLogout} className={styles.items__main} />
+            /> : <Button text={t('log-out')} onClick={handleLogout} className={styles.items__logout} />
             }
             <NavButton
                 text={userInfo?.rol ? t('profile') : t('sign_up')}
