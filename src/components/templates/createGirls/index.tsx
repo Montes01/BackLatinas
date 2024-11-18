@@ -69,6 +69,10 @@ export default function CreateGirls() {
       return showModal('Please enter a valid phone number');
     }
 
+    if (!phoneNumber.includes('+')) {
+        return showModal('Please enter a valid phone number with country code');
+    }
+
     if (!checkedRules.rules || !checkedRules.terms) {
       return showModal("You must accept the rules and terms and conditions");
     }
@@ -111,7 +115,7 @@ export default function CreateGirls() {
             <Input name="user_name" label="User Name" placeholder="User Name" />
             <Input name="nationality" label="Nationality" placeholder="Enter your nationality" />
             <Input name="email" label="email" type="email" placeholder="example@domain.com" />
-            <Input name="phone" label="Your phone Number" type="tel" placeholder="Your Phone Number" />
+            <Input name="phone" label="Your phone Number" type="tel" placeholder="+1 123 456 7890" />
             <Input name="password" label="password" placeholder="Password" type="password" />
             <strong className={styles.large_section_wrapper__form__package}>Choose your favourite package</strong>
             {packages &&
