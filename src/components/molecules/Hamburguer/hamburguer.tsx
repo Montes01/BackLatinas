@@ -7,20 +7,37 @@ import { Button } from "../../atoms/Button/button";
 import { setUser } from "../../../lib/contexts/auth/authSlice";
 import { adminMenu, girlMenu, loggedMenu, MenuItem, tokenName, unloggedMenu } from "../../../lib/constants/general";
 import { useEffect, useState } from "react";
+import { AlertModal, AlertModalProps } from "../AlertModal/alertModal";
 interface Props {
     isMenuOpen: boolean;
     menuRef: React.RefObject<HTMLDivElement>;
 }
 export const Hamburguer = ({ isMenuOpen, menuRef }: Props) => {
+    const initialProps = {
+        isOpen: false,
+        message: '',
+        onOk: () => { },
+        onCancel: () => { }
+    }
+
+    const [modalProps, setModalProps] = useState<AlertModalProps>(initialProps)
     const dispatch = useAppDispatch();
     const { t } = useTranslation();
     const userInfo = useAppSelector(state => state.auth.user);
     const [menuItems, setMenuItems] = useState<MenuItem[]>([]);
-
     const handleLogout = () => {
-        localStorage.removeItem(tokenName);
-        window.location.href = '/';
-        dispatch(setUser(null));
+        setModalProps({
+            isOpen: true,
+            message: t('are you sure you want to log out'),
+            onOk: () => {
+                localStorage.removeItem(tokenName);
+                window.location.href = '/';
+                dispatch(setUser(null));
+            },
+            onCancel: () => {
+                setModalProps(initialProps);
+            }
+        });
     }
 
     useEffect(() => {
@@ -48,27 +65,30 @@ export const Hamburguer = ({ isMenuOpen, menuRef }: Props) => {
 
 
     return (
-        <div ref={menuRef} className={styles[`items${isMenuOpen ? '' : '--closed'}`]}>
-            {!userInfo?.rol ? <NavButton
-                text={t('sign_in')}
-                path="/login"
-                className={styles.items__main}
-            /> : <Button text={t('log-out')} onClick={handleLogout} className={styles.items__logout} />
-            }
-            <NavButton
-                text={userInfo?.rol ? t('profile') : t('sign_up')}
-                path={userInfo?.rol ? '/clientProfile' : "/createClient"}
-                className={styles.items__main}
-            />
-            <hr />
-            {menuItems.map((item, index) => (
+        <>
+            <div ref={menuRef} className={styles[`items${isMenuOpen ? '' : '--closed'}`]}>
+                {!userInfo?.rol ? <NavButton
+                    text={t('sign_in')}
+                    path="/login"
+                    className={styles.items__main}
+                /> : <Button text={t('log-out')} onClick={handleLogout} className={styles.items__logout} />
+                }
                 <NavButton
-                    key={`menu-item-${index}`}
-                    text={t(item.text)}
-                    path={item.path}
+                    text={userInfo?.rol ? t('profile') : t('sign_up')}
+                    path={userInfo?.rol ? '/clientProfile' : "/createClient"}
                     className={styles.items__main}
                 />
-            ))}
-        </div>
+                <hr />
+                {menuItems.map((item, index) => (
+                    <NavButton
+                        key={`menu-item-${index}`}
+                        text={t(item.text)}
+                        path={item.path}
+                        className={styles.items__main}
+                    />
+                ))}
+            </div>
+            <AlertModal {...modalProps} />
+        </>
     )
 }
