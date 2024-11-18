@@ -59,7 +59,7 @@ export const Comment = ({ comment, canEdit, reload, canDelete }: { comment: type
 
     setModalProps({
       isOpen: true,
-      message: '¿Estás seguro de que deseas eliminar este comentario?',
+      message: '¿Are you sure you want to delete this comment?',
       onOk: async () => {
         //initial modal state
         setModalProps({
@@ -78,7 +78,7 @@ export const Comment = ({ comment, canEdit, reload, canDelete }: { comment: type
 
           setModalProps({
             ...modalProps,
-            message: 'Comentario eliminado con éxito.',
+            message: 'Comment deleted succesfully.',
             isOpen: true,
             onCancel: undefined,
             isLoading: false,
@@ -93,7 +93,7 @@ export const Comment = ({ comment, canEdit, reload, canDelete }: { comment: type
           console.error("Error al eliminar el comentario:", error);
           setModalProps({
             ...modalProps,
-            message: 'Error al eliminar el comentario.',
+            message: 'Error deleting comment.',
             isOpen: true,
             onCancel: undefined,
             onOk: () => { setModalProps({ ...modalProps, isOpen: false }) }
