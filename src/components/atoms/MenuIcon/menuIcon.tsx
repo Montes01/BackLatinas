@@ -10,7 +10,7 @@ export const IconMenu = ({ ...props }: Props) => {
         <button className={styles.menuIcon} {...props}>
             <svg
                 viewBox="0 0 1024 1024"
-                fill="currentColor"
+                fill="#ffc300"
                 height="2em"
                 width="2em"
             >
