@@ -98,7 +98,7 @@ export default function CreateClient() {
                             <Input label="User Name" type="text" placeholder="Enter your user name" name="userName" />
                             <Input label="Nationality" type="text" placeholder="Enter your nationality" name="nationality" />
                             <Select options={GENDER_OPTIONS} label="Gender" name="gender" />
-                            <Input label="Phone Number" type="tel" placeholder="Phone Number" name="phoneNumber" />
+                            <Input label="Phone Number" type="tel" placeholder="+1 123 456 7890" name="phoneNumber" />
                             <Input label="E-mail" type="email" placeholder="Enter your e-mail" name="email" />
                             <Input label="Password" type="password" placeholder="Enter your password" name="password" />
                             <Rule rule={RULE_TEXT} title="Rules" important name="rules" onChange={(e) => setCheckedRules(prev => ({ ...prev, rules: e }))} />

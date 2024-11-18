@@ -39,9 +39,9 @@ export const GirlsAdmin = () => {
 
 
 
-  const handleDelete = (username: string) => {
+  const handleDelete = (username: string, name?: string) => {
     setModalProps({
-      message: `Are you sure you want to delete ${username}?`,
+      message: `Are you sure you want to delete ${name ?? username}?`,
       isOpen: true,
       onOk: () => {
         setModalProps(prev => ({ ...prev, isLoading: true, onCancel: undefined }));
@@ -102,7 +102,7 @@ export const GirlsAdmin = () => {
                   <Button
                     text="Delete"
                     className={styles.girls__main__list__item__buttonGroup__deleteButton}
-                    onClick={() => handleDelete(girl.user_name)}
+                    onClick={() => handleDelete(girl.user_name, girl.name)}
                   />
                 </div>
               </li>
