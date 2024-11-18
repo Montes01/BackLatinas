@@ -13,8 +13,10 @@ import { Button } from "../../atoms/Button/button";
 import { register } from "../../../lib/services/api";
 import { AlertModal, AlertModalProps } from "../../molecules/AlertModal/alertModal";
 import { isEmail, isPhoneNumber } from "../../../helpers/validators";
+import { useNavigate } from "react-router-dom";
 
 export default function CreateClient() {
+    const navigate = useNavigate();
     const [checkedRules, setCheckedRules] = useState({
         rules: false,
         terms: false,
@@ -29,11 +31,11 @@ export default function CreateClient() {
 
     const [modalProps, setModalProps] = useState(initialModalProps);
 
-    const showModal = (message: string, loading: boolean = false) => {
+    const showModal = (message: string, loading: boolean = false, final?: boolean) => {
         setModalProps({
             isLoading: loading,
             message,
-            onOk: () => setModalProps(initialModalProps),
+            onOk: () => !final ? setModalProps(initialModalProps) : navigate('/home'),
             isOpen: true,
         });
     };
@@ -52,6 +54,10 @@ export default function CreateClient() {
 
         if (!userName || !email || !password || !nationality || !gender || !phoneNumber) {
             return showModal('Please fill all the fields');
+        }
+
+        if (!phoneNumber.includes('+')) {
+            return showModal('Please enter a valid phone number with country code');
         }
 
         if (!isEmail(email)) {
@@ -77,7 +83,7 @@ export default function CreateClient() {
 
         try {
             await register(body);
-            showModal('Registered successfully', false);
+            showModal('Registered successfully', false, true);
         } catch (err) {
             showModal('Error registering', false);
         }
