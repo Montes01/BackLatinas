@@ -40,9 +40,14 @@
       }
     }
 
-    &__benefit {
+    &__benefits {
       color: white;
       text-align: start;
+      font-size: $base-pharagraph-size;
+    }
+
+    &__confirm {
+      margin: 0 auto;
     }
   }
 
