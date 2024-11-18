@@ -41,14 +41,14 @@ export const GirlsPage = () => {
     return (
         <div className={styles.girls}>
             <Header />
-            <div className={styles.girls__wire_bg}/>
-            <div className={styles.girls__full_bg}/>
+            <div className={styles.girls__wire_bg} />
+            <div className={styles.girls__full_bg} />
             <main className={styles.girls__main}>
                 <section className={styles.girls__main__interests}>
                     <BackButton className={styles.girls__main__interests__back} />
                     <h2 className={styles.girls__main__interests__title}>What do you want to see today?</h2>
                     <ul className={styles.girls__main__interests__list}>
-                        <Button text="View All" className={styles.girls__main__interests__list__button} />
+                        <Button text={`View All`} className={styles.girls__main__interests__list__button} />
                         {
                             services.map((service) => (
                                 <Button text={service.title} className={styles.girls__main__interests__list__button} />
@@ -59,6 +59,9 @@ export const GirlsPage = () => {
                 <section className={styles.girls__main__categories}>
                     <h2 className={styles.girls__main__categories__title}>Girls</h2>
                     <ul className={styles.girls__main__categories__list}>
+                        <li key={'View All item'} className={styles.girls__main__categories__list__item}>
+                            <NavButton text={`View All (${totalGirls})`} path="" className={styles.girls__main__categories__list__item__anchor} />
+                        </li>
                         {
                             Object.entries(categories).map(([key, value]) => (
                                 <li key={key} className={styles.girls__main__categories__list__item}>
@@ -76,13 +79,7 @@ export const GirlsPage = () => {
                     <ul className={styles.girls__large_background__preview__list}>
                         <GirlList girls={girls} />
                     </ul>
-
-
-
                 </section>
-
-
-
                 <Comments comments={comments} />
                 <CommentBox onComment={gettingComments} />
                 <Footer />
