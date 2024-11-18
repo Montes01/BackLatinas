@@ -92,9 +92,9 @@ const exampleGirl: Women = {
 export const GET_HOME_IMAGES_MOCK = async (): Promise<Array<string>> => {
     return new Promise((resolve) => {
         resolve([
-            '/assets/noGirl.png',
-            '/assets/noGirl.png',
-            '/assets/noGirl.png',
+            '/assets/Silouetes/Silouete-1.png',
+            '/assets/Silouetes/Silouete-2.png',
+            '/assets/Silouetes/Silouete-3.png',
         ])
     })
 }
